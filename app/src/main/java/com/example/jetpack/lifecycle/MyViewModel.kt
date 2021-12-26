@@ -2,6 +2,7 @@ package com.example.jetpack.lifecycle
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 /**
@@ -12,13 +13,5 @@ class MyViewModel : ViewModel() {
     val users: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
 
-    }
-
-    class User {
-
-    }
-
-    private fun loadUsers() {
-        // Do an asynchronous operation to fetch users.
     }
 }

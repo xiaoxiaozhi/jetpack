@@ -9,19 +9,69 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jetpack">
-        <activity android:name=".lifecycle.ViewModelActivity">
+        <activity android:name=".activity.FlagNewTask2Activity"></activity>
+        <activity
+            android:name=".activity.FlagNewTask1Activity"
+            android:taskAffinity="com.example.myapplication" />
+        <activity android:name=".activity.FlagNewTaskActivity" />
+        <activity
+            android:name=".activity.SingleInstanceActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activity.SingleTask3Activity" />
+        <activity android:name=".activity.SingleTask2Activity" />
+        <activity android:name=".activity.SingleTask1Activity" />
+        <activity android:name=".activity.SingleTop1Activity" />
+        <activity
+            android:name=".activity.SingleTaskActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.SingleTopActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.TaskBackStackActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".lifecycle.LifeCycleActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.LifeCycle1Activity" />
+        <activity android:name=".activity.LifeCycleActivity">
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".lifecycle.SavedStateActivity" />
+        <activity android:name=".lifecycle.LiveDataActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".lifecycle.ViewModelActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".lifecycle.LifeCycleActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".fragment.TransactionActivity">
 

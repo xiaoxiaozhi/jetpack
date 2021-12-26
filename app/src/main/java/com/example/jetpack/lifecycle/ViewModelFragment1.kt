@@ -50,6 +50,7 @@ class ViewModelFragment1 : Fragment() {
         val text = view.findViewById<TextView>(R.id.text1)
         val model: MyViewModel by activityViewModels()
         model.users.observe(viewLifecycleOwner, Observer<String> { item ->
+            println("${lifecycle.currentState}")
             text.text = item
         });
     }

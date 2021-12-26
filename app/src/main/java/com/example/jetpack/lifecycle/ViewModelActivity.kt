@@ -13,11 +13,12 @@ import kotlinx.coroutines.*
 
 /**
  * 1. viewModel 在屏幕旋转情况下保存数据
- * 2. 两个Fragment之间通过viewModel共享数据
- * 3. LiveData只通知生命周期处于STARTED和RESUMED的观察者，这点非常有用，Activity和Fragment实现LifecycleOwner接口，
- *    当生命周期处于 DESTROYED.时移除观察者避免内存泄漏
- * 4. 如果生命周期变得不活跃，它将在再次激活时接收最新的数据,例如创建一个新的Fragment，新碎片会立即收到更新
- * 
+ * 2. 两个Fragment之间通过viewModel共享数
+ * 3. 只有Activity真正Finish的时ViewModel才会被清除。(查看ViewModel生命周期图)
+ * 4. 用于保存状态的组件必须实现SavedStateRegistr.SavedStateProvider，
+ *    它定义了一个名为SaveState()的方法。SaveState()方法允许组件返回包含应该从该组件中保存的任何状态的Bundle。
+ *    SavedStateRegistry在UI控制器生命周期的保存状态阶段调用此方法
+ *
  */
 class ViewModelActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityViewModelBinding
