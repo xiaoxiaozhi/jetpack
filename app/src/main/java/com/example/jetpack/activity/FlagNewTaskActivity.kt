@@ -1,6 +1,7 @@
 package com.example.jetpack.activity
 
 import android.app.ActivityManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -41,16 +42,28 @@ class FlagNewTaskActivity : AppCompatActivity() {
             )
         }
         binding.button1.setOnClickListener {
-            startActivity(Intent(this, FlagNewTask1Activity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(Intent(this, FlagNewTask1Activity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
             })
         }
-
+        binding.button2.setOnClickListener {
+            startActivity(Intent(this, FlagNewTask2Activity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            })
+        }
+        binding.button3.setOnClickListener {
+            startActivity(Intent().apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK// 注释掉才能无缝调用第三方加了android:allowTaskReparenting="true"的Activity，同时第三方APP必须存在否则报错
+                component = ComponentName.createRelative(
+                    "com.example.myapplication",
+                    "com.example.myapplication.Main2Activity"
+                )
+            })
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
         println("FlagNewTaskActivity---onNewIntent")
+        super.onNewIntent(intent)
     }
 }

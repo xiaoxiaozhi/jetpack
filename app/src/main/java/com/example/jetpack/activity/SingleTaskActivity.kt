@@ -1,6 +1,7 @@
 package com.example.jetpack.activity
 
 import android.app.ActivityManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -34,6 +35,15 @@ class SingleTaskActivity : AppCompatActivity() {
                     SingleTask1Activity::class.java
                 )
             )
+        }
+        binding.button2.setOnClickListener {
+            startActivity(Intent().apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                component = ComponentName.createRelative(
+                    "com.example.myapplication",
+                    "com.example.myapplication.ThirdSingleTaskActivity"
+                )
+            })
         }
         with(getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager) {
             println("SingleTaskActivity---id---${getRunningTasks(1).get(0)?.taskId}----top---${getRunningTasks(1).get(0).topActivity?.className}")
