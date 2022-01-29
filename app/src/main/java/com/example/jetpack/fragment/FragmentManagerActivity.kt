@@ -7,7 +7,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityFragmentManagerBinding
-import com.example.jetpack.lifecycle.LifeCycleFragment
+import com.example.jetpack.architecturecomponent.uilibs.lifecycle.LifeCycleFragment
 
 /**
  * https://developer.android.google.cn/guide/fragments/fragmentmanager

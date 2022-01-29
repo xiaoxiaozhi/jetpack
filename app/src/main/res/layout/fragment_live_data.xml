@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".lifecycle.LiveDataFragment">
+    tools:context=".architecturecomponent.uilibs.LiveDataFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

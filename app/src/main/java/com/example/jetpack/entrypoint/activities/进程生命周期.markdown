@@ -1,0 +1,18 @@
+https://developer.android.google.cn/guide/components/activities/process-lifecycle?hl=en
+1. 进程生命周期不受APP进程自己管控，而是受进程各个组件的状态影响，因此应用层程序员要了解四大组件生命周期，不正确的使用会导致系统杀死进程  
+   举个例子，BroadcastReceiver.onReceive()中启动一个线程，之后onReceive会立即return系统会认为BroadcastReceiver 不再活跃，正巧此时没有组件处于活跃状态，
+   一旦这样， 就开始回收内存，此时系统会杀死进程。正确的做法是系统调用jobServer处理工作，系统会认为还有组件处于活跃状态，就不会杀死进程 TODO JobService
+2. 为了确定在内存不足时应该终止哪些进程，Android会根据每个进程中运行的组件和这些组件的状态，将每个进程置于一个重要性层次结构(按重要性从上到下)   
+   2.1 前台进程  被系统认为用户正在操作，APP有以下行为则会被认为是前台进程
+       2.1.1 有一个Activity处于能够被用户看见(没有对话框遮盖)，Activity的生命周期处于ON_RESUME
+       2.1.2 BroadcastReceiver.onReceive()正在执行
+       2.1.3 有一个service处于Service.onCreate()、Service.onStart()、Service.onDestroy()这三个生命周期
+       当然这只是进程存活的高优先级，如果内存过低这些进程也会被杀死
+   2.2 可见的进程，用户正在操作什么，如果杀死会对用户体验引起明显的负面影响
+       2.2.1 有一个Activity处于能够被用户看见(对话框遮盖)，Activity的生命周期处于ON_PAUSE
+       2.2.2 有一个作为前台服务运行的服务的service(调用Service.startForeground()) TODO startForeground
+       2.2.3 承载特定功能的服务，如实时壁纸、输入法服务等。
+   2.3 Service 例如上传 下载服务。运行超过30分钟的服务重要性会被降级
+   2.4 缓存的进程 例如 用于在应用程序之间进行更有效的切换 TODO （缓存进程是什么？？？）
+   2.5 进程依赖获得相同的重要等级 如果进程A已绑定到带有Context.BIND_AUTO_CREATE标志的服务，
+       或者进程A使用了进程B中ContentProvider，则进程B的重要性与进程A的一样。

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jetpack">
 
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,37 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jetpack">
-        <activity
-            android:name=".activity.FlagNewTask3Activity"
-            android:taskAffinity="cc.cc"></activity>
-        <activity
-            android:name=".activity.FlagNewTask2Activity"
-            android:taskAffinity="cc.cc" />
-        <activity android:name=".activity.FlagNewTask1Activity" />
-        <activity android:name=".activity.FlagNewTaskActivity" />
-        <activity
-            android:name=".activity.SingleInstanceActivity"
-            android:launchMode="singleInstance" />
-        <activity android:name=".activity.SingleTask3Activity" />
-        <activity android:name=".activity.SingleTask2Activity" />
-        <activity android:name=".activity.SingleTask1Activity" />
-        <activity android:name=".activity.SingleTop1Activity" />
-        <activity
-            android:name=".activity.SingleTaskActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".activity.SingleTopActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".activity.TaskBackStackActivity">
+        <activity android:name=".topics.userinterface.notification.FullScreenActivity"></activity>
+        <activity android:name=".topics.userinterface.notification.Notification1Activity" />
+        <activity android:name=".topics.userinterface.notification.NotificationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestActivity" />
-        <activity android:name=".activity.LifeCycle1Activity" />
-        <activity android:name=".activity.LifeCycleActivity">
+
+        <service
+            android:name=".topics.service.ForegroundService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".topics.service.BindService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".topics.service.ServicePracticeActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -48,8 +39,13 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".lifecycle.SavedStateActivity" />
-        <activity android:name=".lifecycle.LiveDataActivity">
+
+        <service
+            android:name=".topics.service.StartService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".architecturecomponent.datalibs.WorkManagerActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -58,7 +54,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".lifecycle.ViewModelActivity">
+        <activity android:name=".architecturecomponent.datalibs.DataStoreActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -67,7 +63,67 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".lifecycle.LifeCycleActivity">
+        <activity
+            android:name=".entrypoint.activities.FlagNewTask3Activity"
+            android:taskAffinity="cc.cc" />
+        <activity
+            android:name=".entrypoint.activities.FlagNewTask2Activity"
+            android:taskAffinity="cc.cc" />
+        <activity android:name=".entrypoint.activities.FlagNewTask1Activity" />
+        <activity android:name=".entrypoint.activities.FlagNewTaskActivity" />
+        <activity
+            android:name=".entrypoint.activities.SingleInstanceActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".entrypoint.activities.SingleTask3Activity" />
+        <activity android:name=".entrypoint.activities.SingleTask2Activity" />
+        <activity android:name=".entrypoint.activities.SingleTask1Activity" />
+        <activity android:name=".entrypoint.activities.SingleTop1Activity" />
+        <activity
+            android:name=".entrypoint.activities.SingleTaskActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".entrypoint.activities.SingleTopActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".entrypoint.activities.TaskBackStackActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".entrypoint.activities.TestActivity" />
+        <activity android:name=".entrypoint.activities.LifeCycle1Activity" />
+        <activity android:name=".entrypoint.activities.LifeCycleActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.SavedStateActivity" />
+        <activity android:name=".architecturecomponent.uilibs.LiveDataActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.ViewModelActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.LifeCycleActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -104,6 +160,10 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
+        <receiver
+            android:name=".topics.userinterface.notification.NotificationBroadcast"
+            android:exported="false" />
     </application>
 
 </manifest>
