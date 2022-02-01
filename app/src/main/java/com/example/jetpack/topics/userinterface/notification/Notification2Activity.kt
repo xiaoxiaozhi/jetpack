@@ -7,16 +7,15 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.example.jetpack.R
 
-class Notification1Activity : AppCompatActivity() {
+class Notification2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notification1)
+        setContentView(R.layout.activity_notification2)
         lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                println("Notification1Activity----$event")
+                println("Notification2Activity----$event")
             }
 
         })
-
     }
 }

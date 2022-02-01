@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".topics.userinterface.notification.Notification1Activity">
+    tools:context=".topics.userinterface.notification.ExcludeFromRecentsActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="点击通知到这里\nNotification1Activity\nandroid:parentActivityName=Notification2"
+        android:text="从通知导航过来，不属于任务栈、有自己的android:taskAffinity \n 设置后android:excludeFromRecents=true最近屏幕看不到该任务"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>

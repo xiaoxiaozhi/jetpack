@@ -11,8 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jetpack">
-        <activity android:name=".topics.userinterface.notification.FullScreenActivity"></activity>
-        <activity android:name=".topics.userinterface.notification.Notification1Activity" />
+        <activity
+            android:name=".topics.userinterface.notification.ExcludeFromRecentsActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="aa.aa" />
+        <activity android:name=".topics.userinterface.notification.Notification2Activity" />
+        <activity android:name=".topics.userinterface.notification.FullScreenActivity" />
+        <activity
+            android:name=".topics.userinterface.notification.Notification1Activity"
+            android:parentActivityName=".topics.userinterface.notification.NotificationActivity" />
         <activity android:name=".topics.userinterface.notification.NotificationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

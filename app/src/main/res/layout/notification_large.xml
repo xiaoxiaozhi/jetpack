@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="通知展开布局\n使用 NotificationCompat.Builder 构建基本通知。
+调用 setStyle()，向其传递一个 NotificationCompat.DecoratedCustomViewStyle 实例。
+将自定义布局扩充为 RemoteViews 的实例。
+调用 setCustomContentView() 以设置收起后通知的布局。
+
+您还可以选择调用 setCustomBigContentView() 为展开后通知设置不同的布局。"></TextView>
+</LinearLayout>
