@@ -4,6 +4,11 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 
+/**
+ * 1. 如果组件通过调用 startService() 启动服务，则服务会一直运行，直到其使用 stopSelf() 自行停止运行，
+ *    或由其他组件通过调用 stopService() 将其停止为止。
+ * 2.
+ */
 class StartService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         TODO("Not yet implemented")

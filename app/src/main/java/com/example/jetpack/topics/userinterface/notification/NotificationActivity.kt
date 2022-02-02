@@ -386,7 +386,7 @@ class NotificationActivity : AppCompatActivity() {
                     .setSmallIcon(R.drawable.diy)
                     .setStyle(NotificationCompat.DecoratedCustomViewStyle())//如果要为媒体播放控件创建自定义通知，改用 NotificationCompat.DecoratedMediaCustomViewStyle 类。
                     .setCustomContentView(notificationLayout)
-                    .setCustomBigContentView(notificationLayoutExpanded)
+                    .setCustomBigContentView(notificationLayoutExpanded)//如果 展开内容太少，将不显示折叠内容，直接显示展开内容
                     .build()
             NotificationManagerCompat.from(this@NotificationActivity).apply {
                 notify(107, customNotification)
