@@ -3,6 +3,8 @@
     package="com.example.jetpack">
 
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jetpack">
+        <activity android:name=".topics.service.ForegroundActivity"></activity>
         <activity
             android:name=".topics.userinterface.notification.ExcludeFromRecentsActivity"
             android:excludeFromRecents="true"
@@ -22,23 +25,6 @@
             android:name=".topics.userinterface.notification.Notification1Activity"
             android:parentActivityName=".topics.userinterface.notification.NotificationActivity" />
         <activity android:name=".topics.userinterface.notification.NotificationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <service
-            android:name=".topics.service.ForegroundService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".topics.service.BindService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <activity android:name=".topics.service.ServicePracticeActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -49,11 +35,29 @@
         </activity>
 
         <service
+            android:name=".topics.service.ForegroundService"
+            android:enabled="true"
+            android:foregroundServiceType="location|camera|microphone"
+            android:exported="true" />
+        <service
+            android:name=".topics.service.BindService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".topics.service.ServicePracticeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
             android:name=".topics.service.StartService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".architecturecomponent.datalibs.WorkManagerActivity">
+        <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
