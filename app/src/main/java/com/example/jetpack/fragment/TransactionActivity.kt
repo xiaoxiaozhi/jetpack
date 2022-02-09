@@ -8,7 +8,6 @@ import androidx.fragment.app.replace
 
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityTransactionBinding
-import com.example.jetpack.architecturecomponent.uilibs.lifecycle.LifeCycleFragment
 
 /**
  * 事务
@@ -33,7 +32,7 @@ class TransactionActivity : AppCompatActivity() {
         binding.performance.setOnClickListener {
             supportFragmentManager.commit {
                 setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                add<LifeCycleFragment>(R.id.transactionContainer)//蓝
+//                add<LifeCycleFragment>(R.id.transactionContainer)//蓝
 //                supportFragmentManager.findFragmentById(R.id.transactionContainer)
 //                    ?.let { remove(it) }
 //                setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)

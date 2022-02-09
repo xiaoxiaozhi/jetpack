@@ -11,7 +11,7 @@ import com.example.jetpack.databinding.LifcycleBinding
 /**
  * 1. 介绍各个生命周期回调
  * 2. 横竖屏切换、进程放置在后台Activity被杀死后系统会记住它的状态，并在导航回Activity的时候恢复
- * 3. 活动A被部分覆盖，市区焦点将调用onPause方法，完全覆盖将调用onPause 和 onStop 回调
+ * 3. 活动A被部分覆盖，失去焦点将调用onPause方法，完全覆盖将调用onPause 和 onStop 回调
  * */
 class LifeCycleActivity : AppCompatActivity() {
     private lateinit var binding: LifcycleBinding

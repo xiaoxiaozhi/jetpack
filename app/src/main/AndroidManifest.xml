@@ -3,8 +3,8 @@
     package="com.example.jetpack">
 
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Jetpack">
-        <activity android:name=".topics.service.ForegroundActivity"></activity>
+        <activity
+            android:name=".architecturecomponent.uilibs.lifecycle.MyActivity"
+            android:label="@string/title_activity_my"
+            android:theme="@style/Theme.Jetpack.NoActionBar"></activity>
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.LifeCircleActivity" />
+        <activity android:name=".topics.service.ForegroundActivity" />
         <activity
             android:name=".topics.userinterface.notification.ExcludeFromRecentsActivity"
             android:excludeFromRecents="true"
@@ -37,18 +42,19 @@
         <service
             android:name=".topics.service.ForegroundService"
             android:enabled="true"
-            android:foregroundServiceType="location|camera|microphone"
-            android:exported="true" />
+            android:exported="true"
+            android:foregroundServiceType="location|camera|microphone" />
         <service
             android:name=".topics.service.BindService"
             android:enabled="true"
             android:exported="false" />
 
         <activity android:name=".topics.service.ServicePracticeActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <service
@@ -57,10 +63,11 @@
             android:exported="false" />
 
         <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.datalibs.DataStoreActivity">
 
@@ -111,7 +118,16 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".architecturecomponent.uilibs.SavedStateActivity" />
-        <activity android:name=".architecturecomponent.uilibs.LiveDataActivity">
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.LiveDataActivity">
+
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.viewModel.ViewModelActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -120,24 +136,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".architecturecomponent.uilibs.ViewModelActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".architecturecomponent.uilibs.lifecycle.LifeCycleActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity android:name=".fragment.TransactionActivity">
 
             <!-- <intent-filter> -->

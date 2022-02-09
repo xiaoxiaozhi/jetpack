@@ -1,4 +1,4 @@
-package com.example.jetpack.architecturecomponent.uilibs
+package com.example.jetpack.architecturecomponent.uilibs.lifecycle.viewModel
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -18,3 +18,28 @@ android {
     
 ```
 #### 2. 用法  
+```
+    //在Activity中使用ViewBinding
+    private lateinit var binding: ResultProfileBinding
+
+    override fun onCreate(savedInstanceState: Bundle) {
+        super.onCreate(savedInstanceState)
+        binding = ResultProfileBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
+    //在Fragment中使用ViewBinding
+       private var _binding: ResultProfileBinding? = null
+       private val binding get() = _binding!!
+
+       override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
+           _binding = ResultProfileBinding.inflate(inflater, container, false)
+           val view = binding.root
+           return view
+       }
+       override fun onDestroyView() {
+           super.onDestroyView()
+           _binding = null
+       }
+       
+```

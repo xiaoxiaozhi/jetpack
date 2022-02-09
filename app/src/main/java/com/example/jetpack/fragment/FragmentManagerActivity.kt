@@ -7,7 +7,6 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityFragmentManagerBinding
-import com.example.jetpack.architecturecomponent.uilibs.lifecycle.LifeCycleFragment
 
 /**
  * https://developer.android.google.cn/guide/fragments/fragmentmanager
@@ -49,7 +48,7 @@ class FragmentManagerActivity : AppCompatActivity() {
         //----------执行事务-----------
         //1. 添加Fragment到Activity
         supportFragmentManager.commit {//第一种添加方式,通过泛型方式
-            add<LifeCycleFragment>(R.id.fragmentContainer)//强烈建议使用泛型形式，而不是通过实例添加到Activity
+//            add<LifeCycleFragment>(R.id.fragmentContainer)//强烈建议使用泛型形式，而不是通过实例添加到Activity
             setReorderingAllowed(true)//删除冗余操作，例如在提交前，两个事务一起执行，一个添加片段a，另一个替换为片段B，则操作将取消，只添加片段B，这意味着片段A可能不会经历创建/销毁生命周期
             addToBackStack("ManagerFragment") //调用addToBackStack()将事务提交给后台堆栈。
             // 用户稍后可以通过按Back按钮来反转事务并带回前一个片段。如果不设置这个方法，按返回键直接退出Activity

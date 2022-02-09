@@ -1,4 +1,4 @@
-package com.example.jetpack.architecturecomponent.uilibs
+package com.example.jetpack.architecturecomponent.uilibs.lifecycle.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

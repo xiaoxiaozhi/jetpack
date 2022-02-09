@@ -1,4 +1,4 @@
-package com.example.jetpack.architecturecomponent.uilibs
+package com.example.jetpack.architecturecomponent.uilibs.lifecycle.viewModel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +11,8 @@ import com.example.jetpack.databinding.ActivityViewModelBinding
 import kotlinx.coroutines.*
 
 /**
- * 1. viewModel 在屏幕旋转情况下保存数据
+ * 1. 实现ViewModel
+ *    viewModel 在屏幕旋转情况下保存数据
  * 2. 两个Fragment之间通过viewModel共享数
  * 3. 只有Activity真正Finish的时ViewModel才会被清除。(查看ViewModel生命周期图)
  * 4. 用于保存状态的组件必须实现SavedStateRegistr.SavedStateProvider，

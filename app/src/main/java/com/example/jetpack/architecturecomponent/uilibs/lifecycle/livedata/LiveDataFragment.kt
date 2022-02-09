@@ -1,4 +1,4 @@
-package com.example.jetpack.architecturecomponent.uilibs
+package com.example.jetpack.architecturecomponent.uilibs.lifecycle.livedata
 
 import android.icu.math.BigDecimal
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.*
 import com.example.jetpack.R
+import com.example.jetpack.architecturecomponent.uilibs.StockLiveData
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
