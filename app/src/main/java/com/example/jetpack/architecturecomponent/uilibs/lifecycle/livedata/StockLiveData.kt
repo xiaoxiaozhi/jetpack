@@ -3,12 +3,15 @@ package com.example.jetpack.architecturecomponent.uilibs.lifecycle.livedata
 import android.icu.math.BigDecimal
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import kotlinx.coroutines.delay
 
 /**
- *  网络连接类 通过回调刷新 LiveData。
- *  LiveData活跃的时候 StockManager 注册回调。 不活跃时 注销回调
+ *  1. 网络连接类 通过回调刷新 LiveData。LiveData活跃的时候 StockManager 注册回调。 不活跃时 注销回调
+ *
  */
 class StockLiveData(symbol: String) : LiveData<BigDecimal>() {
+
     //    private val stockManager = StockManager(symbol)
     private val listener = { price: BigDecimal -> value = price }
     override fun onActive() {// 观察者的生命周期处于 STARTED 或 RESUMED 状态，则 LiveData 会认为该观察者处于活跃状态,触发onActive
