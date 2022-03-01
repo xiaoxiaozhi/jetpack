@@ -1,12 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
+
 
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
-
+//    kapt {
+//        arguments {
+//            arg("room.schemaLocation", "$projectDir/schemas".toString())
+//        }
+//    }
     defaultConfig {
         applicationId "com.example.jetpack"
         minSdkVersion 16
@@ -33,6 +41,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding {
+        enabled true
+    }
 
 }
 
@@ -47,6 +58,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation 'com.google.android.gms:play-services-fido:18.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -81,6 +93,24 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:$work_version"
     // optional - Multiprocess support
     implementation "androidx.work:work-multiprocess:$work_version"
+
+    //使用Room
+    def room_version = "2.4.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    //使用Hilt
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
+    //导航
+    def nav_version = "2.4.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
 
 
 }

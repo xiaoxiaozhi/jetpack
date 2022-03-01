@@ -39,9 +39,13 @@ import java.util.*
  *             但是这些空间比较小，使用前注意查询设备可用空间
  *       1.1.2 外部存储空间：如果内部存储空间不足以存储文件，请转到外部存储空间。其他应用可以在具有适当权限的情况下访问外部存储空间，
  *             但存储在内部存储空间中的文件主要目的是供自己应用使用; Android 4.4（API 级别 19）或更高版本中 应用无需请求任何与存储空间相关的权限即可访问外部存储空间中的应用专属目录。
- *             卸载应用后，系统会移除这些目录中存储的文件;在Android 9-（API28）只要您的应用具有适当的存储权限，就可以访问属于其他应用的应用外部空间专用文件， Android 10+（API29）
- *             及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间的分区访问权限（即分区存储）。启用分区存储后，应用将无法访问属于其他应用的应用专属目录。
+ *             卸载应用后，系统会移除这些目录中存储的文件;在Android 9-（API28）只要您的应用具有适当的存储权限(可能是WRITE_EXTERNAL_STORAGE)，就可以访问属于其他应用的应用外部空间专用文件， Android 10+（API29）
+ *             及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间的分区访问权限（即分区存储）。启用分区存储后，应用将无法访问属于其他应用的应用专属目录。即除了自己专属目录其它访问不了
  *       note：如需进一步保护应用专属文件，请使用 Android Jetpack 中包含的 Security 库对这些静态文件进行加密。加密密钥专属于您的应用。
+ *   1.2 共享存储：存储您的应用打算与其他应用共享的文件，包括媒体、文档和其他文件。查看代码 SharedActivity
+ *   1.3 偏好设置：以键值对形式存储私有原始数据。
+ *   1.4 数据库：使用 Room 持久性库将结构化数据存储在专用数据库中。在存储敏感数据（不可通过任何其他应用访问的数据）时，
+ *       应使用内部存储空间、偏好设置或数据库。内部存储空间的一个额外优势是用户无法看到相应数据。
  * 2. 存储位置
  *    Android 提供两类物理存储位置：内部存储空间和外部存储空间。在大多数设备上，内部存储空间小于外部存储空间。
  *    可移除卷（例如 SD 卡）在文件系统中属于外部存储空间。Android 使用路径（例如 /sdcard）表示这些存储设备
@@ -49,8 +53,9 @@ import java.util.*
  *    android:installLocation="preferExternal"
  * 3. 对外部存储空间的访问权限
  *    Android 11 引入了 MANAGE_EXTERNAL_STORAGE 权限，该权限提供对应用专属目录和 MediaStore 之外文件的写入权限。TODO
- *    3.1 分区存储 TODO 还不明白什么意思
+ *    3.1 分区存储
  *        以 Android 10（API 级别 29）及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间的分区访问权限（即分区存储）
+ *        Android 4-9 不要权限也可以访问应用外部空间专属目录，其它目录需要WRITE_EXTERNAL_STORAGE权限。Android10  不要权限也可以访问应用外部空间专属目录，其它目录给了READ权限也访问不了
  * 4. 查询可用存储空间(看下面例子)
  *    4.1 创建存储空间管理 activity：在清单文件中使用<application android:manageSpaceActivity  系统可以启动改类管理存储空间，即使 android:exported=false
  *        正常情况下，在设置--->应用信息界面，只有清除缓存一个按钮，点击会清楚全部缓存，但是一些重要的信息不想被清楚，设置manageSpaceActivity后
@@ -175,7 +180,7 @@ class StorageActivity : AppCompatActivity() {
         ACTION_CLEAR_APP_CACHE //允许用户清空外部存储空间缓存，显示一个对话框让用户自己选择，
         binding.button1.setOnClickListener {
             startActivityForResult(Intent().apply { action = ACTION_CLEAR_APP_CACHE }, 110, null)
-        }//点了没反应
+        }//FIXME 点了没反应
 
 
         //BufferedWriter(FileWriter(File(""),true))//续写文件 用 FileWriter,然后通过组合BufferedWriter 获得 带缓冲区、添加文本的 输出流

@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/scrollingFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.jetpack.architecturecomponent.uilibs.lifecycle.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/scrollingFragment"
+        android:name="com.example.jetpack.topics.navigation.ScrollingFragment"
+        android:label="fragment_scrolling"
+        tools:layout="@layout/fragment_scrolling" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_scrollingFragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="zzz" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.jetpack.architecturecomponent.uilibs.lifecycle.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        android:id="@+id/blankFragment"
+        android:name="com.example.jetpack.topics.navigation.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 </navigation>
