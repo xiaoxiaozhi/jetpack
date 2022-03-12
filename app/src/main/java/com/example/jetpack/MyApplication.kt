@@ -16,6 +16,7 @@ class MyApplication : Application() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            println("Build.VERSION.SDK_INT = ${Build.VERSION.SDK_INT}")
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_HIGH
@@ -90,6 +91,8 @@ class MyApplication : Application() {
                     description = "显示多媒体通知"
                 })
 
+        } else {
+            println("------------------")
         }
     }
 }

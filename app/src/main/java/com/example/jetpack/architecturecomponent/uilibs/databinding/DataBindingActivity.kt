@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableField
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityDataBindingBinding
+import com.example.jetpack.databinding.FragmentBlankBinding
 
 /**
  * TODO kotlin能直接通过id引用控件而不再需要findViewById(),为什么还要ViewBinding呢，我认为这些databinding和viewbinding更适合java、不支持中文、两个属性拼接要通过字符串格式化的方式。
@@ -82,6 +83,9 @@ class DataBindingActivity : AppCompatActivity() {
             this,
             R.layout.activity_data_binding
         )
+        //2.4
+        //在Fragment中使用DataBinding
+        //val dataBinding = DataBindingUtil.inflate<FragmentBlankBinding>(layoutInflater, R.layout.fragment_blank, container, false);
         //7.
         dataBinding.lifecycleOwner = this
         //2.4

@@ -9,18 +9,49 @@
         android:id="@+id/scrollingFragment"
         android:name="com.example.jetpack.topics.navigation.ScrollingFragment"
         android:label="fragment_scrolling"
-        tools:layout="@layout/fragment_scrolling" >
+        tools:layout="@layout/fragment_scrolling">
         <action
             android:id="@+id/action_scrollingFragment_to_blankFragment"
             app:destination="@id/blankFragment" />
-        <argument
-            android:name="name"
-            app:argType="string"
-            android:defaultValue="zzz" />
+
     </fragment>
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.example.jetpack.topics.navigation.BlankFragment"
         android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        tools:layout="@layout/fragment_blank">
+        <action
+            android:id="@+id/action_blankFragment_to_thirdFragment3"
+            app:destination="@id/thirdFragment" />
+        <argument
+            android:name="name"
+            android:defaultValue="zzz"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.example.jetpack.topics.navigation.ThirdFragment"
+        android:label="ThirdFragment">
+        <action
+            android:id="@+id/action_thirdFragment_to_scrollingFragment"
+            app:destination="@id/scrollingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deepLinkFragment"
+        android:name="com.example.jetpack.topics.navigation.DeepLinkFragment"
+        android:label="fragment_deep_link"
+        tools:layout="@layout/fragment_deep_link">
+        <!--为目的地添加<deepLink/>标签-->
+        <deepLink app:uri="http://YourWebsite/{params}"></deepLink>
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.jetpack.topics.navigation.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.jetpack.topics.navigation.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

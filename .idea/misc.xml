@@ -6,9 +6,16 @@
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_data_binding.xml" value="0.2916666666666667" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_data_binding2.xml" value="0.22916666666666666" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_navigation.xml" value="0.33016304347826086" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_paging.xml" value="0.31023550724637683" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_retrofit.xml" value="0.18697916666666667" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/data_binding_sub_layout.xml" value="0.2427536231884058" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/fragment_blank.xml" value="0.2916666666666667" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/fragment_deep_link.xml" value="0.346875" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/fragment_login.xml" value="0.26721014492753625" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/fragment_profile.xml" value="0.26721014492753625" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/fragment_scrolling.xml" value="0.2916666666666667" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/fragment_third.xml" value="0.26721014492753625" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/repo_item.xml" value="0.31023550724637683" />
       </map>
     </option>
   </component>

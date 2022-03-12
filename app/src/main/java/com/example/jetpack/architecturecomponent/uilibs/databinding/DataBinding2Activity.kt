@@ -13,6 +13,7 @@ import com.example.jetpack.databinding.ActivityDataBinding2Binding
  *    1.2 使用自定义双向绑定@InverseBindingAdapter
  * 2. dataBinding与架构组件一起使用
  *    viewModel持有LiveData持有Student(其中的字段都是ObservableField类型)TODO 具体以后再补充
+ * 3. dataBinding在RecycleView中的使用 TODO 还没学
  *
  */
 class DataBinding2Activity : AppCompatActivity() {
