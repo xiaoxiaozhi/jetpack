@@ -11,8 +11,6 @@ import com.example.jetpack.databinding.ActivityDataBindingBinding
 import com.example.jetpack.databinding.FragmentBlankBinding
 
 /**
- * TODO kotlin能直接通过id引用控件而不再需要findViewById(),为什么还要ViewBinding呢，我认为这些databinding和viewbinding更适合java、不支持中文、两个属性拼接要通过字符串格式化的方式。
- * TODO 感觉用处不大
  * 1. 增加DataBinding支持
  *    在app/build.gradle 中增加对databinding的支持
  *    android {
