@@ -40,6 +40,7 @@ import androidx.transition.TransitionSet
  *     2.1 两个Activity共享元素过渡动画 单元素和多元素：Activity1 中给要添加共享动画的控件添加过渡名称。android:transitionName="activityTransform"，在Activity2
  *         中给要添加共享动画的控件添加相同的过渡名称，然后调用ActivityOptions获取bundle，在startActivity的时候使用
  *     Note:如果Activity2使用网络加载图片，未加载完成，过渡动画不显示，此时要在setContentView下面调用  postponeEnterTransition()延迟加载动画，再在加载完成时调用startPostponedEnterTransition()
+ *     2.2 导航框架下 Fragment 之间的共享元素过渡动画 查看代码ScrollingFragment
  *  3. Activity进入、退出动画
  *     android 默认支持 爆炸式、淡入淡出、滑动式
  *     3.1 实现流程 在Activity的onCreate()方法中调用  window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)在 setContentView()前设置启用窗口过渡属性;将过渡属性赋值给windows属性

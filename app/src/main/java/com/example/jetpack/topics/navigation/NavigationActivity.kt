@@ -2,8 +2,12 @@ package com.example.jetpack.topics.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityNavigationBinding
 
@@ -43,6 +47,10 @@ import com.example.jetpack.databinding.ActivityNavigationBinding
  *    然后每个 目的地都能调用 view.findNavController().navigate(全局actionId) 导航到这一目的地
  * 8. 导航到目的地
  *    查看ScrollingFragment 代码中有导航方式
+ * 9. 使用NavigationUI
+ *    9.1 底部导航栏BottomNavigationView [底部导航栏掘掘金文章](https://juejin.cn/post/6854573222156107783)[Fragment会在切换时重新创建](https://stackoverflow.com/questions/50485988/is-there-a-way-to-keep-fragment-alive-when-using-bottomnavigationview-with-new-n?r=SearchResults)
+ *        [该问题的代码](https://github.com/STAR-ZERO/navigation-keep-fragment-sample)
+ *    9.2 配置toolbar，使其toolbar的标题能跟目的地同步，有返回键。
  */
 class NavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
@@ -52,12 +60,30 @@ class NavigationActivity : AppCompatActivity() {
 //        ScrollingFragmentDirections.actionScrollingFragmentToBlankFragment("11")
         setContentView(binding.root)
 
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(
+            findNavController(R.id.nav_host_fragment)
+        ) || super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
         super.onStart()
         //1.3获取 controller
 //        findNavController(R.id.nav_host_fragment)// 放在onCreate中会报错，是因为NavController 没有构建
+        //9.1
+        binding.bottomNavigation.setupWithNavController(findNavController(R.id.nav_host_fragment))//
+        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _, destination, arguments ->
+            println("当前标签-----${destination.displayName}")
+            println("arguments--------${arguments?.getString("name")}")
+        }
+        //9.2
+        val appBarConfiguration =
+            AppBarConfiguration(findNavController(R.id.nav_host_fragment).graph)
+        binding.toolbar.setupWithNavController(
+            findNavController(R.id.nav_host_fragment),
+            appBarConfiguration
+        )
     }
 }

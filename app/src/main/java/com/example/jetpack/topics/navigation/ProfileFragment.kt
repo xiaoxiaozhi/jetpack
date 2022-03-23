@@ -46,10 +46,10 @@ class ProfileFragment : Fragment() {
                     dataBinding.text1.append("---$success")
                 }
             })
-        lifecycleScope.launch {
-            delay(1000)
-            findNavController().navigate(R.id.loginFragment)
-        }
+//        lifecycleScope.launch {
+//            delay(1000)
+//            findNavController().navigate(R.id.loginFragment)
+//        }
     }
 
     override fun onCreateView(

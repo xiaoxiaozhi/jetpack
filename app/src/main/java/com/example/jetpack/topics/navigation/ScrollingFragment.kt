@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.jetpack.R
 import com.example.jetpack.databinding.FragmentScrollingBinding
@@ -43,16 +44,27 @@ import com.example.jetpack.databinding.FragmentScrollingBinding
  *    2.1 定义目的地参数，在导航图的<Fragment>标签中 添加<argument>标签 [支持的参数类型](https://developer.android.google.cn/guide/navigation/navigation-pass-data#supported_argument_types)
  *        需要数据的目标界面是对话框 BlankFragment，它需要知道所需显示的对象的信息。
  *    2.2 接收目的参数：在 BlankFragment使用 val arg: BlankFragmentArgs by navArgs<BlankFragmentArgs>()
+ * 3. Fragment共享元素过渡
+ *     navigate之前先创建val extras = FragmentNavigatorExtras(binding.img to "hero_image")
+ *    在接收端    sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true) TODO 试着用Slide()发现没用，为什么一定要这个呢
+ *
+ *
  *
  */
 
 class ScrollingFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentScrollingBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        println("${this.javaClass.simpleName}-------onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("${this.javaClass.simpleName}-------onCreateView")
         binding = FragmentScrollingBinding.inflate(inflater, container, false)
         //1.1
         binding.button1.setOnClickListener {
@@ -66,6 +78,7 @@ class ScrollingFragment : Fragment(), View.OnClickListener {
         binding.button4.setOnClickListener(this)
         binding.button5.setOnClickListener(this)
         binding.button6.setOnClickListener(this)
+        binding.button7.setOnClickListener(this)
         return binding.root
     }
 
@@ -95,6 +108,20 @@ class ScrollingFragment : Fragment(), View.OnClickListener {
             }
             R.id.button5 -> findNavController().navigate(R.id.profileFragment)
             R.id.button6 -> deepLinkBuild()
+            R.id.button7 -> {
+                val extras = FragmentNavigatorExtras(binding.img to "hero_image")
+                findNavController().navigate(
+                    R.id.action_scrollingFragment_to_blankFragment,
+                    null, // Bundle of args
+                    null, // NavOptions
+                    extras
+                )
+                //导航到Activity 共享元素
+//                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+//                   Pair(view1, "hero_image"))
+//                val extras = ActivityNavigatorExtras(options)
+            }
+
         }
     }
 

@@ -9,9 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.transition.Slide
 import com.example.jetpack.R
 import com.example.jetpack.databinding.FragmentBlankBinding
-
+import com.google.android.material.transition.MaterialContainerTransform
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -31,12 +32,16 @@ class BlankFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("${this.javaClass.simpleName}-------onCreate")
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
         val arg: BlankFragmentArgs by navArgs<BlankFragmentArgs>()
         println("----name = ${arg.name}")
+
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true)
+        sharedElementReturnTransition = MaterialContainerTransform(requireContext(), true)
     }
 
     override fun onCreateView(

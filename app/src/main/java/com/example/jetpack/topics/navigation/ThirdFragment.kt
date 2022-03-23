@@ -28,6 +28,7 @@ class ThirdFragment : Fragment() {
     lateinit var dataBinding: FragmentThirdBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("${this.javaClass.simpleName}-------onCreate")
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
