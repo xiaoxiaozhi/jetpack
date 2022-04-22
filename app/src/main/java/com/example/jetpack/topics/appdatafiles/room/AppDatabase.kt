@@ -1,8 +1,13 @@
 package com.example.jetpack.topics.appdatafiles.room
 
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import android.content.Context
+import androidx.databinding.adapters.Converters
+import androidx.room.*
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 
 /**
  * 1. 该类必须带有 @Database 注解，该注解包含列出所有与数据库关联的数据实体的 entities 数组。
@@ -13,13 +18,70 @@ import androidx.room.RoomDatabase
  * 可以在一个进程中使共享数据库文件失效，并且这种失效会自动传播到其他进程中 AppDatabase 的实例。
  * TODO 多进程是什么意思
  */
+//@Database(
+////    entities = [User::class, Book::class],
+////    views = [DataView::class],
+//    entities = [User::class],
+//    version = 1
+////    autoMigrations = [AutoMigration(from = 3, to = 4)]
+//)
+//abstract class AppDatabase : RoomDatabase() {
+//    abstract fun userDao(): UserDao
+//}
+
+/**
+ * The Room database for this app
+ */
 @Database(
-//    entities = [User::class, Book::class],
-//    views = [DataView::class],
     entities = [User::class],
-    version = 1
-//    autoMigrations = [AutoMigration(from = 3, to = 4)]
+    version = 2
+//    exportSchema = false//如果不设置这个属性 [会报错](https://blog.csdn.net/hexingen/article/details/78725958)
 )
+//@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+
+
+    // sunFlower---项目里面的数据库创建方式
+    companion object {
+        val USER_TABLE_NAME = "user"
+        // For Singleton instantiation
+        @Volatile
+        private var instance: AppDatabase? = null
+
+        fun getInstance(context: Context): AppDatabase {
+            return instance ?: synchronized(this) {
+                instance ?: buildDatabase(context).also { instance = it }
+            }
+        }
+
+        // Create and pre-populate the database. See this article for more details:
+        // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
+        private fun buildDatabase(context: Context): AppDatabase {
+            return Room.databaseBuilder(context, AppDatabase::class.java, "jetpack")
+//                .allowMainThreadQueries()//数据库的增删改查都不能再主线程允许，调用该方法后强制可以
+                .fallbackToDestructiveMigration()//删除所有数据，并创建新数据库
+                .addMigrations(migrations1_2)
+//                .addCallback(
+//                    object : RoomDatabase.Callback() {
+//                        override fun onCreate(db: SupportSQLiteDatabase) {
+//                            super.onCreate(db)
+//                            val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>()
+//                                .setInputData(workDataOf(KEY_FILENAME to PLANT_DATA_FILENAME))
+//                                .build()
+//                            WorkManager.getInstance(context).enqueue(request)
+//                        }
+//                    }
+//                )
+                .build()
+        }
+
+        //[sqlite官网](https://www.sqlite.org/index.html) 没找到具体实例
+        private var migrations1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("Alter table $USER_TABLE_NAME add COLUMN age INTEGER")
+            }
+        }
+    }
+
 }

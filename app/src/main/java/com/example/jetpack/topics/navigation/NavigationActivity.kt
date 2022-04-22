@@ -51,6 +51,10 @@ import com.example.jetpack.databinding.ActivityNavigationBinding
  *    9.1 底部导航栏BottomNavigationView [底部导航栏掘掘金文章](https://juejin.cn/post/6854573222156107783)[Fragment会在切换时重新创建](https://stackoverflow.com/questions/50485988/is-there-a-way-to-keep-fragment-alive-when-using-bottomnavigationview-with-new-n?r=SearchResults)
  *        [该问题的代码](https://github.com/STAR-ZERO/navigation-keep-fragment-sample)
  *    9.2 配置toolbar，使其toolbar的标题能跟目的地同步，有返回键。
+ *    9.3 TODO 抽屉导航栏
+ *    9.4 TODO 目的地关联到菜单
+ *
+ * TODO setupActionBarWithNavController() 默认操作栏添加导航支持，表现在哪里？？？
  */
 class NavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
@@ -86,4 +90,11 @@ class NavigationActivity : AppCompatActivity() {
             appBarConfiguration
         )
     }
+    //Activity将它的 back键点击事件的委托出去，如果当前并非栈中顶部的Fragment, 那么点击back键，返回上一个Fragment。
+    //app:defaultNavHost="true" 该属性貌似已经实现了这个功能
+//    override fun onSupportNavigateUp(): Boolean {
+//        findNavController(R.id.nav_host_fragment)
+//        return navController.navigateUp(appBarConfiguration)
+//                || super.onSupportNavigateUp()
+//    }
 }

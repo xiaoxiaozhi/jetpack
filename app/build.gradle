@@ -5,16 +5,10 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
 }
-
-
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
-//    kapt {
-//        arguments {
-//            arg("room.schemaLocation", "$projectDir/schemas".toString())
-//        }
-//    }
+
     defaultConfig {
         applicationId "com.example.jetpack"
         minSdkVersion 16
@@ -23,6 +17,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //    //指定room.schemaLocation生成的文件路径,必须在defaultConfig标签内否则编译会报错
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -44,7 +44,6 @@ android {
     dataBinding {
         enabled true
     }
-
 }
 
 dependencies {
@@ -121,7 +120,6 @@ dependencies {
 
     //使用GSON
 //    implementation 'com.google.code.gson:gson:2.9.0'
-
 
 
 }

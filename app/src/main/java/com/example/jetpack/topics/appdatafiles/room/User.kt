@@ -34,12 +34,14 @@ data class User(
 //    @ColumnInfo(name = "name") val name: String?,
 //    @ColumnInfo(name = "type") val type: String?,
 //    @ColumnInfo(name = "departmentId") val departmentId: Long?,
-//    @ColumnInfo(name = "age") val age: Int?,
+
 //    @ColumnInfo(name = "region") val region: String?,
 //    @Ignore val picture: Int?,//增加了忽略字段会报这个错https://stackoverflow.com/questions/44485631/room-persistence-errorentities-and-pojos-must-have-a-usable-public-constructor
-    @ColumnInfo(name = "lid") val languageId: Int?
+    @ColumnInfo(name = "lid") val languageId: Int?,
+    @ColumnInfo(name = "age") val age: Int?,
 
-) {
+
+    ) {
 
 //    @PrimaryKey(autoGenerate = true)
 //    @ColumnInfo(name = "rowid")//Fts4的主键名必须是rowid
