@@ -1,12 +1,11 @@
 package com.example.jetpack.bestpractice.dependencyinjection
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.jetpack.R
-import com.example.jetpack.topics.dependencyinjection.BindElectricEngine
-import com.example.jetpack.topics.dependencyinjection.BindGasEngine
-import com.example.jetpack.topics.dependencyinjection.Engine
-import com.example.jetpack.topics.dependencyinjection.GasEngine
+import com.example.jetpack.databinding.ActivityDependencyInjectionBinding
+import com.example.jetpack.topics.dependencyinjection.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -70,9 +69,10 @@ import javax.inject.Inject
  *        例如 @InstallIn(ActivityComponent::class)，就是把这个模块安装到 Activity 组件当中。如果我们再Service中使用就会报错
  *    7.2 [组件生命周期](https://developer.android.google.cn/training/dependency-injection/hilt-android#component-lifetimes)
  *    7.3 [组件作用域](https://developer.android.google.cn/training/dependency-injection/hilt-android#component-scopes)
- *        Hilt 也允许将依赖注入到特定组件作用域，
+ *        默认情况下，Hilt 中的所有绑定都未限定作用域，Hilt 允许将依赖注入到特定组件作用域，
  *        例如 Hilt 会为每次的依赖注入行为都创建不同的实例，有时会不合理比如在创建APPDataBase和OkHttp时只要一个实例就可以，为此添加 @Singleton 注解即可 查看代码 AnalyticsProviderModule
  *        例如 如果想要在某个 Activity，以及它内部包含的 Fragment 和 View 中共用某个对象的实例，那么就使用 @ActivityScoped。
+ *        note:组件ApplicationComponent的作用域是@Singleton，实际测试仍然会生城实例，存疑？
  *    7.4 [组件层次结构](https://developer.android.google.cn/training/dependency-injection/hilt-android#component-hierarchy)
  *        将模块安装到组件后，其依赖，也可以用作组件层次结构中该组件下的任何子组件
  *
@@ -96,9 +96,11 @@ class HiltActivity : AppCompatActivity() {
     @Inject
     @BindElectricEngine
     lateinit var electricEngine: Engine
+    lateinit var binding: ActivityDependencyInjectionBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dependency_injection)
+        binding = ActivityDependencyInjectionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         //6.1 接口依赖注入
         println("调用--------------------------")
         analytics.hash()
@@ -107,6 +109,9 @@ class HiltActivity : AppCompatActivity() {
         //6.3 给相同类型注入不同实例
         gasEngine.start()
         electricEngine.start()
+        binding.button1.setOnClickListener {
+            startActivity(Intent(this, Hilt2Activity::class.java))
+        }
 
     }
 }

@@ -72,9 +72,9 @@ class NotificationActivity : AppCompatActivity() {
         //2. 创建通知
         var builder =
             NotificationCompat.Builder(this, CHANNEL_ID)//渠道ID，android8.0 API 26及以上必须设置，旧版本忽略
-                .setSmallIcon(R.drawable.notification_icon)//1. 小图标，必须提供
-                .setContentTitle("启动通知")
-                .setContentText("常规Activity")//过长的文本内容会被截断放在一行，多余的内容利用setStyle()展开显示
+                .setSmallIcon(R.drawable.notification_icon)//1. 小图标，                                    必须提供
+                .setContentTitle("启动通知")// 通知标题                                                      必须提供
+                .setContentText("常规Activity")//过长的文本内容会被截断放在一行，多余的内容利用setStyle()展开显示, 必须提供
                 .setStyle(//setStyle 显示展开内容
                     NotificationCompat.BigTextStyle()//如需对文本添加格式（粗体、斜体、换行等等），您可以使用 HTML 标记添加样式。
                         //https://developer.android.google.cn/guide/topics/resources/string-resource#StylingWithHTML

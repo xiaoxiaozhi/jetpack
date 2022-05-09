@@ -20,6 +20,8 @@
 - 不要暴露模块内部实现细节。  
 - 尽量让APP的每个功能都可以独立测试  
 - 尽可能多的数据持久化 即时在离线状态下用户也能够使用程序
+4. MAD  
+- MAD 可以指导开发者更高效地开发出优秀的移动应用 [ MAD 最佳实践](https://mp.weixin.qq.com/s/Fq6AA2IWpDzjtiRkQZFIwA)
 
   
  

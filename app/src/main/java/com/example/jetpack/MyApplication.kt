@@ -93,7 +93,7 @@ class MyApplication : Application() {
                 })
 
         } else {
-            println("------------------")
+            println("--------sdk小于android O 26----------")
         }
     }
 }

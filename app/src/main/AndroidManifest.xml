@@ -60,11 +60,12 @@
             <nav-graph android:value="@navigation/nav_graph" />
         </activity>
         <activity android:name=".bestpractice.dependencyinjection.HiltActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
+        <activity android:name=".topics.dependencyinjection.Hilt2Activity"></activity>
         <activity android:name=".topics.appdatafiles.room.RoomActivity">
             <!--             <intent-filter>-->
             <!--             <action android:name="android.intent.action.MAIN" />-->
@@ -146,13 +147,36 @@
             android:exported="false" />
 
         <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkerActivity1">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.datalibs.DataStoreActivity">
 
@@ -256,3 +280,4 @@
     </application>
 
 </manifest>
+

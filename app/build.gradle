@@ -23,6 +23,7 @@ android {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -122,4 +123,6 @@ dependencies {
 //    implementation 'com.google.code.gson:gson:2.9.0'
 
 
+    //运行在android 23的设备上会报 Cannot fit requested classes in a single dex file。添加依赖解决
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

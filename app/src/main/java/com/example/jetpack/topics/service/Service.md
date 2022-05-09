@@ -46,6 +46,3 @@ START_REDELIVER_INTENT：系统终止服务，则其会重建服务，并通过�
 添加 android:exported 属性并将其设置为 false，确保服务仅适用于您的应用  
 从 Android 5.0（API 级别 21）开始，如果使用隐式 Intent 调用 bindService()，则系统会抛出异常。
 
-未完成
-1. PendingIntent用法
-2. 
