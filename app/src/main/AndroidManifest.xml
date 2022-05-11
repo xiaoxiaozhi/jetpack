@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jetpack">
 
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
@@ -155,12 +156,12 @@
             <!--            </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity1">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.datalibs.work.WorkActivity">
             <!--            <intent-filter>-->
@@ -273,10 +274,33 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".topics.appstartup.StartupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".topics.userinterface.notification.NotificationBroadcast"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <!-- 自动初始化 -->
+            <meta-data
+                android:name="com.example.jetpack.topics.appstartup.InitializerA"
+                android:value="androidx.startup"
+                tools:node="remove" />
+            <meta-data
+                android:name="com.example.jetpack.topics.appstartup.InitializerB"
+                android:value="androidx.startup"></meta-data>
+        </provider>
     </application>
 
 </manifest>

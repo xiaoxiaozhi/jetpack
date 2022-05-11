@@ -125,4 +125,7 @@ dependencies {
 
     //运行在android 23的设备上会报 Cannot fit requested classes in a single dex file。添加依赖解决
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    //使用 startup初始化组件
+    implementation "androidx.startup:startup-runtime:1.1.1"
 }

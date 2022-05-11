@@ -109,9 +109,10 @@ import java.util.concurrent.TimeUnit
  *
  * 12. WorkerManager 配置
  *     查看代码WorkManagerActivity1
- *
- *
- *
+ * 13. WorkerManager 线程处理
+ *     由于使用kotlin所以只对CoroutineWorker进行解释
+ *     CoroutineWorker.doWork() 是一个“挂起”函数。运行在 Dispatchers.Default
+ *     还可以使用RemoteCoroutineWorker（ListenableWorker 的实现）将工作器绑定到特定进程。
  * 并且能自适应系统省电策略列入Doze。TODO Doze 学习这个模式
  */
 class WorkManagerActivity : AppCompatActivity() {
