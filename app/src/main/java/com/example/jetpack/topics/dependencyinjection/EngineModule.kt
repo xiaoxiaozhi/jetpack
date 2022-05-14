@@ -3,7 +3,7 @@ package com.example.jetpack.topics.dependencyinjection
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 
 /**
@@ -12,7 +12,7 @@ import javax.inject.Qualifier
  *    - 在方法上添加注解，返回相应的子类实例
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class EngineModule {
     @BindGasEngine
     @Binds

@@ -1,12 +1,17 @@
 package com.example.jetpack.topics.appdatafiles.room
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
-import com.example.jetpack.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.jetpack.databinding.ActivityRoomBinding
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * [掘金文章](https://juejin.cn/post/7033656219369734180)
@@ -14,7 +19,7 @@ import kotlinx.coroutines.launch
  * 1. 主要组件
  *    1.1 数据库类：用于保存数据库并作为应用持久性数据底层连接的主要访问点。查看 AppDatabase 类
  *    1.2 数据实体:用于表示应用的数据库中的表。 查看代码 User
- *    1.3 数据访问对象(DAO):提供您的应用可用于查询、更新、插入和删除数据库中的数据的方法。 查看代码 UserDao
+ *    1.3 数据访问对象(DAO):提供您的应用可用于查询、更新、插入和删除数据库中的数据的方法。 查看代码 UserDao,代码生成位置app/build/generated/ap_generated_source/debug(release)/out/your packagename/
  *    1.4 用法：从Room.databaseBuilder数据库操作接口--->数据表操作Dao--->增删改查数据表
  * 2. 预填充数据：从位于应用 assets/ 目录中的任意位置的预封装数据库文件预填充 Room 数据库、
  *    2.1 从asset下面加载数据库
@@ -24,12 +29,26 @@ import kotlinx.coroutines.launch
  *        如需声明两个数据库版本之间的自动迁移，请添加autoMigrations = [AutoMigration(from = 1, to = 2) 查看代码 APPDatabase
  *    3.2 当以下情况发生时：删除或重命名表、删除或重命名列，自动迁移会报错
  *
+ * 4. 从数据库到RecyclerVIew
+ *    [](https://developer.android.google.cn/codelabs/android-room-with-a-view-kotlin?hl=zh-cn#0)
  * TODO 视频  Room支持LiveData ，DAO里面返回LiveData，然后实现观察者，当插入数据时，观察者会更新
+ * TODO 数据库加密
+ * TODO LiveData与Flow区别要看
  */
+@AndroidEntryPoint
 class RoomActivity : AppCompatActivity() {
+    lateinit var binding: ActivityRoomBinding
+
+//    @Inject
+//    lateinit var repository: WordRepository
+
+    private val viewModel: WordViewModel by viewModels<WordViewModel>()
+
+    //    val viewModel: WordViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_room)
+        binding = ActivityRoomBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         //1.1 创建数据库实例
         val db = AppDatabase.getInstance(this)
 
@@ -43,12 +62,27 @@ class RoomActivity : AppCompatActivity() {
                 println("${it.firstName}----${it.lastName}----${it.languageId}-----")
             }
         }
+        //4. 从数据库到RecyclerVIew
+        with(binding) {
+            viewModel.allWords.observe(this@RoomActivity) {
+                if (it.isNotEmpty()) {
+                    recyclerview.layoutManager = LinearLayoutManager(this@RoomActivity)
+                    recyclerview.adapter =
+                        WordListAdapter(it.map { word -> word.word }.toTypedArray())
+                }
+            }
+
+            button1.setOnClickListener {
+                startActivity(Intent(this@RoomActivity, RoomActivity2::class.java))
+            }
+        }
 
         //2. 预填充数据
 //        Room.databaseBuilder(this, AppDatabase::class.java, "Sample.db")
 //            .createFromAsset("database/myapp.db")//assets目录下相对路径
 ////            .createFromFile(File("mypath"))//Room 会创建指定文件的副本，而不是直接打开它，因此请确保您的应用具有该文件的读取权限。
 //            .build()
+
 
     }
 }

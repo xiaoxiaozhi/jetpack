@@ -36,7 +36,7 @@ import com.example.jetpack.databinding.ActivityLiveDataBinding
  *    2.5 LiveData与协程一起使用  查看代码 StockLiveData 类
  * 3. 应用架构中的LiveData
  *    3.1 参考 2
- *    3.2 LiveData 并不适合用于处理异步数据流，如果需要请使用kotlin Flow
+ *    3.2 LiveData 并不适合用于处理异步数据流，如果需要请使用kotlin Flow [LiveData和Flow的区别](https://www.jianshu.com/p/41a9fc2c7d97)
  * 4. 扩展LiveData 查看代码 StockLiveData
  * 5. 转换LiveData TODO
  * 6. 合并多个 LiveData 源 TODO

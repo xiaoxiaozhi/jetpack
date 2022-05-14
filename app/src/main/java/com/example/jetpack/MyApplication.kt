@@ -5,6 +5,8 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.example.jetpack.topics.appdatafiles.room.AppDatabase
+import com.example.jetpack.topics.appdatafiles.room.WordRepository
 import dagger.hilt.android.HiltAndroidApp
 
 

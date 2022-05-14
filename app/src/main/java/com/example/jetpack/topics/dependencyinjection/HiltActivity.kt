@@ -60,15 +60,16 @@ import javax.inject.Inject
  *        - 函数返回类型会告知 Hilt 函数提供哪个类型的实例。
  *        - 函数参数会告知 Hilt 相应类型的依赖项。
  *        - 函数主体会告知 Hilt 如何提供相应类型的实例。每当需要提供该类型的实例时，Hilt 都会执行函数主体。
+ *        note:函数的返回类型是唯一的，如果有多个函数返回相同类型会报错
  *    6.3 给相同类型注入不同实例 查看代码 EngineModule
  *        对不同类型创建限定符(注解)，然后在方法上添加注解
  *    6.4 Hilt预定义限定符
  *        例如@ApplicationContext 和 @ActivityContext 限定符， @ActivityContext private val context: Context 表示全局的 context   还有 TODO 还有什么？
- * 7. Hilt内置组件和作用域
- *    7.1 [内置组件](https://developer.android.google.cn/training/dependency-injection/hilt-android#generated-components)
+ * 7. Hilt内置组件和作用域 看英文版的，中文版过时
+ *    7.1 [内置组件](https://developer.android.google.cn/training/dependency-injection/hilt-android?hl=en#generated-components)
  *        例如 @InstallIn(ActivityComponent::class)，就是把这个模块安装到 Activity 组件当中。如果我们再Service中使用就会报错
- *    7.2 [组件生命周期](https://developer.android.google.cn/training/dependency-injection/hilt-android#component-lifetimes)
- *    7.3 [组件作用域](https://developer.android.google.cn/training/dependency-injection/hilt-android#component-scopes)
+ *    7.2 [组件生命周期](https://developer.android.google.cn/training/dependency-injection/hilt-android?hl=en#component-lifetimes)
+ *    7.3 [组件作用域](https://developer.android.google.cn/training/dependency-injection/hilt-android?hl=en#component-scopes)
  *        默认情况下，Hilt 中的所有绑定都未限定作用域，Hilt 允许将依赖注入到特定组件作用域，
  *        例如 Hilt 会为每次的依赖注入行为都创建不同的实例，有时会不合理比如在创建APPDataBase和OkHttp时只要一个实例就可以，为此添加 @Singleton 注解即可 查看代码 AnalyticsProviderModule
  *        例如 如果想要在某个 Activity，以及它内部包含的 Fragment 和 View 中共用某个对象的实例，那么就使用 @ActivityScoped。
@@ -78,6 +79,11 @@ import javax.inject.Inject
  *
  * 8.不支持的入口点怎么依赖注入
  *    ContentProvider在application之前就已经初始化，所以Hilt不支持它，想要在里面实现依赖注入需要自己实现入口点 TODO 待看
+ * 9. Hilt与Jetpack库一起使用
+ *    9.1 ViewModel 查看代码 RoomActivity
+ *    9.2 TODO 与导航库
+ *    9.3 TODO 与WorkerManager
+ *
  *
  * NOTE: Expected @HiltAndroidApp to have a value. Did you forget to apply the Gradle Plugin? 当出现这个错误时检查,项目是否也用了Room,如果有则要 arguments 后面=改成+= ["room.schemaLocation":"$projectDir/schemas".toString()]
  */

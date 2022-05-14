@@ -1,13 +1,11 @@
 package com.example.jetpack.topics.appdatafiles.room
 
 import android.content.Context
-import androidx.databinding.adapters.Converters
 import androidx.room.*
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.workDataOf
+import androidx.work.*
+
 
 /**
  * 1. 该类必须带有 @Database 注解，该注解包含列出所有与数据库关联的数据实体的 entities 数组。
@@ -18,33 +16,24 @@ import androidx.work.workDataOf
  * 可以在一个进程中使共享数据库文件失效，并且这种失效会自动传播到其他进程中 AppDatabase 的实例。
  * TODO 多进程是什么意思
  */
-//@Database(
-////    entities = [User::class, Book::class],
-////    views = [DataView::class],
-//    entities = [User::class],
-//    version = 1
-////    autoMigrations = [AutoMigration(from = 3, to = 4)]
-//)
-//abstract class AppDatabase : RoomDatabase() {
-//    abstract fun userDao(): UserDao
-//}
-
 /**
  * The Room database for this app
  */
 @Database(
-    entities = [User::class],
+    entities = [User::class, Word::class],
     version = 2
 //    exportSchema = false//如果不设置这个属性 [会报错](https://blog.csdn.net/hexingen/article/details/78725958)
 )
 //@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun wordDao(): WordDao
 
 
     // sunFlower---项目里面的数据库创建方式
     companion object {
         val USER_TABLE_NAME = "user"
+
         // For Singleton instantiation
         @Volatile
         private var instance: AppDatabase? = null
@@ -62,18 +51,31 @@ abstract class AppDatabase : RoomDatabase() {
 //                .allowMainThreadQueries()//数据库的增删改查都不能再主线程允许，调用该方法后强制可以
                 .fallbackToDestructiveMigration()//删除所有数据，并创建新数据库
                 .addMigrations(migrations1_2)
-//                .addCallback(
-//                    object : RoomDatabase.Callback() {
-//                        override fun onCreate(db: SupportSQLiteDatabase) {
-//                            super.onCreate(db)
-//                            val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>()
-//                                .setInputData(workDataOf(KEY_FILENAME to PLANT_DATA_FILENAME))
-//                                .build()
-//                            WorkManager.getInstance(context).enqueue(request)
-//                        }
-//                    }
-//                )
+                .addCallback(
+                    object : RoomDatabase.Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            println("AppDatabase-------------数据库被第一次创建时调用---------------")
+                            //填充数据
+                            OneTimeWorkRequestBuilder<FillDataWoker>()
+                                .build().apply {
+                                    WorkManager.getInstance(context).enqueue(this)
+                                }
+                        }
+
+                        override fun onOpen(db: SupportSQLiteDatabase) {
+                            super.onOpen(db)
+                            println("AppDatabase-------------数据库被打开时调用---------------")
+                        }
+
+                        override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+                            super.onDestructiveMigration(db)
+                            println("AppDatabase-------------数据库被破坏性迁移时调用---------------")
+                        }
+                    }
+                )
                 .build()
+//            return Room.inMemoryDatabaseBuilder(context,AppDatabase::class.java).build() //数据库将在系统内存中创建，如果您终止了该应用程序（杀死进程），则数据库将被删除并且数据将不会持久保存。可以在测试时使用
         }
 
         //[sqlite官网](https://www.sqlite.org/index.html) 没找到具体实例
@@ -84,4 +86,30 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
+    //    open fun getInMemoreyDatabase(context: Context): RoomDb? {
+//        if (INSTANCE == null) {
+//            synchronized(sLock) {
+//                if (INSTANCE == null) {
+//                    INSTANCE = Room.inMemoryDatabaseBuilder(
+//                        context.applicationContext,
+//                        RoomDb::class.java
+//                    ).build()
+//                }
+//            }
+//        }
+//        return INSTANCE
+//    }
+    class FillDataWoker(val context: Context, workerParameters: WorkerParameters) :
+        CoroutineWorker(context, workerParameters) {
+        override suspend fun doWork(): Result {
+            AppDatabase.getInstance(context).wordDao().insert(
+                listOf(
+                    Word("hello"), Word("word"),
+                    Word("TODO")
+                )
+            )
+            return Result.success()
+        }
+
+    }
 }
