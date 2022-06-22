@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityLifeCircleBinding
 
@@ -27,6 +28,7 @@ import com.example.jetpack.databinding.ActivityLifeCircleBinding
  *    4.2 可挂起的生命周期感知协程
  *        至少处于whenLaunchX() 这个状态的时候才会启动协程，只有当 lifecycle 销毁时协程才会取消。在try{}finally{ lifecycle销毁时 finally代码会执行}
  *        具体代码查看 HandlerLifeCircle3Activity 类
+ * TODO repeatOnLifecycle 是什么 LifecycleRegistry 是什么
  */
 class HandlerLifeCircleActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLifeCircleBinding

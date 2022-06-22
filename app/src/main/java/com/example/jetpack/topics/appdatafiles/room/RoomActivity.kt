@@ -11,6 +11,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -21,6 +22,9 @@ import javax.inject.Inject
  *    1.2 数据实体:用于表示应用的数据库中的表。 查看代码 User
  *    1.3 数据访问对象(DAO):提供您的应用可用于查询、更新、插入和删除数据库中的数据的方法。 查看代码 UserDao,代码生成位置app/build/generated/ap_generated_source/debug(release)/out/your packagename/
  *    1.4 用法：从Room.databaseBuilder数据库操作接口--->数据表操作Dao--->增删改查数据表
+ * 2. 定义对象之间的关系
+ *    [实际开发遇到问题的时候可以看](https://developer.android.google.cn/training/data-storage/room/relationships)
+ *    多表联合查询、
  * 2. 预填充数据：从位于应用 assets/ 目录中的任意位置的预封装数据库文件预填充 Room 数据库、
  *    2.1 从asset下面加载数据库
  *    2.2 从文件系统加载系统
@@ -31,9 +35,9 @@ import javax.inject.Inject
  *
  * 4. 从数据库到RecyclerVIew
  *    [](https://developer.android.google.cn/codelabs/android-room-with-a-view-kotlin?hl=zh-cn#0)
- * TODO 视频  Room支持LiveData ，DAO里面返回LiveData，然后实现观察者，当插入数据时，观察者会更新
  * TODO 数据库加密
  * TODO LiveData与Flow区别要看
+ * TODO 如果值一样LiveData 不能判断吗？ Flow可以判断 [](https://juejin.cn/post/7007602776502960165#heading-20)
  */
 @AndroidEntryPoint
 class RoomActivity : AppCompatActivity() {

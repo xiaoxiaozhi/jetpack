@@ -54,8 +54,9 @@ import java.util.*
  * 3. 对外部存储空间的访问权限
  *    Android 11 引入了 MANAGE_EXTERNAL_STORAGE 权限，该权限提供对应用专属目录和 MediaStore 之外文件的写入权限。TODO
  *    3.1 分区存储
- *        以 Android 10（API 级别 29）及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间的分区访问权限（即分区存储）
+ *        以 Android 10（API 级别 29）及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间专属目录访问权限（即分区存储）
  *        Android 4-9 不要权限也可以访问应用外部空间专属目录，其它目录需要WRITE_EXTERNAL_STORAGE权限。Android10  不要权限也可以访问应用外部空间专属目录，其它目录给了READ权限也访问不了
+ *        停用分区存储  <application android:requestLegacyExternalStorage="true" ... >
  * 4. 查询可用存储空间(看下面例子)
  *    4.1 创建存储空间管理 activity：在清单文件中使用<application android:manageSpaceActivity  系统可以启动改类管理存储空间，即使 android:exported=false
  *        正常情况下，在设置--->应用信息界面，只有清除缓存一个按钮，点击会清楚全部缓存，但是一些重要的信息不想被清楚，设置manageSpaceActivity后
@@ -63,16 +64,21 @@ import java.util.*
  *    4.2 清除外部存储空间缓存
  *        ACTION_CLEAR_APP_CACHE ：该 操作会严重影响设备的电池续航时间，并且可能会从设备上移除大量的文件。Android 11 API30
  *
+ *  5. 挂载路径
+ *     (官网没有提到)
+ *
+ *
  */
 class StorageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStorageBinding
+    private lateinit var storageManager: StorageManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStorageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //1.1.1.1 访问内部空间持久性文件
-        println("${filesDir.toString()}")// /data/user/0/com.example.jetpack/files 内部持久性空间
-        println("${cacheDir.toString()}")// /data/user/0/com.example.jetpack/cache 内部缓存空间
+        println(filesDir.toString())// /data/user/0/com.example.jetpack/files 内部持久性空间
+        println(cacheDir.toString())// /data/user/0/com.example.jetpack/cache 内部缓存空间
         val file = File(filesDir, "inner").apply {
             if (!exists()) {
                 createNewFile()
@@ -99,7 +105,7 @@ class StorageActivity : AppCompatActivity() {
 
         //1.1.1.5 查看内部空间持久性文件列表
         println("内部空间持久性文件列表---${fileList().toList()}")
-        //1.1.1.6 创建目录，API文档说是子目录实际上files 同级目录
+        //1.1.1.6 创建目录，在内部存储空间。API文档说是子目录实际上files 同级目录
         getDir("fileChild", MODE_PRIVATE).apply {
             println("fileChild 是否存在----${exists()}---${absolutePath}")
         }
@@ -123,24 +129,29 @@ class StorageActivity : AppCompatActivity() {
                 println("不存在")
             }
         }
-        //1.1.1.9 查询catch配额大小 TODO 这个是外部存储还是内部存储？文档没有明说，自己长时候发现 结果一样
-        val storageManager = applicationContext.getSystemService<StorageManager>()!!
-        val uuid = storageManager.getUuidForPath(cacheDir)//Android 不是java Path接口在Android 8+才添加
-        val quota = storageManager.getCacheQuotaBytes(uuid)
-        println("catch 配额空间---${quota}")//如果超过这个空间，系统缓存不足的时候会最先删除您应用的缓存数据；另外这个空间是动态变化的
-
+        //1.1.1.9 查询catch配额大小
+        storageManager = applicationContext.getSystemService<StorageManager>()!!
+        getExternalFilesDir(null)?.let {
+            // TODO k30pro 上得到配额 64M  ，已经占用的缓存2M， 感觉像是固定值之后遇到其它例子再探究
+            val uuid = storageManager.getUuidForPath(it)//返回存储器的 uuid。path属于该存储器。
+            println("catch 配额空间---${storageManager.getCacheQuotaBytes(uuid) shr 20}MB")//如果超过这个空间，系统缓存不足的时候会最先删除您应用的缓存数据；另外这个空间是动态变化的
+//            codeCacheDir //存储应用程序生成的已编译或优化代码 这个是什么？？？
+            println("已经存在缓存大小----${storageManager.getCacheSizeBytes(uuid) shr 20}MB")//获取 已经存在的缓存大小，这个方法跟踪的缓存数据总是包括 Context.getCacheDir ()和 Context.getCodeCacheDir () ，如果主共享/外部存储与私有数据驻留在同一个存储设备上，它还包括 Context.getExternalCacheDir ()，配额大小 - 缓存大小 得出可以存储的大小
+        }//Android 不是java Path接口在Android 8+才添加
         //1.1.2.1 验证外部空间读写性
         println("isExternalStorageWritable------${isExternalStorageWritable()}")//验证是否可以写
         println("isExternalStorageReadable------${isExternalStorageReadable()}")//验证是否可以读
         //1.1.2.2 选择外部空间存储位置
         val externalStorageVolumes: Array<out File> =
             ContextCompat.getExternalFilesDirs(applicationContext, null)
-        externalStorageVolumes.map { it.absolutePath }.forEach(::println)
+        externalStorageVolumes.map { it.absolutePath }.forEach() {
+            println("外部存储空间挂载点------${it.toString()}")//如果有sd卡插槽，这里会返回几个外部存储空间
+        }
         println("第一个外部空间存储位置----${externalStorageVolumes[0]}") //有的设备提供多个sd插槽或者分配内部存储空间为外部存储空间。这两种情况下提供多个外部存储空间位置，使用第一个为主存储位置
 
-        //1.1.2.3 访问外部空间持久性文件
-        File(getExternalFilesDir(null), "inner").apply {
-            if (!exists()) createNewFile()
+        //1.1.2.3 访问外部专属空间持久性文件
+        File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "inner").apply {
+            if (!exists()) createNewFile() else println("Environment.DIRECTORY_DOCUMENTS存在")
         }//类型不为空，则会在files下面创建该文件夹，例如Environment.DIRECTORY_DOWNLOADS，则会创建Download文件夹
 
         //1.1.2.4 创建外部空间缓存文件
@@ -179,14 +190,18 @@ class StorageActivity : AppCompatActivity() {
         //4.2 清除外部存储空间缓存
         ACTION_CLEAR_APP_CACHE //允许用户清空外部存储空间缓存，显示一个对话框让用户自己选择，
         binding.button1.setOnClickListener {
-            startActivityForResult(Intent().apply { action = ACTION_CLEAR_APP_CACHE }, 110, null)
+//            startActivityForResult(Intent().apply { action = ACTION_CLEAR_APP_CACHE }, 110, null)
+            startActivity(Intent().apply { action = ACTION_CLEAR_APP_CACHE })
         }//FIXME 点了没反应
 
 
         //BufferedWriter(FileWriter(File(""),true))//续写文件 用 FileWriter,然后通过组合BufferedWriter 获得 带缓冲区、添加文本的 输出流
         //kotlin.io 扩展 https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/
         //kotlin.io.Path 扩展 https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/ TODO Path("")报错用不了，很奇怪。实验性质扩展不建议使用
-
+        //5. 挂载路径
+        storageManager.storageVolumes.forEach() {
+            println("挂载点------${it.directory?.absolutePath}-----挂载状态${it.state}")//小米k30 pro只有一个挂载点 /storage/emulated/0,模拟器除了上述挂载点还有 /storage/15EC-3213
+        }
     }
 
 
