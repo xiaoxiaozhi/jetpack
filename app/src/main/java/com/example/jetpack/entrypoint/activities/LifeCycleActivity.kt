@@ -33,7 +33,6 @@ class LifeCycleActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         println("onRestoreInstanceState----${savedInstanceState.get(TEXT)}")
-
     }
 
     /**

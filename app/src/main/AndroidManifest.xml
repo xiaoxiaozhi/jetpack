@@ -11,9 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
     <uses-permission android:name="android.permission.ACCEPT_HANDOVER"></uses-permission>
     <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -77,7 +75,7 @@
             <!--                    </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.room.RoomActivity2"></activity>
-        <activity android:name=".topics.appdatafiles.ContentProviderActivity" />
+        <activity android:name=".topics.appdatafiles.contentprovider.ContentProviderActivity" />
         <activity android:name=".topics.appdatafiles.MediaRelatedActivity" />
         <activity android:name=".topics.appdatafiles.SharedActivity">
             <!--            <intent-filter>-->
@@ -326,11 +324,25 @@
 
         <activity android:name=".topics.userinterface.layout.recycler.RecyclerActivity"></activity>
         <activity android:name="com.example.jetpack.topics.permission.PermissionActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+
+        <activity android:name=".topics.intent.IntentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".topics.intent.Intent1Activity">
+            <intent-filter>
+                <action android:name="com.example.jetpack.action" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
+

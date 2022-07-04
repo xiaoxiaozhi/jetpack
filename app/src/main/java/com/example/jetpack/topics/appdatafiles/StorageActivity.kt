@@ -1,5 +1,6 @@
 package com.example.jetpack.topics.appdatafiles
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
@@ -56,7 +58,7 @@ import java.util.*
  *    3.1 分区存储
  *        以 Android 10（API 级别 29）及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间专属目录访问权限（即分区存储）
  *        Android 4-9 不要权限也可以访问应用外部空间专属目录，其它目录需要WRITE_EXTERNAL_STORAGE权限。Android10  不要权限也可以访问应用外部空间专属目录，其它目录给了READ权限也访问不了
- *        停用分区存储  <application android:requestLegacyExternalStorage="true" ... >
+ *        停用分区存储  <application android:requestLegacyExternalStorage="true" ... > 该方案是一个过渡方案只在android10起效
  * 4. 查询可用存储空间(看下面例子)
  *    4.1 创建存储空间管理 activity：在清单文件中使用<application android:manageSpaceActivity  系统可以启动改类管理存储空间，即使 android:exported=false
  *        正常情况下，在设置--->应用信息界面，只有清除缓存一个按钮，点击会清楚全部缓存，但是一些重要的信息不想被清楚，设置manageSpaceActivity后
@@ -111,9 +113,7 @@ class StorageActivity : AppCompatActivity() {
         }
         //1.1.1.7 创建内部空间缓存文件
         File.createTempFile(//这种方式创建的 文件会在前缀和后缀之间生成一个随机数，虽然可以通过返回的File确定文件名但是这样做不太方便
-            filename,
-            ".txt",
-            cacheDir
+            filename, ".txt", cacheDir
         )//note:此缓存目录旨在存储应用的少量敏感数据。如需确定应用当前可用的缓存空间大小，请调用 getCacheQuotaBytes()。
         //      当设备的内部存储空间不足时，Android 可能会删除这些缓存文件以回收空间。因此，请在读取前检查缓存文件是否存在。
         File(cacheDir, "temp.txt").apply {
@@ -142,14 +142,14 @@ class StorageActivity : AppCompatActivity() {
         println("isExternalStorageWritable------${isExternalStorageWritable()}")//验证是否可以写
         println("isExternalStorageReadable------${isExternalStorageReadable()}")//验证是否可以读
         //1.1.2.2 选择外部空间存储位置
-        val externalStorageVolumes: Array<out File> =
-            ContextCompat.getExternalFilesDirs(applicationContext, null)
+        val externalStorageVolumes: Array<out File> = ContextCompat.getExternalFilesDirs(applicationContext, null)
         externalStorageVolumes.map { it.absolutePath }.forEach() {
             println("外部存储空间挂载点------${it.toString()}")//如果有sd卡插槽，这里会返回几个外部存储空间
         }
         println("第一个外部空间存储位置----${externalStorageVolumes[0]}") //有的设备提供多个sd插槽或者分配内部存储空间为外部存储空间。这两种情况下提供多个外部存储空间位置，使用第一个为主存储位置
 
         //1.1.2.3 访问外部专属空间持久性文件
+        ///storage/emulated/0/Android/data/com.example.jetpack/files/Documents/inner
         File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "inner").apply {
             if (!exists()) createNewFile() else println("Environment.DIRECTORY_DOCUMENTS存在")
         }//类型不为空，则会在files下面创建该文件夹，例如Environment.DIRECTORY_DOWNLOADS，则会创建Download文件夹
@@ -164,12 +164,12 @@ class StorageActivity : AppCompatActivity() {
         }//没有也不会报错
         //1.1.2.6 媒体内容要存储在外部空间专属位置
         getAppSpecificAlbumStorageDir(
-            this,
-            "pic1.jpg"
+            this, "pic1.jpg"
         )//务必保存在预定义的文件夹下面(使用Environment.下面的类型)  例如 DIRECTORY_PICTURES
         //4. 查询可用空间
         val NUM_BYTES_NEEDED_FOR_MY_APP = 1024 * 1024 * 10L;
 
+        //TODO getUuidForPath 找到兼容性方法
         val appSpecificInternalDirUuid: UUID = storageManager.getUuidForPath(filesDir)
         val availableBytes: Long =
             storageManager.getAllocatableBytes(appSpecificInternalDirUuid)  //查询给定存储设备上最多可以分配给应用多少存储空间，通常大于实际存储空间因为系统可以删除其它应用的catch文件。像录制视频这样需要无限量存储空间的需求，调用间隔应该大于30S
@@ -210,8 +210,9 @@ class StorageActivity : AppCompatActivity() {
     }
 
     fun isExternalStorageReadable(): Boolean {
-        return Environment.getExternalStorageState() in
-                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
+        return Environment.getExternalStorageState() in setOf(
+            Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY
+        )
     }
 
     fun getAppSpecificAlbumStorageDir(context: Context, albumName: String): File? {
