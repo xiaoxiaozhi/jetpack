@@ -6,19 +6,24 @@ import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.ParcelFileDescriptor
+import android.os.storage.StorageManager
 import android.provider.BaseColumns
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import com.example.jetpack.R
+import com.example.jetpack.databinding.ActivitySharedBinding
 import com.example.jetpack.haveStoragePermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -89,16 +94,31 @@ import java.util.concurrent.TimeUnit
  *       在android 10上测试，删除应用，重新安装应用并申请读写权限，在MediaStore.File上找一个文件(发现是删除应用前自己创建的文件)，写入数据结果通过
  *       在k30 pro android12 上测试 在MediaStore.File 上找到一个文件 ，读取和删除都报错RunningException，跟官网介绍的不一致。MediaStore.File 上其它应用创建的文件无法读取吗？？？
  *       在 MediaStore.Images 上找文件，读取时候报 RecoverableSecurityException 错误与预期一致。然后申请权限读写文件
+ *       如果您的应用在 Android 11 或更高版本上运行，您可以允许用户向应用授予对一组媒体文件的写入权限
+ * 10.移除项目
+ *    参照 9.2
+ * 11.检查媒体文件更新
+ *     MediaStore.getGeneration 还看不出来有什么用
+ * 12. 管理媒体文件组
+ *    在 Android 11 及更高版本中，您可以要求用户选择一组媒体文件，然后通过一次操作更新这些媒体文件
+ *    使用 createWriteRequest() 修改文件。
+ *    使用 createTrashRequest() 将文件移入和移出回收站。
+ *    使用 createDeleteRequest() 删除文件。
+ *    https://developer.android.google.cn/training/data-storage/shared/media#manage-groups-files
  *
  *   note:因为7.6 update操作经常出问题，要在次之前做好兼容工作
+ *   [MIME 类型列表](https://www.runoob.com/http/mime-types.html)
  *
  */
-class SharedActivity : AppCompatActivity() {
+class SharedMediaActivity : AppCompatActivity() {
     private val openSetting = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
-
+    private lateinit var binding: ActivitySharedBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shared)
+        binding = ActivitySharedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        //3. 返回媒体库版本
+        println("MediaStore Version -----${MediaStore.getVersion(this)}")
         if (!haveStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
                 if (!it && !ActivityCompat.shouldShowRequestPermissionRationale(
@@ -139,36 +159,20 @@ class SharedActivity : AppCompatActivity() {
         //9.2 更新其它应用创建的媒体文件
         //本例从第4节查询的文件选取一个，更改路径 被更改  Video(uri=content://media/external/video/media/24969, name=VID_20200810_152253.mp4, duration=16247, size=42043590, path=/storage/emulated/0/DCIM/Camera/VID_20200810_152253.mp4)
         //TODO 返回的是Unit 怎么处理
-        queryFirstFile()?.let { it ->
-            try {
-                OutputStreamWriter(
-                    ParcelFileDescriptor.AutoCloseOutputStream(
-                        contentResolver.openFileDescriptor(
-                            it.contentUri, "wa"
-                        )
-                    )
-                )
-//                lifecycleScope.launch(Dispatchers.IO) {
-//                    contentResolver.delete(
-//                        it.contentUri, "${MediaStore.Files.FileColumns._ID} = ?", arrayOf(it.id.toString())
-//                    ).apply { println("delete---$this") }
-//                }
-            } catch (securityException: SecurityException) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    val recoverableSecurityException =
-                        securityException as? RecoverableSecurityException ?: throw securityException
-                    println("recoverableSecurityException-----${recoverableSecurityException.message}")
-                    val intentSender = recoverableSecurityException.userAction.actionIntent.intentSender.let { sender ->
-//                        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){
-//
-//                        }.launch()
-                        startIntentSenderForResult(sender, 101, null, 0, 0, 0, null)
-                    }
-                } else {
-                    throw RuntimeException(securityException.message, securityException)
+        binding.button1.setOnClickListener {
+            updateFile2()
+        }
+
+        //11
+        val storageManager = applicationContext.getSystemService<StorageManager>()!!
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            println("storageVolumes----${storageManager.storageVolumes[0].mediaStoreVolumeName}")
+            storageManager.storageVolumes[0].mediaStoreVolumeName?.let {
+                MediaStore.getGeneration(this, it).also {
+                    println("getGeneration----$it")
                 }
             }
-        } ?: println("queryFirstFile()返回null")
+        }
     }
 
     private fun insertFile(): Uri {
@@ -248,6 +252,40 @@ class SharedActivity : AppCompatActivity() {
 
             }
         } ?: println("fileUri----$fileUri")
+    }
+
+    private fun updateFile2() {
+        queryFirstFile()?.let { it ->
+            try {
+                OutputStreamWriter(
+                    ParcelFileDescriptor.AutoCloseOutputStream(
+                        contentResolver.openFileDescriptor(
+                            it.contentUri, "wa"
+                        )
+                    )
+                )
+//                lifecycleScope.launch(Dispatchers.IO) {
+//                    contentResolver.delete(
+//                        it.contentUri, "${MediaStore.Files.FileColumns._ID} = ?", arrayOf(it.id.toString())
+//                    ).apply { println("delete---$this") }
+//                }
+            } catch (securityException: SecurityException) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val recoverableSecurityException =
+                        securityException as? RecoverableSecurityException ?: throw securityException
+                    println("recoverableSecurityException-----${recoverableSecurityException.message}")
+                    val intentSender = recoverableSecurityException.userAction.actionIntent.intentSender.let { sender ->
+                        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
+                            val thumbnail: Bitmap? = activityResult.data?.getParcelableExtra("data")
+                            val fullPhotoUri: Uri? = activityResult.data?.data
+                            println("thumbnail------$thumbnail    fullPhotoUri-----$fullPhotoUri")
+                        }.launch(IntentSenderRequest.Builder(sender).build())
+                    }
+                } else {
+                    throw RuntimeException(securityException.message, securityException)
+                }
+            }
+        } ?: println("queryFirstFile()返回null")
     }
 
     private fun queryFirstFile() = contentResolver.query(

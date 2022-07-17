@@ -1,12 +1,15 @@
 package com.example.jetpack.topics.intent
 
+import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityIntentBinding
 
@@ -62,6 +65,7 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *    7.6 文件存储 检索特定类型文件 打开特定类型文件
  *    7.7 音乐或视频 播放媒体文件 查询播放音乐
  *    ......具体看该页
+ * TODO IntentSender 与PendingIntent 区别不明 看文档看不出来不同
  */
 class IntentActivity : AppCompatActivity() {
     private val resultForActivity =
@@ -99,7 +103,24 @@ class IntentActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_TEXT, "q123")
                 type = "text/plain"
                 resolveActivity(packageManager)?.let {
-                    startActivity(Intent.createChooser(this, "123"))
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                        val pending = PendingIntent.getBroadcast(
+                            this@IntentActivity,
+                            101,
+                            Intent(this@IntentActivity, ShareBroadcastReceiver::class.java),
+                            PendingIntent.FLAG_CANCEL_CURRENT
+                        )
+                        startActivity(
+                            Intent.createChooser(
+                                this,
+                                "123",
+                                pending.intentSender
+                            )
+                        )//用户选择应用后，广播接收器会直到用户选择的是哪个应用
+                    } else {
+                        startActivity(Intent.createChooser(this, "123"))
+                    }
+
                 } ?: println("resolveActivity----null")
             }
         }

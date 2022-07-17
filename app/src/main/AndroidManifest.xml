@@ -12,6 +12,10 @@
     <uses-permission android:name="android.permission.ACCEPT_HANDOVER"></uses-permission>
     <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <application
         android:name=".MyApplication"
@@ -75,9 +79,20 @@
             <!--                    </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.room.RoomActivity2"></activity>
-        <activity android:name=".topics.appdatafiles.contentprovider.ContentProviderActivity" />
+        <activity android:name=".topics.appdatafiles.contentprovider.ContentProviderActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
         <activity android:name=".topics.appdatafiles.MediaRelatedActivity" />
-        <activity android:name=".topics.appdatafiles.SharedActivity">
+        <activity android:name=".topics.appdatafiles.SharedMediaActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.SharedDocumentActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
@@ -331,17 +346,28 @@
         </activity>
 
         <activity android:name=".topics.intent.IntentActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.intent.Intent1Activity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="com.example.jetpack.action" />-->
+            <!--                <category android:name="android.intent.category.DEFAULT" />-->
+            <!--            </intent-filter>-->
+        </activity>
+
+        <receiver
+            android:name=".topics.intent.ShareBroadcastReceiver"
+            android:exported="true" />
+        <activity android:name=".topics.userdataidentity.ContactsProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".topics.intent.Intent1Activity">
-            <intent-filter>
-                <action android:name="com.example.jetpack.action" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
     </application>
 
 </manifest>

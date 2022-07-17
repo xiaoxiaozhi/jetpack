@@ -3,6 +3,7 @@ package com.example.jetpack.topics.appdatafiles
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.storage.StorageManager
@@ -69,7 +70,7 @@ import java.util.*
  *  5. 挂载路径
  *     (官网没有提到)
  *
- *
+ *  [MIME 类型列表](https://www.runoob.com/http/mime-types.html)
  */
 class StorageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStorageBinding
@@ -199,9 +200,12 @@ class StorageActivity : AppCompatActivity() {
         //kotlin.io 扩展 https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/
         //kotlin.io.Path 扩展 https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/ TODO Path("")报错用不了，很奇怪。实验性质扩展不建议使用
         //5. 挂载路径
-        storageManager.storageVolumes.forEach() {
-            println("挂载点------${it.directory?.absolutePath}-----挂载状态${it.state}")//小米k30 pro只有一个挂载点 /storage/emulated/0,模拟器除了上述挂载点还有 /storage/15EC-3213
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            storageManager.storageVolumes.forEach() {
+                println("挂载点------${it.directory?.absolutePath}-----挂载状态${it.state}")//小米k30 pro只有一个挂载点 /storage/emulated/0,模拟器除了上述挂载点还有 /storage/15EC-3213
+            }
         }
+
     }
 
 
