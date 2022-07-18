@@ -28,15 +28,17 @@ import kotlinx.coroutines.launch
  *     note:由于API 23开始，UserDictionary.Words.CONTENT_URI 只能通过 IME 和[拼写检查器访问] 所以官网例子无法运行
  *    note：ContentResolver.query()应在线程中执行
  * 4. ContentProvider数据类型
- *    cursor?.getType()//获取该列的数据类型
- *    contentResolver.getType()
+ *    cursor?.getType()//获取该列的数据类型 contentResolver.getType(uri) 获取数据类型
  * 5. ContentProvider访问方式
  *    5.1 批量访问 @see MyContentProvider#applyBatch()
  *    5.2 contentResolver.query 异步查询（在线程中调用该代码实现异步）
- *    5.3 通过Intent访问数据
- * N.使用“存储访问框架”打开文件 SAF
- *   借助 SAF，用户可轻松浏览和打开各种文档、图片及其他文件，而不用管这些文件来自其首选文档存储提供程序中的哪一个。
-
+ *    5.3 通过Intent访问数据 查看 @see IntentActivity
+ * 6.使用“存储访问框架”打开文件 SAF
+ *   借助 SAF，用户可轻松浏览和打开各种文档、图片及其他文件，而不用管这些文件来自其首选文档存储提供程序中的哪一个。跨所有应用和提供程序以统一的方式浏览文件并访问最近用过的文件
+ *   SAF包含一下几种
+ *   6.1 文档提供程序  DocumentsProvider
+ *   6.2 客户端应用 - 一种定制化的应用，它会调用 ACTION_CREATE_DOCUMENT、ACTION_OPEN_DOCUMENT 和 ACTION_OPEN_DOCUMENT_TREE intent 操作并接收文档提供程序返回的文件。
+ *   6.3 选择器 - 一种系统界面，可让用户访问所有文档提供程序内满足客户端应用搜索条件的文档。
  */
 class ContentProviderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

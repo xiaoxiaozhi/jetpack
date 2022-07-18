@@ -8,7 +8,10 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 
-
+/**
+ * 创建ContentProvider
+ * TODO 待总结
+ */
 class MyContentProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         TODO("Not yet implemented")

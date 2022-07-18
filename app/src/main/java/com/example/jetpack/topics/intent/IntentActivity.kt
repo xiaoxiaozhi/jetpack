@@ -3,6 +3,7 @@ package com.example.jetpack.topics.intent
 import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Intent
+import android.content.Intent.*
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -32,9 +33,9 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *            操作分为两类 ACTION_VIEW 和 ACTION_SEND。
  *            前者 向用户显示的信息（例如，要使用图库应用查看的照片；或者要使用地图应用查看的地址）  k30pro 测试发现需要加上type 否则找不到组件而报错 type = "text/plain"
  *            后者如果您拥有一些用户可通过其他应用（例如，电子邮件应用或社交共享应用）共享的数据，
- *    3.3 数据 应用的数据类型通常由Action决定，如果操作是 ACTION _ EDIT，则数据应包含要编辑的文档的 URI。 setData(设置contentUri) setType(设置MIME类型) setDataAndType(两个都设置)
+ *    3.3 数据 应用的数据类型通常由Action决定，如果操作是 ACTION_EDIT，则数据应包含要编辑的文档的 URI。 setData(设置contentUri) setType(设置MIME类型) setDataAndType(两个都设置)
  *    3.4 类别 处理该Intent的组件的附加信息，使用 addCategory()设置 一个Intent中可以包含任意数量的类别，但是大多数Intent都不需要。常见的有 CATEGORY_BROWSABLE，处理该Intent的组件是个web浏览器处理
- *            CATEGORY_LAUNCHER 处理该Intent的组件是一个任务的初始Activity
+ *            CATEGORY_LAUNCHER 处理该Intent的组件是一个任务的初始Activity 。CATEGORY_OPENABLE 对返回的数据进行读写操作
  *    3.5 Extra 一个键值对使用putExtra()设置，如果有多个Extra使用putExtras(Bundle).类似使用URI的操作。有些操作不使用URI使用Extra. 系统已经在Intent中定义了多种Extra。如需自己定义请使用
  *              确保将应用的软件包名称作为前缀 EXTRA_GIGAWATTS = "com.example.jetpack.EXTRA_GIGAWATTS"
  *    3.6 标志 查看 TaskBackStackActivity
@@ -63,6 +64,9 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *    7.4 联系人/人员应用
  *    7.5 电子邮件
  *    7.6 文件存储 检索特定类型文件 打开特定类型文件
+ *        [ACTION_GET_CONTENT与ACTION_PICK区别](https://blog.csdn.net/chengfu116/article/details/74923161)
+ *        7.6.2 打开特定类型的文件 7.6.3 创建特定类型文件 对返回的URI，使用openFileDescriptor() 写入
+ *
  *    7.7 音乐或视频 播放媒体文件 查询播放音乐
  *    ......具体看该页
  * TODO IntentSender 与PendingIntent 区别不明 看文档看不出来不同
@@ -71,7 +75,16 @@ class IntentActivity : AppCompatActivity() {
     private val resultForActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
             val thumbnail: Bitmap? = activityResult.data?.getParcelableExtra("data")
+            //单选时返回
             val fullPhotoUri: Uri? = activityResult.data?.data
+            //多选时返回
+            val count = activityResult.data?.clipData?.itemCount
+            activityResult.data?.clipData?.takeIf { it.itemCount > 0 }?.also { clipData ->
+                for (item in 0 until clipData.itemCount) {
+                    println(clipData.getItemAt(item).uri.toString())
+                }
+            }
+
             println("thumbnail------$thumbnail    fullPhotoUri-----$fullPhotoUri")
         }
     private lateinit var binding: ActivityIntentBinding
@@ -112,9 +125,7 @@ class IntentActivity : AppCompatActivity() {
                         )
                         startActivity(
                             Intent.createChooser(
-                                this,
-                                "123",
-                                pending.intentSender
+                                this, "123", pending.intentSender
                             )
                         )//用户选择应用后，广播接收器会直到用户选择的是哪个应用
                     } else {
@@ -125,12 +136,37 @@ class IntentActivity : AppCompatActivity() {
             }
         }
 
-        //7.6 返回特定文件
+        //7.6.1返回特定类型文件
+        //本例是获取图片应当注意ACTION_GET_CONTENT获取的是所有本地图片， Intent.ACTION_PICK获取的是相册中的图片。后者针对具体的contentProvider，获取联系人也是用ACTION_PICK
+        //between ACTION_GET_CONTENT and ACTION_OPEN_DOCUMENT 前者返回的URI是文件的副本一段时间后会消失，后者返回真正的文件.TODO 实际测试发现返回的URI是一样的
         binding.button4.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
+                putExtra(EXTRA_ALLOW_MULTIPLE, true) //是否多选 长按才能激活多选
+//                extras.putBoolean(EXTRA_LOCAL_ONLY,true) //返回的文件必须在本地而不是 在远程服务器
+//                addCategory(CATEGORY_OPENABLE) //如果 需要对返回的 数据进行
                 resultForActivity.launch(this)
-            } ?: println("返回特定文件 null")
+            }
+        }
+        //7.6.2 打开特定文件
+        binding.button5.setOnClickListener {
+            Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                type = "image/*"
+                putExtra(EXTRA_ALLOW_MULTIPLE, true) //是否多选 长按才能激活多选
+                println("extras----$extras")
+//                extras.putBoolean(EXTRA_LOCAL_ONLY,true) //返回的文件必须在本地而不是 在远程服务器
+
+                addCategory(CATEGORY_OPENABLE) //如果 需要对返回的 数据进行
+                resultForActivity.launch(this)
+            }
+        }
+        //7.6.3 创建特定类型文件
+        binding.button6.setOnClickListener {
+            Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                type = "text/plain"
+                putExtra(EXTRA_TITLE, "文件ming.txt")//文件名称
+                resultForActivity.launch(this)
+            }
         }
     }
 }
