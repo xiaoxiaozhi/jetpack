@@ -63,7 +63,7 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *    7.3 相机 拍摄照片或视频并将其返回  以静态图像模式启动相机应用 以视频模式启动相机应用
  *    7.4 联系人/人员应用
  *    7.5 电子邮件
- *    7.6 文件存储 检索特定类型文件 打开特定类型文件
+ *    7.6 文件存储 使用SAF存储访问框架
  *        [ACTION_GET_CONTENT与ACTION_PICK区别](https://blog.csdn.net/chengfu116/article/details/74923161)
  *        7.6.2 打开特定类型的文件 7.6.3 创建特定类型文件 对返回的URI，使用openFileDescriptor() 写入
  *
@@ -153,10 +153,8 @@ class IntentActivity : AppCompatActivity() {
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 type = "image/*"
                 putExtra(EXTRA_ALLOW_MULTIPLE, true) //是否多选 长按才能激活多选
-                println("extras----$extras")
-//                extras.putBoolean(EXTRA_LOCAL_ONLY,true) //返回的文件必须在本地而不是 在远程服务器
-
-                addCategory(CATEGORY_OPENABLE) //如果 需要对返回的 数据进行
+//                putExtra(EXTRA_LOCAL_ONLY, true) //返回的文件必须在本地而不是 在远程服务器
+//                addCategory(CATEGORY_OPENABLE) //如果 需要对返回的 数据进行读写操作
                 resultForActivity.launch(this)
             }
         }

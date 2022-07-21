@@ -184,7 +184,6 @@ class StorageActivity : AppCompatActivity() {
                 // "action" to ACTION_CLEAR_APP_CACHE.
                 action = ACTION_MANAGE_STORAGE
             }
-            ACTION_MANAGE_STORAGE
             startActivity(storageIntent)
         }//还有另一种方法，在不知道所需的确切存储空间时候，不事先调用getAllocatableBytes和allocateBytes，直接写入文件，出现 IOException 时将其捕获，catch里面处理
 
@@ -227,7 +226,7 @@ class StorageActivity : AppCompatActivity() {
                 Environment.DIRECTORY_PICTURES
             ), albumName
         )
-        if (!file?.mkdirs()) {
+        if (!file?.mkdirs()!!) {
             Log.e("FileError", "Directory not created")
         }
         return file

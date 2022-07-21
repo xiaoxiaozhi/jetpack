@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
  *    5.1 批量访问 @see MyContentProvider#applyBatch()
  *    5.2 contentResolver.query 异步查询（在线程中调用该代码实现异步）
  *    5.3 通过Intent访问数据 查看 @see IntentActivity
- * 6.使用“存储访问框架”打开文件 SAF
+ * 6.使用“存储访问框架”打开文件 SAF 查看 @see IntentActivity
  *   借助 SAF，用户可轻松浏览和打开各种文档、图片及其他文件，而不用管这些文件来自其首选文档存储提供程序中的哪一个。跨所有应用和提供程序以统一的方式浏览文件并访问最近用过的文件
  *   SAF包含一下几种
  *   6.1 文档提供程序  DocumentsProvider
