@@ -9,6 +9,8 @@ import android.os.Environment
 import android.os.storage.StorageManager
 import android.os.storage.StorageManager.ACTION_CLEAR_APP_CACHE
 import android.os.storage.StorageManager.ACTION_MANAGE_STORAGE
+import android.provider.Settings
+import android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -55,7 +57,9 @@ import java.util.*
  *    默认情况下，应用本身存储在内部存储空间中。不过，如果您的 APK 非常大，在manifest文件中指明存储在外部空间
  *    android:installLocation="preferExternal"
  * 3. 对外部存储空间的访问权限
- *    Android 11 引入了 MANAGE_EXTERNAL_STORAGE 权限，该权限提供对应用专属目录和 MediaStore 之外文件的写入权限。TODO
+ *    Android 11 引入了 MANAGE_EXTERNAL_STORAGE 权限，该权限提供对应用专属目录和 MediaStore 之外文件的写入权限。[看这里，举了个防病毒的例子](https://developer.android.google.cn/training/data-storage/manage-all-files#all-files-access)
+ *    使用 ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION intent 操作将用户引导至一个系统设置页面，在该页面上，用户可以为您的应用启用以下选项：授予所有文件的管理权限。
+ *    如需确定您的应用是否已获得 MANAGE_EXTERNAL_STORAGE 权限，请调用 Environment.isExternalStorageManager()。
  *    3.1 分区存储
  *        以 Android 10（API 级别 29）及更高版本为目标平台的应用在默认情况下被授予了对外部存储空间专属目录访问权限（即分区存储）
  *        Android 4-9 不要权限也可以访问应用外部空间专属目录，其它目录需要WRITE_EXTERNAL_STORAGE权限。Android10  不要权限也可以访问应用外部空间专属目录，其它目录给了READ权限也访问不了
@@ -67,9 +71,11 @@ import java.util.*
  *    4.2 清除外部存储空间缓存
  *        ACTION_CLEAR_APP_CACHE ：该 操作会严重影响设备的电池续航时间，并且可能会从设备上移除大量的文件。Android 11 API30
  *
- *  5. 挂载路径
+ * 5. 挂载路径
  *     (官网没有提到)
- *
+ * 6. 存储用例最佳实践
+ *    [处理媒体文件](https://developer.android.google.cn/training/data-storage/use-cases#handle-media-files)
+ *    [处理非媒体文件](https://developer.android.google.cn/training/data-storage/use-cases#handle-non-media-files)
  *  [MIME 类型列表](https://www.runoob.com/http/mime-types.html)
  */
 class StorageActivity : AppCompatActivity() {
@@ -167,6 +173,17 @@ class StorageActivity : AppCompatActivity() {
         getAppSpecificAlbumStorageDir(
             this, "pic1.jpg"
         )//务必保存在预定义的文件夹下面(使用Environment.下面的类型)  例如 DIRECTORY_PICTURES
+        //3.对外部存储空间的访问权限
+        binding.button2.setOnClickListener {
+            if (Environment.isExternalStorageManager()) {
+                println("已经获取 MANAGE_EXTERNAL_STORAGE权限")
+            } else {
+                //引导应用获取权限
+                Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION).apply {
+                    startActivity(this)
+                }
+            }
+        }
         //4. 查询可用空间
         val NUM_BYTES_NEEDED_FOR_MY_APP = 1024 * 1024 * 10L;
 

@@ -93,22 +93,28 @@
             <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.SharedDocumentActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.StorageActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
-        <activity android:name=".topics.appdatafiles.DocumentFileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".topics.appdatafiles.DocumentFileActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.DocumentsContractActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.TestActivity" />
         <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle3Activity" />
@@ -355,10 +361,10 @@
             <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.intent.Intent1Activity">
-            <intent-filter>
-                <action android:name="com.example.jetpack.action" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!--        <intent-filter>-->
+            <!--            <action android:name="com.example.jetpack.action" />-->
+            <!--            <category android:name="android.intent.category.DEFAULT" />-->
+            <!--        </intent-filter>-->
         </activity>
 
         <receiver
