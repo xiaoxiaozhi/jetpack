@@ -1,20 +1,14 @@
-package com.example.jetpack.topics.navigation
+package com.example.jetpack.appnavigaion.fragment
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
+import androidx.transition.ChangeBounds
+import androidx.transition.Slide
 import com.example.jetpack.R
-import com.example.jetpack.databinding.FragmentProfileBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,48 +17,38 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
+ * Use the [ManagerFragment2.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : Fragment() {
+class ManagerFragment2 : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var dataBinding: FragmentProfileBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        val currentBackStackEntry = findNavController().currentBackStackEntry!!
-        val savedStateHandle = currentBackStackEntry.savedStateHandle
-        savedStateHandle.getLiveData<Boolean>(LoginFragment.LOGIN_SUCCESSFUL)
-            .observe(currentBackStackEntry, Observer { success ->
-                println("-------LoginFragment.LOGIN_SUCCESSFUL = $success")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    dataBinding.text1.append("---$success")
-                }
-            })
-//        lifecycleScope.launch {
-//            delay(1000)
-//            findNavController().navigate(R.id.loginFragment)
-//        }
+//        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+//            .inflateTransition(R.transition.shared_image)//指定共享元素进入方式
+        sharedElementEnterTransition = ChangeBounds();
+        enterTransition = Slide(Gravity.RIGHT);
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dataBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_profile, container, false)
-        return dataBinding.root
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_manager2, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+//        val heroImageView = view.findViewById<ImageView>(R.id.hero_image)
+//        ViewCompat.setTransitionName(heroImageView, "item_image")
     }
 
     companion object {
@@ -74,12 +58,12 @@ class ProfileFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
+         * @return A new instance of fragment ManagerFragment2.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
+            ManagerFragment2().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

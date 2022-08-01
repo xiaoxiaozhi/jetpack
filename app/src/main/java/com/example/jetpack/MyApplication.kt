@@ -4,12 +4,26 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.hardware.camera2.CameraMetadata.LENS_FACING_FRONT
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import androidx.camera.camera2.Camera2Config
+import androidx.camera.camera2.internal.Camera2CameraFactory
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.CameraSelector.LENS_FACING_BACK
+import androidx.camera.core.CameraXConfig
+import androidx.camera.core.impl.CameraFactory
+import androidx.camera.core.impl.CameraThreadConfig
 import dagger.hilt.android.HiltAndroidApp
 
 
 @HiltAndroidApp
-class MyApplication : Application() {
+class MyApplication : Application()
+//    , CameraXConfig.Provider
+{
+
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
@@ -28,72 +42,59 @@ class MyApplication : Application() {
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_ID1,
-                    "特殊通知",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "启动特殊通知"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_ID1, "特殊通知", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "启动特殊通知"
+            })
 
             //注册进度条通知
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_PROGRESS,
-                    "显示进度条",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "用通知显示进度"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_PROGRESS, "显示进度条", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "用通知显示进度"
+            })
             //注册全屏通知
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_FULL,
-                    "全屏通知",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "显示全屏通知"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_FULL, "全屏通知", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "显示全屏通知"
+            })
             //注册即时通讯通知
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_MESSAGE,
-                    "即时通讯",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "显示即时通讯"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_MESSAGE, "即时通讯", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "显示即时通讯"
+            })
             //大图片
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_PICTURE,
-                    "大图片",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "显示大图片"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_PICTURE, "大图片", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "显示大图片"
+            })
             //收件箱式通知
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_INBOX,
-                    "收件箱样式通知",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "显示通知"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_INBOX, "收件箱样式通知", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "显示通知"
+            })
             //多媒体通知
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_MEDIA,
-                    "多媒体通知",
-                    NotificationManager.IMPORTANCE_DEFAULT
-                ).apply {
-                    description = "显示多媒体通知"
-                })
+            notificationManager.createNotificationChannel(NotificationChannel(
+                CHANNEL_MEDIA, "多媒体通知", NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "显示多媒体通知"
+            })
 
         } else {
             println("--------sdk小于android O 26----------")
         }
     }
+
+//    override fun getCameraXConfig(): CameraXConfig {
+//        return CameraXConfig.Builder.fromConfig(Camera2Config.defaultConfig())//查看defaultConfig()源码会发现，那三个Provider是必须的，否则会报错。配置主要在下面几行代码体现
+//            .setAvailableCamerasLimiter(CameraSelector.DEFAULT_FRONT_CAMERA).setCameraExecutor(mainExecutor)
+//            .setMinimumLoggingLevel(Log.INFO).setSchedulerHandler(Handler(Looper.getMainLooper()))
+//            .build()//从 Camera2Config 获取配置
+//
+//    }
 }

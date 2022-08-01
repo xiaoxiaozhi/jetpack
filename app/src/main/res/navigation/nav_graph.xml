@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/scrollingFragment"
-        android:name="com.example.jetpack.topics.navigation.ScrollingFragment"
+        android:name="com.example.jetpack.appnavigaion.navigation.ScrollingFragment"
         android:label="fragment_scrolling"
         tools:layout="@layout/fragment_scrolling">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/blankFragment"
-        android:name="com.example.jetpack.topics.navigation.BlankFragment"
+        android:name="com.example.jetpack.appnavigaion.navigation.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_blank">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/thirdFragment"
-        android:name="com.example.jetpack.topics.navigation.ThirdFragment"
+        android:name="com.example.jetpack.appnavigaion.navigation.ThirdFragment"
         android:label="ThirdFragment">
         <action
             android:id="@+id/action_thirdFragment_to_scrollingFragment"
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/deepLinkFragment"
-        android:name="com.example.jetpack.topics.navigation.DeepLinkFragment"
+        android:name="com.example.jetpack.appnavigaion.navigation.DeepLinkFragment"
         android:label="fragment_deep_link"
         tools:layout="@layout/fragment_deep_link">
         <!--为目的地添加<deepLink/>标签-->
@@ -46,12 +46,12 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.jetpack.topics.navigation.LoginFragment"
+        android:name="com.example.jetpack.appnavigaion.navigation.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.jetpack.topics.navigation.ProfileFragment"
+        android:name="com.example.jetpack.appnavigaion.navigation.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

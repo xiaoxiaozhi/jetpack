@@ -1,17 +1,13 @@
-package com.example.jetpack.fragment
+package com.example.jetpack.appnavigaion.navigation
 
 import android.os.Bundle
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.view.ViewCompat
-import androidx.transition.ChangeBounds
-import androidx.transition.Slide
-import androidx.transition.TransitionInflater
+import androidx.databinding.DataBindingUtil
 import com.example.jetpack.R
+import com.example.jetpack.databinding.FragmentDeepLinkBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,38 +16,39 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ManagerFragment2.newInstance] factory method to
+ * Use the [DeepLinkFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ManagerFragment2 : Fragment() {
+class DeepLinkFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    lateinit var dataBinding: FragmentDeepLinkBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-//        sharedElementEnterTransition = TransitionInflater.from(requireContext())
-//            .inflateTransition(R.transition.shared_image)//指定共享元素进入方式
-        sharedElementEnterTransition = ChangeBounds();
-        enterTransition = Slide(Gravity.RIGHT);
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manager2, container, false)
+        dataBinding = DataBindingUtil.inflate<FragmentDeepLinkBinding>(
+            layoutInflater,
+            R.layout.fragment_deep_link,
+            container,
+            false
+        )
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        dataBinding.text2.text = arguments?.getString("params")
         super.onViewCreated(view, savedInstanceState)
-//        val heroImageView = view.findViewById<ImageView>(R.id.hero_image)
-//        ViewCompat.setTransitionName(heroImageView, "item_image")
     }
 
     companion object {
@@ -61,12 +58,12 @@ class ManagerFragment2 : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ManagerFragment2.
+         * @return A new instance of fragment DeepLinkFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ManagerFragment2().apply {
+            DeepLinkFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

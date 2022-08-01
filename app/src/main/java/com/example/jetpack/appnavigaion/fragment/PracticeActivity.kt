@@ -1,4 +1,4 @@
-package com.example.jetpack.fragment
+package com.example.jetpack.appnavigaion.fragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

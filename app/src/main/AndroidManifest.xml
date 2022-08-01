@@ -56,7 +56,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".topics.navigation.NavigationActivity">
+        <activity android:name="com.example.jetpack.appnavigaion.navigation.NavigationActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
 
@@ -93,28 +93,28 @@
             <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.SharedDocumentActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.StorageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.DocumentFileActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.DocumentsContractActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.TestActivity" />
         <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle3Activity" />
@@ -277,7 +277,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".fragment.TransactionActivity">
+        <activity android:name="com.example.jetpack.appnavigaion.fragment.TransactionActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -286,7 +286,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".fragment.FragmentManagerActivity">
+        <activity android:name="com.example.jetpack.appnavigaion.fragment.FragmentManagerActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -295,7 +295,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".fragment.PracticeActivity" />
+        <activity android:name="com.example.jetpack.appnavigaion.fragment.PracticeActivity" />
         <activity android:name=".MainActivity">
 
             <!-- <intent-filter> -->
@@ -346,7 +346,7 @@
                 android:value="androidx.startup"></meta-data>
         </provider>
 
-        <activity android:name=".topics.userinterface.layout.recycler.RecyclerActivity"></activity>
+        <activity android:name=".topics.userinterface.layout.recycler.RecyclerActivity" />
         <activity android:name="com.example.jetpack.topics.permission.PermissionActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -378,7 +378,26 @@
             <!--            </intent-filter>-->
         </activity>
 
+        <activity android:name=".topics.backgroundtask.ListenableFutureActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.userinterface.SplashActivity">
 
+        </activity>
+        <activity
+            android:name="com.example.jetpack.topics.userinterface.appbar.ToolBarActivity"
+            android:theme="@style/ToolbarTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".topics.userinterface.appbar.ToolBar1Activity"
+            android:parentActivityName=".topics.userinterface.appbar.ToolBarActivity"></activity>
     </application>
 
 </manifest>

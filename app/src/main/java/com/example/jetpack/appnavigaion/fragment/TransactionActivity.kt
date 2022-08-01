@@ -1,8 +1,7 @@
-package com.example.jetpack.fragment
+package com.example.jetpack.appnavigaion.fragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 

@@ -1,9 +1,8 @@
-package com.example.jetpack.topics.navigation
+package com.example.jetpack.appnavigaion.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
@@ -83,11 +82,9 @@ class NavigationActivity : AppCompatActivity() {
             println("arguments--------${arguments?.getString("name")}")
         }
         //9.2
-        val appBarConfiguration =
-            AppBarConfiguration(findNavController(R.id.nav_host_fragment).graph)
+        val appBarConfiguration = AppBarConfiguration(findNavController(R.id.nav_host_fragment).graph)
         binding.toolbar.setupWithNavController(
-            findNavController(R.id.nav_host_fragment),
-            appBarConfiguration
+            findNavController(R.id.nav_host_fragment), appBarConfiguration
         )
     }
     //Activity将它的 back键点击事件的委托出去，如果当前并非栈中顶部的Fragment, 那么点击back键，返回上一个Fragment。

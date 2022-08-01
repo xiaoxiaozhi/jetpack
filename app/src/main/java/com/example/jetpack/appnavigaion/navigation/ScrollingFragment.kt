@@ -1,4 +1,4 @@
-package com.example.jetpack.topics.navigation
+package com.example.jetpack.appnavigaion.navigation
 
 import android.os.Bundle
 import android.view.LayoutInflater
