@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- provide a different drawable for each state-->
+    <item
+        android:id="@+id/pressed"
+        android:drawable="@drawable/press_true"
+        android:state_pressed="true" />
+    <item
+        android:id="@+id/focused"
+        android:drawable="@drawable/press_false"
+        android:state_focused="true" />
+    <item
+        android:id="@+id/unpressed"
+        android:drawable="@drawable/press_true"
+        android:state_pressed="false" />
+
+    <!-- 从按压到松开 之间播放动画-->
+    <transition
+        android:fromId="@+id/pressed"
+        android:toId="@+id/unpressed">
+        <animation-list>
+            <item
+                android:drawable="@drawable/brightness_1_24"
+                android:duration="100" />
+            <item
+                android:drawable="@drawable/brightness_2_24"
+                android:duration="100" />
+            <item
+                android:drawable="@drawable/press_true"
+                android:duration="100" />
+        </animation-list>
+    </transition>
+
+    <!--从松开到按压 之间播放动画-->
+    <transition
+        android:fromId="@+id/unpressed"
+        android:toId="@+id/pressed">
+        <animation-list>
+            <item
+                android:drawable="@drawable/brightness_2_24"
+                android:duration="100" />
+            <item
+                android:drawable="@drawable/brightness_1_24"
+                android:duration="100" />
+
+        </animation-list>
+    </transition>
+</animated-selector>

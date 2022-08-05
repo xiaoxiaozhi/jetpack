@@ -34,6 +34,18 @@
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
         </activity>
+        <activity android:name=".topics.anim.PropertyAnimationActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.anim.AnimatedVectorActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".topics.network.RetrofitActivity"
             android:exported="false" />
@@ -390,14 +402,22 @@
         <activity
             android:name="com.example.jetpack.topics.userinterface.appbar.ToolBarActivity"
             android:theme="@style/ToolbarTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".topics.userinterface.appbar.ToolBar1Activity"
-            android:parentActivityName=".topics.userinterface.appbar.ToolBarActivity"></activity>
+            android:parentActivityName=".topics.userinterface.appbar.ToolBarActivity" />
+        <activity
+            android:name=".topics.userinterface.statusbar.StatusBarActivity"
+            android:theme="@style/StatusBarActivityTheme">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

@@ -4,10 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1595" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ad_list.xml" value="0.164" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/add_24.xml" value="0.1435" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/animate_scale.xml" value="0.1435" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/animate_state.xml" value="0.2095" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/brightness_1_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/expand_collapse.xml" value="0.142" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/filter_3_24.xml" value="0.1435" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic__search_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.156" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_brightness_3_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1595" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/press_default.xml" value="0.1435" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/press_false.xml" value="0.1435" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/press_true.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/refresh_24.xml" value="0.142" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/text_inset.xml" value="0.142" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_animations.xml" value="0.3333333333333333" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_camera.xml" value="0.346875" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_camera2.xml" value="0.2826086956521739" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_contacts_provider.xml" value="0.346875" />
@@ -21,6 +34,7 @@
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_retrofit.xml" value="0.18697916666666667" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_room.xml" value="0.2866847826086957" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_shared_document.xml" value="0.2826086956521739" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_status_bar.xml" value="0.1" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_storage.xml" value="0.27898550724637683" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_tool_bar.xml" value="0.24547101449275363" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_tool_bar1.xml" value="0.24547101449275363" />

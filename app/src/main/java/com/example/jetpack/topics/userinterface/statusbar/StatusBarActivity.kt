@@ -30,7 +30,10 @@ import com.example.jetpack.databinding.ActivityStatusBarBinding
  *    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE 从屏幕上下边缘滑动临时显示系统栏，几秒种后小时
  * 5. 刘海屏
  * 6. 控制软键盘
- *TODO Insets 是什么东西
+ *
+ * Insets 偏移量
+ * InsetDrawable
+ * WindowInsets 系统窗口的偏移量，insets.top代表状态栏的高度，insets.bottom 代表导航栏高度
  */
 class StatusBarActivity : AppCompatActivity() {
     lateinit var binding: ActivityStatusBarBinding
@@ -51,8 +54,7 @@ class StatusBarActivity : AppCompatActivity() {
                 bottomMargin = insets.bottom
                 rightMargin = insets.right
             }
-            // Return CONSUMED if you don't want want the window insets to keep being
-            // passed down to descendant views.
+            // Return CONSUMED if you don't want want the window insets to keep being passed down to descendant views.
             WindowInsetsCompat.CONSUMED
         }
         //4. 沉浸模式
