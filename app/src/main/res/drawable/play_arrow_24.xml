@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:tint="#000000"
+    android:viewportWidth="10"
+    android:viewportHeight="10">
+    <!-- viewportWidth/height 虚拟坐标看不明白什么意思
+         group
+             pivotX 旋转中心横坐标
+             pivotY 旋转中心纵坐标
+       -->
+    <group
+        android:name="group"
+        android:pivotX="5"
+        android:pivotY="5"
+        android:rotation="0">
+        <path
+            android:name="path"
+            android:fillColor="@android:color/white"
+            android:pathData="M 3,2 L 7,5 L7,5 L3,5z M 3,8 L7,5 L7,5 L3,5z" />
+    </group>
+
+</vector>

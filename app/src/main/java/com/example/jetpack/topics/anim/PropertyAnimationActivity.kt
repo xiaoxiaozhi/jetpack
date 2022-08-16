@@ -1,10 +1,13 @@
 package com.example.jetpack.topics.anim
 
 import android.animation.*
+import android.graphics.Path
 import android.graphics.PointF
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
+import android.view.animation.PathInterpolator
 
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,13 +16,6 @@ import com.example.jetpack.databinding.ActivityPropertyAnimationBinding
 
 /**
  * [md动画设计准则](https://material.io/design/motion/understanding-motion.html#principles)
- * 1. 为Drawable添加动画
- *    1.1 AnimationDrawable
- *        这是一种传统动画，使用一系列不同的图片创建而成，然后像一卷胶卷一样按顺序播放。用AnimationDrawable类 API 比较麻烦建议在xml中定义
- *        Android 项目的 res/drawable/ 目录中。创建 <animation-list>
- *        note:在onCreate 中调用start动画不能执行 因为控件尚未加载到窗口
- *    1.2 AnimatedVectorDrawable
- *        <animated-vector>
  * 2. 布局和属性动画
  *    使用ValueAnimator为动画播放期间某些类型的值添加动画效果 工厂方法 ofFloat ofInt ofArgb 自带相应求值器，使用ofObject 需要自己自定义求值器 在xml中的标签是<animator>
  *    插值器：如何根据时间计算动画中的特定值 [系统定义的插值器](https://developer.android.google.cn/guide/topics/graphics/prop-animation#property-vs-view)
@@ -30,10 +26,10 @@ import com.example.jetpack.databinding.ActivityPropertyAnimationBinding
  *        ObjectAnimator是ValueAnimator的子类简化为对象添加动画效果的过程，要添加动画效果的对象属性必须是setPropertyName()形式的函数，例如属性foo则需要使用 setFoo() 函数
  *        如果setPropertyName() 方法不存在，您有两个选择：自定义setPropertyName() 、 改用 ValueAnimator
  *        ObjectAnimator.ofFloat(targetObject, "propName", 1f) 工厂方法中仅有一个 values，则系统会假定它是动画的结束值。要添加动画效果的对象属性必须具有用于获取动画起始值的 getter 函数
- *        在xml文件中的标签是<objectAnimator>
+ *        在res/animator xml文件中的标签是<objectAnimator>
  *        note: 为自定义属性添加动画的时候要在 addUpdateListener调用invalidate()让视图重新绘制，这样才能看到动画效果
  *    2.2 AnimatorSet 动画集
- *        播放一组动画能设定先后顺序,在xml中的标签是<set> 重复模式只能在子动画中设置
+ *        播放一组动画能设定先后顺序,在res/animator xml中的标签是<set> 重复模式只能在子动画中设置
  *    2.3 动画监听器
  *        2.3.1 Animator.AnimatorListener 动画重要节点回调
  *              用这个抽象类AnimatorListenerAdapter不用每个都重写
@@ -53,6 +49,9 @@ import com.example.jetpack.databinding.ActivityPropertyAnimationBinding
  *    2.7 使用ViewPropertyAnimator添加属性动画
  *        PropertyValuesHolder和ObjectAnimator 添加属性动画麻烦，系统封装了ViewPropertyAnimator简化流程, 不支持repeatCount 和 repeatMode，2.7的代码保存了初始值，反向动画让他支持repeat
  *        withEndAction/StartAction 动画开始个结束回调是一次性的动画执行结束就会删除。
+ * 3.曲线动画
+ *   使用贝塞尔插值器 PathInterpolator,[贝塞尔曲线可视化工具](https://cubic-bezier.com/#.16,.79,1,1.28) 贝塞尔曲线最重要的用法我觉得是笔画 圆润
+ *   [贝塞尔曲线计算方式](https://juejin.cn/post/6844903666361565191) 在xml中的标签<pathInterpolator res/anim/path_polator.xml
  *
  * note：[拥有get和set方法的属性](https://developer.android.google.cn/guide/topics/graphics/prop-animation#views)
  * note：[根据动画资源章节发现animator是属性动画animation是视图动画](https://developer.android.google.cn/guide/topics/resources/animation-resource)
@@ -64,10 +63,7 @@ class PropertyAnimationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPropertyAnimationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //1.1 AnimationDrawable
-        binding.image1.setOnClickListener {
-            (it.background as AnimationDrawable).start()//
-        }
+
 
         //2.
         ValueAnimator.ofFloat(0f, 100f).apply {//ofFloat ofInt ofArgb
@@ -168,6 +164,23 @@ class PropertyAnimationActivity : AppCompatActivity() {
             it.animate().x(50f).y(100f).setDuration(1000).withEndAction {
                 it.animate().x(xyPair.first).y(xyPair.second).setDuration(1000).start()
             }.start()
+        }
+        //3. 贝塞尔曲线
+        binding.button9.setOnClickListener {
+//            ObjectAnimator.ofFloat(it, "translationX", 200f).apply {
+//                interpolator = PathInterpolator(.16f, .79f, 1f, 1.58f)
+//                repeatCount = 1
+//                repeatMode = ValueAnimator.REVERSE
+//                start()
+//            }
+
+            val path = Path().apply { arcTo(0f, 0f, 1000f, 1000f, 270f, -180f, true) }
+            ObjectAnimator.ofFloat(it, View.X, View.Y, path).apply {
+                duration = 2000
+                repeatCount = 1
+                repeatMode = ValueAnimator.REVERSE
+                start()
+            }
         }
     }
 }

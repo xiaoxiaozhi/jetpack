@@ -15,6 +15,7 @@ import com.example.jetpack.databinding.ActivityTransactionBinding
  * 2. 每个FragmentTransaction应该使用setReorderingAllowed(True)
  * 3. https://blog.csdn.net/cqkxzsxy/article/details/78475784 事务每个操作看这里
  * 4. 动画分为 碎片进出动画，和共享元素动画
+ *    [卡片翻转动画](https://developer.android.google.cn/training/animation/reveal-or-hide-view#CardFlip)
  */
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
@@ -48,16 +49,9 @@ class TransactionActivity : AppCompatActivity() {
         //事务调用addSharedElement(itemImageView, "item_image")
         binding.add.setOnClickListener {
             println("add---------------OnClickListener")
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter,
-                    R.anim.exit,
-                    R.anim.pop_enter,
-                    R.anim.pop_exit
-                )
-                .replace<ManagerFragment1>(R.id.transactionContainer)
-                .addToBackStack(null)
-                .setReorderingAllowed(true)
+            supportFragmentManager.beginTransaction().setCustomAnimations(
+                    R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit
+                ).replace<ManagerFragment1>(R.id.transactionContainer).addToBackStack(null).setReorderingAllowed(true)
                 .commit()
         }
 

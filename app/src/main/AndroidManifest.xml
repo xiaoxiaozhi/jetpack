@@ -35,16 +35,22 @@
             <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.anim.PropertyAnimationActivity">
-            <!--        <intent-filter>-->
-            <!--            <action android:name="android.intent.action.MAIN" />-->
-            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--        </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".topics.anim.AnimatedVectorActivity">
+        <activity android:name="com.example.jetpack.topics.anim.FlingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".topics.anim.AnimatedVectorActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
         </activity>
         <activity
             android:name=".topics.network.RetrofitActivity"
@@ -421,3 +427,4 @@
     </application>
 
 </manifest>
+

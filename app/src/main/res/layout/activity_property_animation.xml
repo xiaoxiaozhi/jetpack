@@ -6,24 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".topics.anim.PropertyAnimationActivity">
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AnimationDrawable"
-        android:textAllCaps="false"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ad_list"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text1" />
 
     <Button
         android:id="@+id/button1"
@@ -33,7 +15,7 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button2"
@@ -50,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:stateListAnimator="@drawable/animate_state"
-        android:text="状态改变StateListAnimator属性动画"
+        android:text="状态改变---属性动画---StateListAnimator"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -61,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/animate_drawable"
-        android:text="状态改变AnimatedStateListDrawable可绘制对象动画"
+        android:text="状态改变---可绘制对象动画---AnimatedStateListDrawable"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -86,6 +68,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="贝塞尔曲线"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
 
     <Button
         android:id="@+id/button3"
@@ -95,7 +86,7 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
 
     <Button
         android:id="@+id/button4"
@@ -105,7 +96,7 @@
         android:textAllCaps="false"
         app:layout_constraintLeft_toRightOf="@+id/button3"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
 
     <ScrollView
         android:id="@+id/scrollView"
