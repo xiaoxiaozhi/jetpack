@@ -47,10 +47,10 @@
             <!--        </intent-filter>-->
         </activity>
         <activity android:name=".topics.anim.ZoomActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.anim.AnimatedVectorActivity">
             <!--        <intent-filter>-->
@@ -349,7 +349,15 @@
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".topics.image.ImageActivity"></activity>
+        <activity android:name=".topics.image.ImageActivity">
+
+        </activity>
+        <activity android:name=".topics.image.BitmapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".topics.userinterface.notification.NotificationBroadcast"
@@ -431,6 +439,4 @@
             <!--        </intent-filter>-->
         </activity>
     </application>
-
 </manifest>
-
