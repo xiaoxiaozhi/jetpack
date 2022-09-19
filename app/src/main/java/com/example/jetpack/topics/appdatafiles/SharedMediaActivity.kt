@@ -48,7 +48,7 @@ import java.util.concurrent.TimeUnit
  * 2.请求权限
  *   已启用分区存储：仅针对搭载 Android 9（API 级别 28）或更低版本的设备请求存储相关权限
  *   未启用分区存储：Android 9 或更低版本的设备上使用，或者您的应用暂时停用分区存储，您必须请求 READ_EXTERNAL_STORAGE 权限才能访问媒体文件。如果要修改媒体文件，您还必须请求 WRITE_EXTERNAL_STORAGE 权限。
- *   如果您的应用以 Android 10（API 级别 29）或更高版本为目标平台，为了使您的应用从照片中检索未编辑的 Exif 元数据，您需要在应用的清单中声明 ACCESS_MEDIA_LOCATION 权限，
+ *   如果您的应用以 Android 10（API 级别 29）或更高版本为目标平台，为了使您的应用从照片中检索未编辑的 Exif 元数据，您需要在应用的清单中声明 ACCESS_MEDIA_LOCATION 权限，(Exif 包含旋转信息...等)
  *   访问MediaStore共享媒体库，android 10 只有在访问自己创建的文件才不需要存储权限，访问其它的依然需要
  * 3.检查媒体库更新
  *   getVersion() 返回的版本是一个唯一字符串，该字符串会在媒体库发生重大变化时随之变化。如果返回的版本与上次同步的版本不同，请重新扫描并重新同步应用的媒体缓存

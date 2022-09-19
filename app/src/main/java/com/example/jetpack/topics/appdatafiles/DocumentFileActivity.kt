@@ -15,6 +15,7 @@ import androidx.core.content.getSystemService
 import androidx.core.os.EnvironmentCompat
 import androidx.documentfile.provider.DocumentFile
 import com.example.jetpack.databinding.ActivityDocumentFileBinding
+import com.example.jetpack.getParticularUri
 import com.example.jetpack.storageManager
 import java.io.File
 import java.io.OutputStreamWriter
@@ -31,11 +32,13 @@ import java.nio.charset.StandardCharsets
  *    fromTreeUri(context: Context, treeUri: Uri ): DocumentFile?  其中treeURI是调用 Intent(Intent.ACTION_OPEN_DOCUMENT_TREE) 选中文件夹后返回的uri
  *    fromSingleUri(context: Context,singleUri: Uri ): DocumentFile? 其中singleUri是调用 Intent#ACTION_OPEN_DOCUMENT or Intent#ACTION_CREATE_DOCUMENT .选中文件夹后返回的uri
  *    fromFile(file: File): DocumentFile 创建一个 DocumentFile，以给定的File作为文档树的跟。注意这种方式创建的Document不会有读写权限，同时getUri返回的是file://而不是content://
- *note: 根目录 uri  content://com.android.externalstorage.documents/root/primary
- *note：照片目录 uri content://com.android.externalstorage.documents/document/primary%3ADCIM%2FCamera
- *note: Uri格式 协议名://<authority>/<path>/<id> 可以看出 根文档 和 照片文档 的路径不同。从uri上看不到上下级关系，这是不同于File的一点
+ * FileProvider 类来提供对特定文件或文件夹的访问权限，以便其他应用程序可以访问这些文件或文件夹(目前使用FileProvider地方是，Intent不支持file:// 要转成content://)
+ * [FileProvider官方文档](https://developer.android.google.cn/reference/kotlin/androidx/core/content/FileProvider?hl=en)
+ * [解决android 24 Intent因为安全问题不接收file://的问题](https://inthecheesefactory.com/blog/how-to-share-access-to-file-with-fileprovider-on-android-nougat/en)
+ * note: 根目录 uri  content://com.android.externalstorage.documents/root/primary
+ * note：照片目录 uri content://com.android.externalstorage.documents/document/primary%3ADCIM%2FCamera
+ * note: Uri格式 协议名://<authority>/<path>/<id> 可以看出 根文档 和 照片文档 的路径不同。从uri上看不到上下级关系，这是不同于File的一点
  * TODO globalUri 和 globalDocument 要放在ViewModel里面
- *TODO FileProvider待总结
  */
 class DocumentFileActivity : AppCompatActivity() {
     lateinit var binding: ActivityDocumentFileBinding
@@ -50,6 +53,7 @@ class DocumentFileActivity : AppCompatActivity() {
 //        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 //            println("uri---${it.data?.data}")
 //        }.launch(Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))//k30pro 打开后 会定位到DICM/Camera文件夹
+        //打开文档树
         binding.button1.setOnClickListener {
             println("s----1")
             Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {//ACTION_OPEN_DOCUMENT_TREE 选择目录后系统会记录下次再次打开仍会导航到该目录。
@@ -57,9 +61,11 @@ class DocumentFileActivity : AppCompatActivity() {
                 treeResult.launch(this)
             }
         }
+        //创建目录
         binding.button2.setOnClickListener {
             globalDocument.createDirectory("321")
         }
+        //创建文件
         binding.button3.setOnClickListener {
             globalDocument.createFile("text/plain", "ss")?.apply {
                 contentResolver.openFileDescriptor(uri, "w").use {
@@ -71,14 +77,17 @@ class DocumentFileActivity : AppCompatActivity() {
                 }
             }
         }
+        //打开一个Document
         binding.button4.setOnClickListener {
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {//ACTION_OPEN_DOCUMENT_TREE 选择目录后系统会记录下次再次打开仍会导航到该目录。
-                type = "image/*"
-//                resolveActivity(packageManager)?.let { activityResult.launch(this) }
-//                    ?: println(" No Activity found to handle Intent { act=android.intent.action.OPEN_DOCUMENT }") //为什么resolveActivity 返回空
+                type = "image/*"//必不可少
+                putExtra(
+                    DocumentsContract.EXTRA_INITIAL_URI, getParticularUri("Android")//选择起始位置
+                )
                 documentResult.launch(this)
             }
         }
+        //创建一个Document
         binding.button5.setOnClickListener {
 //            val sm = getSystemService<StorageManager>()
 //            println("path----${sm?.storageVolumes?.get(0)?.directory}")
@@ -93,7 +102,7 @@ class DocumentFileActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_TITLE, "文件ming.txt")//文件名称
                 addCategory(CATEGORY_OPENABLE) //如果 需要对返回的 数据进行读写操作
                 putExtra(
-                    DocumentsContract.EXTRA_INITIAL_URI, getUri("alipay")
+                    DocumentsContract.EXTRA_INITIAL_URI, getParticularUri("alipay")
 //                    getUri("alipay%2FCamera") //Document不存在则跳转到上一次选择的Document。如果第一次运行则跳转到 根Document
                 ) //[URI怎么获得](https://stackoverflow.com/a/67515474/1179614)
 //                resolveActivity(packageManager)?.let { activityResult.launch(this) }
@@ -133,18 +142,6 @@ class DocumentFileActivity : AppCompatActivity() {
             }
         }
 
-    private fun getUri(path: String?): Uri {
-//        startDir = "DCIM%2FCamera";
-        val intent = storageManager.primaryStorageVolume.createOpenDocumentTreeIntent()
-        var uri = intent.getParcelableExtra<Uri>("android.provider.extra.INITIAL_URI")
-        uri = if (path == null) {
-            Uri.parse(uri.toString().replace("/root/", "/document/"))
-        } else {
-            Uri.parse(uri.toString().replace("/root/", "/document/") + "%3A" + path)
-        }
-        println("getUri----$uri")
-        return uri
-    }
 
     /**
      * 返回根目录Uri

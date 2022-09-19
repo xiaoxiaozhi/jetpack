@@ -68,6 +68,7 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *        7.6.2 打开特定类型的文件 7.6.3 创建特定类型文件 对返回的URI，使用openFileDescriptor() 写入
  *
  *    7.7 音乐或视频 播放媒体文件 查询播放音乐
+ *    7.8 相册显示照片 看CameraXActivity(官方指导文档没有这个)
  *    ......具体看该页
  * TODO IntentSender 与PendingIntent 区别不明 看文档看不出来不同
  */

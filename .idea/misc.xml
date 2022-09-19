@@ -16,6 +16,7 @@
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic__search_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.156" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_brightness_3_24.xml" value="0.1435" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.176" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1595" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/pause_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/pause_50.xml" value="0.1435" />
@@ -29,12 +30,12 @@
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_animated_vector.xml" value="0.25" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_animations.xml" value="0.3333333333333333" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_bitmap.xml" value="0.29347826086956524" />
-        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_camera.xml" value="0.346875" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_camera.xml" value="0.1" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_camera2.xml" value="0.2826086956521739" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_contacts_provider.xml" value="0.346875" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_data_binding.xml" value="0.2916666666666667" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_data_binding2.xml" value="0.22916666666666666" />
-        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_document_file.xml" value="0.2558876811594203" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_document_file.xml" value="0.1" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_fling.xml" value="0.2921195652173913" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_fling_animation.xml" value="0.2921195652173913" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_image.xml" value="0.17083333333333334" />

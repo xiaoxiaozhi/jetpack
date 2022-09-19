@@ -20,7 +20,7 @@
 
 2. 管理组件之间的依赖
 
-- 建议使用 Hilt library 构建依赖 TODO 学习Hilt
+- 建议使用 Hilt library 构建依赖 
 
 3. 最佳实践
 

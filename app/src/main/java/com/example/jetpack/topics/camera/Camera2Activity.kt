@@ -95,14 +95,13 @@ class Camera2Activity : AppCompatActivity() {
 
     private fun getCameras(): List<FormatItem> {
         val availableCameras: MutableList<FormatItem> = mutableListOf()
-        for (id in cameraManager.cameraIdList) {
-            println("摄像头id = $id")//通过相机id获取到 相机特征类CameraCharacteristics
-            val characteristics = cameraManager.getCameraCharacteristics(id)
-            val level =
-                characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL).run {
-                    //支持的硬件级别每个级别都会在前一个级别上添加其他功能 LEGACY 0<LIMITED 1<FULL 2<LEVEL_3  3
-                    "摄像头硬件层面支持的Camera2功能等级---$this"
-                }
+        for (identifier in cameraManager.cameraIdList) {
+            println("摄像头标识符 = $identifier")
+            val characteristics = cameraManager.getCameraCharacteristics(identifier)
+            val level = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL).run {
+                //支持的硬件级别每个级别都会在前一个级别上添加其他功能 LEGACY 0<LIMITED 1<FULL 2<LEVEL_3  3
+                "摄像头硬件层面支持的Camera2功能等级---$this"
+            }
 
 //            characteristics.get(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES)//摄像头支持的一些功能
 //                .let {
@@ -110,17 +109,16 @@ class Camera2Activity : AppCompatActivity() {
 //                        println("摄像头支持的功能----$item")
 //                    }
 //                }
-            val relativePosition =
-                characteristics.get(CameraCharacteristics.LENS_FACING)//FRONT0 BACK1 EXTERNAL2
-                    .run {
-                        "摄像头位置 LENS_FACING -----${
-                            when (this) {
-                                0 -> "前置"
-                                1 -> "后置"
-                                else -> "s"
-                            }
-                        }"
-                    }
+            val relativePosition = characteristics.get(CameraCharacteristics.LENS_FACING)//FRONT0 BACK1 EXTERNAL2
+                .run {
+                    "摄像头位置 LENS_FACING -----${
+                        when (this) {
+                            0 -> "前置"
+                            1 -> "后置"
+                            else -> "s"
+                        }
+                    }"
+                }
             val orientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)
             characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)//此摄像头设备支持的可用流配置
                 .let {
@@ -129,7 +127,7 @@ class Camera2Activity : AppCompatActivity() {
                         println("摄像头返回输出流支持的尺寸列表 $size")
                     }//预览界面的宽高比要和摄像头输出的类似，如果有多个输出满足宽高比，则选择分辨率搞得那个 [camera1的文章解释了预览宽高比](https://blog.csdn.net/wq892373445/article/details/124216827)
                 }
-            availableCameras.add(FormatItem(relativePosition, id, ImageFormat.JPEG))
+            availableCameras.add(FormatItem(relativePosition, identifier, ImageFormat.JPEG))
             println("camera info result------$level----$relativePosition---$orientation")
             println("屏幕旋转角度 ${windowManager.defaultDisplay.rotation}")
         }
@@ -149,45 +147,40 @@ class Camera2Activity : AppCompatActivity() {
 //    }
 
     @SuppressLint("MissingPermission")
-    suspend fun openCamera(
-        manager: CameraManager,
-        cameraId: String,
-        handler: Handler? = null
-    ): CameraDevice = suspendCancellableCoroutine { cont ->
-        manager.openCamera(cameraId, object : CameraDevice.StateCallback() {
-            override fun onOpened(device: CameraDevice) = cont.resume(device)
+    suspend fun openCamera(manager: CameraManager, cameraId: String, handler: Handler? = null): CameraDevice =
+        suspendCancellableCoroutine { cont ->
+            manager.openCamera(cameraId, object : CameraDevice.StateCallback() {
+                override fun onOpened(device: CameraDevice) = cont.resume(device)
 
-            override fun onDisconnected(device: CameraDevice) {
-                println("Camera $cameraId has been disconnected")
-                finish()
-            }
-
-            override fun onError(device: CameraDevice, error: Int) {
-                val msg = when (error) {
-                    ERROR_CAMERA_DEVICE -> "Fatal (device)"
-                    ERROR_CAMERA_DISABLED -> "Device policy"
-                    ERROR_CAMERA_IN_USE -> "Camera in use"
-                    ERROR_CAMERA_SERVICE -> "Fatal (service)"
-                    ERROR_MAX_CAMERAS_IN_USE -> "Maximum cameras in use"
-                    else -> "Unknown"
+                override fun onDisconnected(device: CameraDevice) {
+                    println("Camera $cameraId has been disconnected")
+                    finish()
                 }
-                val exc = RuntimeException("Camera $cameraId error: ($error) $msg")
-                println(exc.message)
-                if (cont.isActive) cont.resumeWithException(exc)
-            }
-        }, handler)
 
-    }
+                override fun onError(device: CameraDevice, error: Int) {
+                    val msg = when (error) {
+                        ERROR_CAMERA_DEVICE -> "Fatal (device)"
+                        ERROR_CAMERA_DISABLED -> "Device policy"
+                        ERROR_CAMERA_IN_USE -> "Camera in use"
+                        ERROR_CAMERA_SERVICE -> "Fatal (service)"
+                        ERROR_MAX_CAMERAS_IN_USE -> "Maximum cameras in use"
+                        else -> "Unknown"
+                    }
+                    val exc = RuntimeException("Camera $cameraId error: ($error) $msg")
+                    println(exc.message)
+                    if (cont.isActive) cont.resumeWithException(exc)
+                }
+            }, handler)
+
+        }
 
     /**
      * Starts a [CameraCaptureSession] and returns the configured session (as the result of the
      * suspend coroutine
      */
-    private suspend fun createCaptureSession(
-        device: CameraDevice,
+    private suspend fun createCaptureSession(device: CameraDevice,
         targets: List<Surface>,
-        handler: Handler? = null
-    ): CameraCaptureSession = suspendCoroutine { cont ->
+        handler: Handler? = null): CameraCaptureSession = suspendCoroutine { cont ->
         // Create a capture session using the predefined targets; this also involves defining the
         // session state callback to be notified of when the session is ready
         device.createCaptureSession(targets, object : CameraCaptureSession.StateCallback() {
