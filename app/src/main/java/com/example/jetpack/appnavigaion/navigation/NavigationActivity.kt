@@ -15,6 +15,7 @@ import com.example.jetpack.databinding.ActivityNavigationBinding
  * 1. 导航组件由以下三个关键部分组成：
  *    1.1 导航图，包含所有导航相关信息的 XML 资源
  *        创建导航图右键点击 res 目录，然后依次选择 New > Android Resource File。在 File name 字段中输入名称，例如“nav_graph”。从 Resource type 下拉列表中选择 Navigation，然后点击 OK。
+ *        [导航图创建步骤](https://developer.android.google.cn/guide/navigation/navigation-getting-started)
  *    1.2 目的容器，NavHost
  *        向Activity添加NavHost,查看布局文件R.layout.activity_navigation。android:name 属性实现 NavHost的类名称；app:defaultNavHost="true" 表示NavHostFragment 会拦截系统返回按钮
  *    1.3 导航控制器，NavController 在容器中管理导航对象

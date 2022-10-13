@@ -12,10 +12,7 @@ object Repository {
     private val gitHubService = GitHubService.create()
 
     fun getPagingData(): Flow<PagingData<Repo>> {
-        return Pager(
-            config = PagingConfig(PAGE_SIZE),
-            pagingSourceFactory = { RepoPagingSource(gitHubService) }
-        ).flow
+        return Pager(config = PagingConfig(PAGE_SIZE), pagingSourceFactory = { RepoPagingSource(gitHubService) }).flow
     }
 
 }

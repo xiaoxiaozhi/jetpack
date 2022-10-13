@@ -83,8 +83,6 @@ import javax.inject.Inject
  *    9.1 ViewModel 查看代码 RoomActivity
  *    9.2 TODO 与导航库
  *    9.3 TODO 与WorkerManager
- *
- *
  * NOTE: Expected @HiltAndroidApp to have a value. Did you forget to apply the Gradle Plugin? 当出现这个错误时检查,项目是否也用了Room,如果有则要 arguments 后面=改成+= ["room.schemaLocation":"$projectDir/schemas".toString()]
  */
 @AndroidEntryPoint

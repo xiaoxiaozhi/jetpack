@@ -1,5 +1,7 @@
-#### 1. 开启视图绑定  
+#### 1. 开启视图绑定
+
 在Android studio 3.6版本之上可用，在build.gradle 文件中添加
+
 ```
 android {
          ... 
@@ -8,7 +10,9 @@ android {
         } 
 }
 ```
+
 如果您希望在生成绑定类时忽略某个布局文件，请将 tools:viewBindingIgnore="true" 属性添加到相应布局文件的根视图中：
+
 ```
 <LinearLayout
             ...
@@ -17,7 +21,9 @@ android {
     </LinearLayout>
     
 ```
-#### 2. 用法  
+
+#### 2. 用法
+
 ```
     //在Activity中使用ViewBinding
     private lateinit var binding: ResultProfileBinding
@@ -43,3 +49,6 @@ android {
        }
        
 ```
+
+note:如果布局转换成dataBinding也就是外层增加了layout标签。 ResultProfileBinding就会从androidx.viewbinding.ViewBinding 转变成
+androidx.databinding.ViewDataBinding

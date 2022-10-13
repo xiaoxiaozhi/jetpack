@@ -35,7 +35,10 @@
 
 - MAD 可以指导开发者更高效地开发出优秀的移动应用 [ MAD 最佳实践](https://mp.weixin.qq.com/s/Fq6AA2IWpDzjtiRkQZFIwA)
 
-[解决Stack Overflow访问卡慢](https://github.com/justjavac/ReplaceGoogleCDN)
+[解决Stack Overflow访问卡慢](https://github.com/justjavac/ReplaceGoogleCDN) 
+
+5. 谷歌推荐例子  
+[遵从mvi的6个例子](https://developer.android.google.cn/topic/architecture#samples)
 
   
  

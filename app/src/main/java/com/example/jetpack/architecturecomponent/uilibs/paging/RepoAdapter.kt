@@ -9,9 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack.R
 
+/**
+ * 继承了RecyclerView.Adapter，把PagingData数据显示在RecycleView上面
+ * 简版的AsyncPagingDataDiffer，只实现了更新事件的监听以及 item计数
+ */
 class RepoAdapter : PagingDataAdapter<Repo, RepoAdapter.ViewHolder>(COMPARATOR) {
     //[DiffUtil工具使用](https://blog.csdn.net/zxt0601/article/details/52562770) TODO
     companion object {
+
         private val COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {
             override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
                 //判断主键如果返回false则会直接去更新ui 如果返回true 则会执行areContentsTheSame
@@ -29,6 +34,7 @@ class RepoAdapter : PagingDataAdapter<Repo, RepoAdapter.ViewHolder>(COMPARATOR) 
         val name: TextView = itemView.findViewById(R.id.name_text)
         val description: TextView = itemView.findViewById(R.id.description_text)
         val starCount: TextView = itemView.findViewById(R.id.star_count_text)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

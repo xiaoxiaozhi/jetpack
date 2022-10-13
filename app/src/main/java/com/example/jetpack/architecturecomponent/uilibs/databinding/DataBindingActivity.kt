@@ -30,7 +30,6 @@ import com.example.jetpack.databinding.FragmentBlankBinding
  *
  *    Note：绑定类 中定义的变量不会自己生成需要传进去
  *    TODO [在RecyclerView. 中使用dataBinding 没看懂](https://blog.csdn.net/zhangphil/article/details/77367432)
- *    2.1
  * 3. 数据绑定表达式
  *    [表达式运算符](https://developer.android.google.cn/topic/libraries/data-binding/expressions#expression_language)
  *    ??运算符，效果等同于java的 ?:三元运算符
@@ -81,9 +80,12 @@ class DataBindingActivity : AppCompatActivity() {
             this,
             R.layout.activity_data_binding
         )
+        dataBinding.root
         //2.4
         //在Fragment中使用DataBinding
         //val dataBinding = DataBindingUtil.inflate<FragmentBlankBinding>(layoutInflater, R.layout.fragment_blank, container, false);
+        //或者
+        //val dataBinding = ResultProfileBinding.inflate(inflater, container, false)
         //7.
         dataBinding.lifecycleOwner = this
         //2.4
