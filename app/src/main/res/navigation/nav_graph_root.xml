@@ -11,4 +11,14 @@
         android:name="com.example.jetpack.bestpractice.mypractices.DefaultFragment"
         android:label="fragment_default"
         tools:layout="@layout/fragment_default" />
+    <fragment
+        android:id="@+id/githubFragment"
+        android:name="com.example.jetpack.bestpractice.mypractices.GithubFragment"
+        android:label="fragment_github"
+        tools:layout="@layout/fragment_github" />
+    <fragment
+        android:id="@+id/otherFragment"
+        android:name="com.example.jetpack.bestpractice.mypractices.OtherFragment"
+        android:label="fragment_other"
+        tools:layout="@layout/fragment_other" />
 </navigation>

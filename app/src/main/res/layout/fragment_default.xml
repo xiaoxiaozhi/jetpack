@@ -7,28 +7,39 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        tools:context=".bestpractice.mypractices.DefaultFragment">-->
+
+    <!--        <com.google.android.material.appbar.AppBarLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">-->
+
+    <!--            <com.google.android.material.appbar.MaterialToolbar-->
+    <!--                android:id="@+id/topAppBar"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="?attr/actionBarSize"-->
+    <!--                android:background="@android:color/holo_blue_light"-->
+    <!--                android:minHeight="20dp"-->
+    <!--                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+    <!--                app:layout_scrollFlags="scroll|snapMargins"-->
+    <!--                app:title="toolbar" />-->
+    <!--        </com.google.android.material.appbar.AppBarLayout>-->
+
+
+    <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/recycler"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="@android:color/black"-->
+    <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".bestpractice.mypractices.DefaultFragment">
+       />
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/top_app_bar"
-                app:title="toolbar"
-                app:titleCentered="true" />
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

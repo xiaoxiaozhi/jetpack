@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/defaultFragment"
+        android:title="default" />
+    <item
+        android:id="@+id/githubFragment"
+        android:title="github" />
+    <item
+        android:id="@+id/otherFragment"
+        android:icon="@drawable/bike_24"
+        android:title="other" />
+
+</menu>

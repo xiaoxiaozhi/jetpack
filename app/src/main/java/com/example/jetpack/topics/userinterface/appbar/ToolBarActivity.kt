@@ -21,6 +21,10 @@ import com.example.jetpack.databinding.ActivityToolBarBinding
  *    作为app的toolbar(执行setSupportActionBar)添加菜单 在onCreateOptionsMenu中添加菜单
  *    作为单独控件(不执行setSupportActionBar)toolbar.inflateMenu(R.menu.menu_main)
  *    菜单栏点击回调方法 onOptionsItemSelected
+ *    note:在Fragment中添加 需要调用
+ *          (activity as AppCompatActivity).setSupportActionBar(binding.topAppBar)
+ *          setHasOptionsMenu(true)
+ *          复写 onCreateOptionsMenu
  * 3. 返回app主屏幕操作
  *    在 Activity 中支持向上功能。 添加后会在toolbar 左边增加 返回按钮. 在activity标签中  android:parentActivityName =父activity 其次在onCreate中调用supportActionBar?.setDisplayHomeAsUpEnabled(true)
  *    该例请看ToolBar1Activity

@@ -100,10 +100,10 @@ package="com.example.jetpack">
     </activity>
 
     <activity android:name=".appnavigaion.navigation.ViewPager2Activity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
     </activity>
     <activity android:name=".bestpractice.dependencyinjection.HiltActivity">
         <!--            <intent-filter>-->
@@ -438,10 +438,10 @@ package="com.example.jetpack">
     <activity
         android:name="com.example.jetpack.topics.userinterface.appbar.ToolBarActivity"
         android:theme="@style/ToolbarTheme">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
     </activity>
     <activity
         android:name=".topics.userinterface.appbar.ToolBar1Activity"
@@ -456,11 +456,11 @@ package="com.example.jetpack">
     </activity>
     <activity
         android:name="com.example.jetpack.bestpractice.mypractices.RootActivity"
-        android:theme="@style/Theme.Jetpack.NoActionBar">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
     </activity>
 </application>
 </manifest>
