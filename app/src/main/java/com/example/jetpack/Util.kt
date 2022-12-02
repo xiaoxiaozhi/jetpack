@@ -6,5 +6,10 @@ import androidx.datastore.migrations.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+class Util {
+    companion object {
+        fun log(message: String) = println("[${Thread.currentThread().name}] $message")
+    }
+}
+
 //TODO 什么时候执行

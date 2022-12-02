@@ -1,41 +1,52 @@
 package com.example.jetpack.architecturecomponent.uilibs.lifecycle
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import com.example.jetpack.R
 
 /**
- * ![事件和状态图](https://developer.android.google.cn/images/topic/libraries/architecture/lifecycle-states.svg)
- * 两行状态一致，只需要看第一行从左到右横着看，举个例子，大于 STARTED 只有  RESUMED。大于CREATED 的状态有 STARTED 和 RESUMED
+ *
  */
-class HandlerLifeCircle1Activity : AppCompatActivity() {
+class HandlerLifeCircle1Activity : Activity(), LifecycleOwner {
+    private lateinit var lifecycleRegistry: LifecycleRegistry
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_handler_life_circle1)
-        lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
+        lifecycleRegistry = LifecycleRegistry(this)
+        lifecycleRegistry.currentState = Lifecycle.State.CREATED
         lifecycle.addObserver(LifecycleEventObserver { lifecycleOwner: LifecycleOwner, event: Lifecycle.Event ->
-            println("event-----${event}()----currentState----${lifecycleOwner.lifecycle.currentState}")
-
+            println("HandlerLifeCircle1Activity event-----${event}()----currentState----${lifecycleOwner.lifecycle.currentState}")
         })
-        println("onCreate---${lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)}")
     }
 
-    override fun onStart() {
+    public override fun onStart() {
         super.onStart()
-        println("onStart---${lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)}")
+        lifecycleRegistry.currentState = Lifecycle.State.STARTED
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleRegistry.currentState = Lifecycle.State.RESUMED
     }
 
     override fun onPause() {
         super.onPause()
-        println("onPause---${lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)}")
+        lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
 
     override fun onStop() {
         super.onStop()
-        println("onStop---${lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)}")
+        lifecycleRegistry.currentState = Lifecycle.State.CREATED
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return lifecycleRegistry
     }
 }

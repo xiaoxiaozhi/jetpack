@@ -11,10 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityRootBinding
 
-/**
- * TODO toolbar 文字不跟随导航目的的标签改变；NavigationAdvancedSample 这个例子用ActionBar就能跟随着改变标题
- *
- */
+
 class RootActivity : AppCompatActivity() {
     lateinit var binding: ActivityRootBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +29,5 @@ class RootActivity : AppCompatActivity() {
                 println("arguments--------${arguments?.getString("name")}")
             }
         }
-        val appBarConfiguration = AppBarConfiguration(findNavController(R.id.nav_host_fragment).graph)
-//        val appBarConfiguration =
-//            AppBarConfiguration(setOf(R.id.defaultFragment, R.id.githubFragment, R.id.otherFragment))
-        binding.toolbar.setupWithNavController(
-            findNavController(R.id.nav_host_fragment), appBarConfiguration
-        )
-
     }
 }

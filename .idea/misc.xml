@@ -19,6 +19,7 @@
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_brightness_3_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.176" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1595" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/ic_share.xml" value="0.1625" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/pause_24.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/pause_50.xml" value="0.1435" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/drawable/play_arrow_24.xml" value="0.1435" />
@@ -41,13 +42,13 @@
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_fling_animation.xml" value="0.2921195652173913" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_image.xml" value="0.17083333333333334" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_my.xml" value="0.27717391304347827" />
-        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_navigation.xml" value="0.3333333333333333" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_navigation.xml" value="0.1" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_notification1.xml" value="0.346875" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_paging.xml" value="0.31023550724637683" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_property_animation.xml" value="0.2921195652173913" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_retrofit.xml" value="0.18697916666666667" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_room.xml" value="0.2866847826086957" />
-        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_root.xml" value="0.27717391304347827" />
+        <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_root.xml" value="0.1" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_shared_document.xml" value="0.2826086956521739" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_status_bar.xml" value="0.1" />
         <entry key="..\:/workspace/jetpack/app/src/main/res/layout/activity_storage.xml" value="0.27898550724637683" />
@@ -86,5 +87,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.27717391304347827" />
+      </ProjectState>
+    </option>
   </component>
 </project>

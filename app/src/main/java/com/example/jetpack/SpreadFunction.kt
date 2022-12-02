@@ -1,5 +1,6 @@
 package com.example.jetpack
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.storage.StorageManager
@@ -9,6 +10,9 @@ import androidx.camera.video.Quality
 import androidx.camera.video.VideoRecordEvent
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 
 fun AppCompatActivity.haveStoragePermission(permission: String) =
     ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
@@ -54,13 +58,16 @@ fun Quality.qualityToString(): String {
     }
 }
 
-fun VideoRecordEvent.getNameString() : String {
+fun VideoRecordEvent.getNameString(): String {
     return when (this) {
         is VideoRecordEvent.Status -> "Status"
         is VideoRecordEvent.Start -> "Started"
-        is VideoRecordEvent.Finalize-> "Finalized"
+        is VideoRecordEvent.Finalize -> "Finalized"
         is VideoRecordEvent.Pause -> "Paused"
         is VideoRecordEvent.Resume -> "Resumed"
         else -> throw IllegalArgumentException("Unknown VideoRecordEvent: $this")
     }
 }
+
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

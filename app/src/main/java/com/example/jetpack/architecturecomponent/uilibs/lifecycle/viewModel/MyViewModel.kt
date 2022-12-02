@@ -12,6 +12,5 @@ import androidx.lifecycle.ViewModel
 class MyViewModel : ViewModel() {
     val users: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
-
     }
 }

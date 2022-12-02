@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
@@ -66,7 +67,12 @@ import com.example.jetpack.databinding.ActivityNavigationBinding
  *    9.3 抽屉导航栏
  *        TODO
  *    9.4 底部导航栏BottomNavigationView
- *        menu中的id 是导航图中Fragment的id。使用 HideBottomViewOnScrollBehavior在滚动中消失
+ *        在协同布局中使用app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"上滑消失，下滑显现，代码在布局文件中查看
+ *        menu中的id 是导航图中Fragment的id。
+ *        app:itemIconTint="@drawable/nav_item_foreground"   标签图片点击效果
+ *        app:itemTextColor="@drawable/nav_item_foreground"  标签文字点击效果
+ *        BadgeView：标签上的气泡
+ *        setLabelVisibilityMode() 设置标签显示模式
  *        [底部导航栏掘掘金文章](https://juejin.cn/post/6854573222156107783)
  *        [Fragment会在切换时重新创建](https://stackoverflow.com/questions/50485988/is-there-a-way-to-keep-fragment-alive-when-using-bottomnavigationview-with-new-n?r=SearchResults)
  *        [该问题的代码](https://github.com/STAR-ZERO/navigation-keep-fragment-sample)
@@ -74,13 +80,11 @@ import com.example.jetpack.databinding.ActivityNavigationBinding
  *        NavController 提供 OnDestinationChangedListener 接口，该接口在 NavController 的当前目的地或其参数发生更改时调用 代码在下面
  */
 class NavigationActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityNavigationBinding
+    lateinit var binding: ActivityNavigationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNavigationBinding.inflate(layoutInflater)
+        binding = setContentView<ActivityNavigationBinding>(this, R.layout.activity_navigation)
 //        ScrollingFragmentDirections.actionScrollingFragmentToBlankFragment("11")
-        setContentView(binding.root)
-
     }
 
 

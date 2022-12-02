@@ -1,467 +1,455 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-package="com.example.jetpack">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.jetpack">
 
-<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.CAMERA" />
-<uses-permission android:name="android.permission.ACCEPT_HANDOVER" />
-<uses-permission android:name="android.permission.READ_SMS" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
-<uses-permission android:name="android.permission.READ_CONTACTS" />
-<uses-permission android:name="android.permission.READ_PROFILE" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-<application
-    android:name=".MyApplication"
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
 
-    android:manageSpaceActivity=".topics.appdatafiles.StorageActivity"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/Theme.Jetpack">
-    <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="${applicationId}.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/provider_paths" />
-    </provider>
+        android:manageSpaceActivity=".topics.appdatafiles.StorageActivity"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Jetpack">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
-    <activity android:name=".topics.anim.Transition1Activity"></activity>
-    <activity android:name=".topics.anim.TransitionActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.anim.PropertyAnimationActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name="com.example.jetpack.topics.anim.FlingAnimationActivity">
-        <!--        <intent-filter>-->
-        <!--            <action android:name="android.intent.action.MAIN" />-->
-        <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--        </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.anim.ZoomActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.anim.AnimatedVectorActivity">
-        <!--        <intent-filter>-->
-        <!--            <action android:name="android.intent.action.MAIN" />-->
-        <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--        </intent-filter>-->
-    </activity>
-    <activity
-        android:name=".topics.network.RetrofitActivity"
-        android:exported="false" />
-    <activity
-        android:name=".architecturecomponent.uilibs.databinding.DataBinding2Activity"
-        android:exported="false" />
-    <activity android:name=".architecturecomponent.uilibs.paging.PagingActivity">
-<!--        <intent-filter>-->
-        <!--            <action android:name="android.intent.action.MAIN" />-->
-        <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--        </intent-filter>-->
-    </activity>
-    <activity android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity">
+        <activity android:name=".topics.anim.Transition1Activity"></activity>
+        <activity android:name=".topics.anim.TransitionActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.anim.PropertyAnimationActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name="com.example.jetpack.topics.anim.FlingAnimationActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.anim.ZoomActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.anim.AnimatedVectorActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".topics.network.RetrofitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".architecturecomponent.uilibs.databinding.DataBinding2Activity"
+            android:exported="false" />
+        <activity android:name=".architecturecomponent.uilibs.paging.PagingActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity">
 
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name="com.example.jetpack.appnavigaion.navigation.NavigationActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-        <nav-graph android:value="@navigation/nav_graph" />
-    </activity>
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name="com.example.jetpack.appnavigaion.navigation.NavigationActivity"
+            android:theme="@style/Theme.Jetpack.NoActionBar">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+            <nav-graph android:value="@navigation/nav_graph" />
+        </activity>
 
-    <activity android:name=".appnavigaion.navigation.ViewPager2Activity">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
-    </activity>
-    <activity android:name=".bestpractice.dependencyinjection.HiltActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.dependencyinjection.Hilt2Activity"></activity>
-    <activity android:name=".topics.appdatafiles.room.RoomActivity">
-        <!--                    <intent-filter>-->
-        <!--                        <action android:name="android.intent.action.MAIN" />-->
-        <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--                    </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.appdatafiles.room.RoomActivity2"></activity>
-    <activity android:name=".topics.appdatafiles.contentprovider.ContentProviderActivity">
-        <!--        <intent-filter>-->
-        <!--            <action android:name="android.intent.action.MAIN" />-->
-        <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--        </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.appdatafiles.MediaRelatedActivity" />
-    <activity android:name=".topics.appdatafiles.SharedMediaActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.appdatafiles.SharedDocumentActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.appdatafiles.StorageActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.appdatafiles.DocumentFileActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.appdatafiles.DocumentsContractActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.TestActivity" />
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle3Activity" />
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.TestActivity" />
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle2Activity" />
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle1Activity" />
-    <activity
-        android:name=".architecturecomponent.uilibs.lifecycle.MyActivity"
-        android:label="@string/title_activity_my"
-        android:theme="@style/Theme.Jetpack.NoActionBar" />
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircleActivity">
+        <activity android:name=".appnavigaion.navigation.ViewPager2Activity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".bestpractice.dependencyinjection.HiltActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.dependencyinjection.Hilt2Activity"></activity>
+        <activity android:name=".topics.appdatafiles.room.RoomActivity">
+            <!--                    <intent-filter>-->
+            <!--                        <action android:name="android.intent.action.MAIN" />-->
+            <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--                    </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.room.RoomActivity2"></activity>
+        <activity android:name=".topics.appdatafiles.contentprovider.ContentProviderActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.MediaRelatedActivity" />
+        <activity android:name=".topics.appdatafiles.SharedMediaActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.SharedDocumentActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.StorageActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.DocumentFileActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.appdatafiles.DocumentsContractActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.TestActivity" />
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle3Activity" />
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.TestActivity" />
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle2Activity" />
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle1Activity" />
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircleActivity">
+<!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.service.ForegroundActivity" />
+        <activity
+            android:name=".topics.userinterface.notification.ExcludeFromRecentsActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="aa.aa" />
+        <activity android:name=".topics.userinterface.notification.Notification2Activity" />
+        <activity android:name=".topics.userinterface.notification.FullScreenActivity" />
+        <activity
+            android:name=".topics.userinterface.notification.Notification1Activity"
+            android:parentActivityName=".topics.userinterface.notification.NotificationActivity" />
+        <activity android:name=".topics.userinterface.notification.NotificationActivity">
 
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
 
+        <service
+            android:name=".topics.service.ForegroundService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="location|camera|microphone" />
+        <service
+            android:name=".topics.service.BindService"
+            android:enabled="true"
+            android:exported="false" />
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name=".topics.service.ForegroundActivity" />
-    <activity
-        android:name=".topics.userinterface.notification.ExcludeFromRecentsActivity"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
-        android:taskAffinity="aa.aa" />
-    <activity android:name=".topics.userinterface.notification.Notification2Activity" />
-    <activity android:name=".topics.userinterface.notification.FullScreenActivity" />
-    <activity
-        android:name=".topics.userinterface.notification.Notification1Activity"
-        android:parentActivityName=".topics.userinterface.notification.NotificationActivity" />
-    <activity android:name=".topics.userinterface.notification.NotificationActivity">
+        <activity android:name=".topics.service.ServicePracticeActivity">
 
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
 
+        <service
+            android:name=".topics.service.StartService"
+            android:enabled="true"
+            android:exported="false" />
 
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity1">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.work.WorkerActivity1">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".architecturecomponent.datalibs.DataStoreActivity">
 
-    <service
-        android:name=".topics.service.ForegroundService"
-        android:enabled="true"
-        android:exported="true"
-        android:foregroundServiceType="location|camera|microphone" />
-    <service
-        android:name=".topics.service.BindService"
-        android:enabled="true"
-        android:exported="false" />
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".entrypoint.activities.FlagNewTask3Activity"
+            android:taskAffinity="cc.cc" />
+        <activity
+            android:name=".entrypoint.activities.FlagNewTask2Activity"
+            android:taskAffinity="cc.cc" />
+        <activity android:name=".entrypoint.activities.FlagNewTask1Activity" />
+        <activity android:name=".entrypoint.activities.FlagNewTaskActivity" />
+        <activity
+            android:name=".entrypoint.activities.SingleInstanceActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".entrypoint.activities.SingleTask3Activity" />
+        <activity android:name=".entrypoint.activities.SingleTask2Activity" />
+        <activity android:name=".entrypoint.activities.SingleTask1Activity" />
+        <activity android:name=".entrypoint.activities.SingleTop1Activity" />
+        <activity
+            android:name=".entrypoint.activities.SingleTaskActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".entrypoint.activities.SingleTopActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".entrypoint.activities.TaskBackStackActivity">
 
-    <activity android:name=".topics.service.ServicePracticeActivity">
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".entrypoint.activities.TestActivity" />
+        <activity android:name=".entrypoint.activities.LifeCycle1Activity" />
+        <activity android:name=".entrypoint.activities.LifeCycleActivity">
 
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.SavedStateActivity" />
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.LiveDataActivity">
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".architecturecomponent.uilibs.lifecycle.viewModel.ViewModelActivity">
+<!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name="com.example.jetpack.appnavigaion.fragment.TransactionActivity">
 
-    <service
-        android:name=".topics.service.StartService"
-        android:enabled="true"
-        android:exported="false" />
-
-    <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-
-
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".architecturecomponent.datalibs.work.WorkManagerActivity1">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-
-
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".architecturecomponent.datalibs.work.WorkActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-
-
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".architecturecomponent.datalibs.work.WorkerActivity1">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-
-
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".architecturecomponent.datalibs.DataStoreActivity">
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity
-        android:name=".entrypoint.activities.FlagNewTask3Activity"
-        android:taskAffinity="cc.cc" />
-    <activity
-        android:name=".entrypoint.activities.FlagNewTask2Activity"
-        android:taskAffinity="cc.cc" />
-    <activity android:name=".entrypoint.activities.FlagNewTask1Activity" />
-    <activity android:name=".entrypoint.activities.FlagNewTaskActivity" />
-    <activity
-        android:name=".entrypoint.activities.SingleInstanceActivity"
-        android:launchMode="singleInstance" />
-    <activity android:name=".entrypoint.activities.SingleTask3Activity" />
-    <activity android:name=".entrypoint.activities.SingleTask2Activity" />
-    <activity android:name=".entrypoint.activities.SingleTask1Activity" />
-    <activity android:name=".entrypoint.activities.SingleTop1Activity" />
-    <activity
-        android:name=".entrypoint.activities.SingleTaskActivity"
-        android:launchMode="singleTask" />
-    <activity
-        android:name=".entrypoint.activities.SingleTopActivity"
-        android:launchMode="singleTop" />
-    <activity android:name=".entrypoint.activities.TaskBackStackActivity">
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name=".entrypoint.activities.TestActivity" />
-    <activity android:name=".entrypoint.activities.LifeCycle1Activity" />
-    <activity android:name=".entrypoint.activities.LifeCycleActivity">
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name=".architecturecomponent.uilibs.SavedStateActivity" />
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.livedata.LiveDataActivity">
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name=".architecturecomponent.uilibs.lifecycle.viewModel.ViewModelActivity">
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name="com.example.jetpack.appnavigaion.fragment.TransactionActivity">
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name="com.example.jetpack.appnavigaion.fragment.FragmentManagerActivity">
 
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name="com.example.jetpack.appnavigaion.fragment.FragmentManagerActivity">
-
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name="com.example.jetpack.appnavigaion.fragment.PracticeActivity" />
-    <activity android:name=".MainActivity">
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name="com.example.jetpack.appnavigaion.fragment.PracticeActivity" />
+        <activity android:name=".MainActivity">
 
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-    </activity>
-    <activity android:name=".topics.appstartup.StartupActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.camera.CameraXActivity">
-        <!--        <intent-filter>-->
-        <!--            <action android:name="android.intent.action.MAIN" />-->
-        <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--        </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.camera.Camera2Activity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.image.ImageActivity">
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".topics.appstartup.StartupActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-    </activity>
-    <activity android:name=".topics.image.BitmapActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
 
-    <receiver
-        android:name=".topics.userinterface.notification.NotificationBroadcast"
-        android:exported="false" />
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.camera.CameraXActivity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.camera.Camera2Activity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.image.ImageActivity">
 
-    <provider
-        android:name="androidx.startup.InitializationProvider"
-        android:authorities="${applicationId}.androidx-startup"
-        android:exported="false"
-        tools:node="merge">
-        <!-- 自动初始化 -->
-        <meta-data
-            android:name="com.example.jetpack.topics.appstartup.InitializerA"
-            android:value="androidx.startup"
-            tools:node="remove" />
-        <meta-data
-            android:name="com.example.jetpack.topics.appstartup.InitializerB"
-            android:value="androidx.startup"></meta-data>
-    </provider>
+        </activity>
+        <activity android:name=".topics.image.BitmapActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
 
-    <activity android:name=".topics.userinterface.layout.recycler.RecyclerActivity" />
-    <activity android:name="com.example.jetpack.topics.permission.PermissionActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
+        <receiver
+            android:name=".topics.userinterface.notification.NotificationBroadcast"
+            android:exported="false" />
 
-    <activity android:name=".topics.intent.IntentActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.intent.Intent1Activity">
-        <!--        <intent-filter>-->
-        <!--            <action android:name="com.example.jetpack.action" />-->
-        <!--            <category android:name="android.intent.category.DEFAULT" />-->
-        <!--        </intent-filter>-->
-    </activity>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <!-- 自动初始化 -->
+            <meta-data
+                android:name="com.example.jetpack.topics.appstartup.InitializerA"
+                android:value="androidx.startup"
+                tools:node="remove" />
+            <meta-data
+                android:name="com.example.jetpack.topics.appstartup.InitializerB"
+                android:value="androidx.startup"></meta-data>
+        </provider>
 
-    <receiver
-        android:name=".topics.intent.ShareBroadcastReceiver"
-        android:exported="true" />
+        <activity android:name=".topics.userinterface.layout.recycler.RecyclerActivity" />
+        <activity android:name="com.example.jetpack.topics.permission.PermissionActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
 
-    <activity android:name=".topics.userdataidentity.ContactsProviderActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
+        <activity android:name=".topics.intent.IntentActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.intent.Intent1Activity">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="com.example.jetpack.action" />-->
+            <!--            <category android:name="android.intent.category.DEFAULT" />-->
+            <!--        </intent-filter>-->
+        </activity>
 
-    <activity android:name=".topics.backgroundtask.ListenableFutureActivity">
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-    </activity>
-    <activity android:name=".topics.userinterface.SplashActivity">
+        <receiver
+            android:name=".topics.intent.ShareBroadcastReceiver"
+            android:exported="true" />
 
-    </activity>
-    <activity
-        android:name="com.example.jetpack.topics.userinterface.appbar.ToolBarActivity"
-        android:theme="@style/ToolbarTheme">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
-    </activity>
-    <activity
-        android:name=".topics.userinterface.appbar.ToolBar1Activity"
-        android:parentActivityName=".topics.userinterface.appbar.ToolBarActivity" />
-    <activity
-        android:name=".topics.userinterface.statusbar.StatusBarActivity"
-        android:theme="@style/StatusBarActivityTheme">
-        <!--        <intent-filter>-->
-        <!--            <action android:name="android.intent.action.MAIN" />-->
-        <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--        </intent-filter>-->
-    </activity>
-    <activity
-        android:name="com.example.jetpack.bestpractice.mypractices.RootActivity"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-</application>
+        <activity android:name=".topics.userdataidentity.ContactsProviderActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+
+        <activity android:name=".topics.backgroundtask.ListenableFutureActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.userinterface.SplashActivity">
+
+        </activity>
+        <activity
+            android:name="com.example.jetpack.topics.userinterface.appbar.ToolBarActivity"
+            android:theme="@style/ToolbarTheme">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".topics.userinterface.appbar.ToolBar1Activity"
+            android:parentActivityName=".topics.userinterface.appbar.ToolBarActivity" />
+        <activity
+            android:name=".topics.userinterface.statusbar.StatusBarActivity"
+            android:theme="@style/StatusBarActivityTheme">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity
+            android:name="com.example.jetpack.bestpractice.mypractices.RootActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".topics.userinterface.collapsinglayout.CollapsingToolbarLayoutActivity"
+            android:theme="@style/StatusBarActivityTheme">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity android:name=".topics.network.OkhttpActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
 

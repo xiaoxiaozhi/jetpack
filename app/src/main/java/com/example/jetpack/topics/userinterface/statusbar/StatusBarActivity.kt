@@ -21,7 +21,7 @@ import com.example.jetpack.databinding.ActivityStatusBarBinding
  *    windowInsetsController?.isAppearanceLightStatusBars = true
  *    windowInsetsController?.isAppearanceLightNavigationBars = true
  * 3. 使用insets处理重叠
- *    例如防止浮动按钮被系统栏遮住
+ *    例如防止浮动按钮被系统栏遮住, ViewCompat.setOnApplyWindowInsetsListener 实验发现只对根视图或者FloatingActionButton起作用
  * 4. 沉浸模式
  *    隐藏系统栏+全屏显示app
  *    有三种系统栏从隐藏到显示交互模式
@@ -31,9 +31,14 @@ import com.example.jetpack.databinding.ActivityStatusBarBinding
  * 5. 刘海屏
  * 6. 控制软键盘
  *
+ * 7. WindowInsets
+ *    系统窗口的偏移量，insets.top代表状态栏的高度，insets.bottom 代表导航栏高度
+ *
  * Insets 偏移量
  * InsetDrawable
- * WindowInsets 系统窗口的偏移量，insets.top代表状态栏的高度，insets.bottom 代表导航栏高度
+ * WindowInsets
+ * [WindowInsets与fitsSystemWindow 翻译自android开发人员](https://juejin.cn/post/7038422081528135687)
+ * [十六进制管理状态](https://juejin.cn/post/6844903879155384333)
  */
 class StatusBarActivity : AppCompatActivity() {
     lateinit var binding: ActivityStatusBarBinding
@@ -54,6 +59,7 @@ class StatusBarActivity : AppCompatActivity() {
                 bottomMargin = insets.bottom
                 rightMargin = insets.right
             }
+            println("pianyi${insets.top}  ${insets.bottom}")
             // Return CONSUMED if you don't want want the window insets to keep being passed down to descendant views.
             WindowInsetsCompat.CONSUMED
         }

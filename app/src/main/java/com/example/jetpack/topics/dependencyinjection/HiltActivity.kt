@@ -43,7 +43,7 @@ import javax.inject.Inject
  *    所有使用 Hilt 的应用都必须包含一个带有 @HiltAndroidApp 注释的 Application 类。
  *    @HiltAndroidApp 会触发 Hilt 的代码生成操作，生成的代码包括应用的一个基类，该基类充当应用级依赖项容器。 查看代码 MyApplication
  * 5. 将依赖注入到Android类
- *    Hilt 可以为带有 @AndroidEntryPoint 注释的类提供依赖项，Hilt目前支持的类Application（通过使用 @HiltAndroidApp）Activity、Fragment、View、Service、BroadcastReceiver
+ *    Hilt 可以为带有 @AndroidEntryPoint 注释的类提供依赖项，Hilt目前支持的类Application（通过使用 @HiltAndroidApp）Activity、Fragment、View、Service、BroadcastReceiver、ViewModel、Navigation、Compose、WorkManager
  *    如果您使用 @AndroidEntryPoint 为某个 Android 类添加注释，则还必须为依赖于该类的 Android 类添加注释。例如，如果您为某个 Fragment 添加注释，则还必须为使用该 Fragment 的所有 Activity 添加注释。
  *    note：Hilt 仅支持扩展 ComponentActivity 的 Activity，如 AppCompatActivity。Hilt 仅支持扩展 androidx.Fragment 的 Fragment。Hilt 不支持保留的 Fragment。
  *    注入一个依赖项时，需要在您希望注入的变量上添加 @Inject 注解,另外在MusicPlayer 的构造方法上添加@Inject 告诉Hilt怎么获取这个实例

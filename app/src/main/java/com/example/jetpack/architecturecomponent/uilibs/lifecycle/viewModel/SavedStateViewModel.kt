@@ -37,4 +37,8 @@ class SavedStateViewModel(private val savedStateHandle: SavedStateHandle) : View
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        println("${this.javaClass.simpleName}-------onCleared")
+    }
 }

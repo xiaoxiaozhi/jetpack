@@ -14,6 +14,7 @@ import kotlinx.coroutines.delay
  *
  */
 class HandlerLifeCircle3Activity : AppCompatActivity(), View.OnClickListener {
+
     private lateinit var binding: ActivityHandlerLifeCircle3Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
