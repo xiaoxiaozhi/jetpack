@@ -24,4 +24,6 @@ object AnalyticsProviderModule {
         return AppDatabase.getInstance(context)
     }
 
+
+
 }

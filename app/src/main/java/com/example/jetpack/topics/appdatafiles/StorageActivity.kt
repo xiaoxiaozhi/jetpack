@@ -99,8 +99,7 @@ class StorageActivity : AppCompatActivity() {
         openFileOutput(filename, MODE_PRIVATE).use {
             it.write(fileContents.toByteArray())
         }//在内部空间用输出流写文件，如果不存在则会创建
-        // 在搭载 Android 7.0（API 级别 24）或更高版本的设备上，除非您将 Context.MODE_PRIVATE 文件模式传递到 openFileOutput()，
-        // 否则会发生 SecurityException。
+        // 在搭载 Android 7.0（API 级别 24）或更高版本的设备上，除非您将 Context.MODE_PRIVATE 文件模式传递到 openFileOutput()， 否则会发生 SecurityException。
         // 如需允许其他应用访问存储在内部存储空间内此目录中的文件，请使用具有 FLAG_GRANT_READ_URI_PERMISSION 属性的 FileProvider TODO 不是不能访问吗？什么意思 查看FileProvider
 
         //1.1.1.3 输入流读取内部空间持久性文件

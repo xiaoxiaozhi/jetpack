@@ -8,6 +8,7 @@ import com.example.jetpack.databinding.ActivityDependencyInjectionBinding
 import com.example.jetpack.topics.dependencyinjection.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * [谷歌开发者Hilt教程跟官网不同 Hilt 介绍 | MAD Skills](https://blog.csdn.net/jILRvRTrc/article/details/121677853)
@@ -46,7 +47,7 @@ import javax.inject.Inject
  *    Hilt 可以为带有 @AndroidEntryPoint 注释的类提供依赖项，Hilt目前支持的类Application（通过使用 @HiltAndroidApp）Activity、Fragment、View、Service、BroadcastReceiver、ViewModel、Navigation、Compose、WorkManager
  *    如果您使用 @AndroidEntryPoint 为某个 Android 类添加注释，则还必须为依赖于该类的 Android 类添加注释。例如，如果您为某个 Fragment 添加注释，则还必须为使用该 Fragment 的所有 Activity 添加注释。
  *    note：Hilt 仅支持扩展 ComponentActivity 的 Activity，如 AppCompatActivity。Hilt 仅支持扩展 androidx.Fragment 的 Fragment。Hilt 不支持保留的 Fragment。
- *    注入一个依赖项时，需要在您希望注入的变量上添加 @Inject 注解,另外在MusicPlayer 的构造方法上添加@Inject 告诉Hilt怎么获取这个实例
+ *    注入一个依赖项时，需要在您希望注入的变量上添加 @Inject 注解
  * 6. Hilt模块
  *    有时，类型不能通过构造函数注入，当类型是一个接口，您无法在构造函数上添加 @Inject；或者类来自于您无法修改的库。
  *    Hilt 模块是一个带有 @Module 注释的类。与 Dagger 模块一样，它会告知 Hilt 如何提供某些类型的实例，您必须使用 @InstallIn 为 Hilt 模块添加注释，以告知 Hilt 每个模块将用在或安装在哪个
@@ -83,7 +84,10 @@ import javax.inject.Inject
  *    9.1 ViewModel 查看代码 RoomActivity
  *    9.2 TODO 与导航库
  *    9.3 TODO 与WorkerManager
- * NOTE: Expected @HiltAndroidApp to have a value. Did you forget to apply the Gradle Plugin? 当出现这个错误时检查,项目是否也用了Room,如果有则要 arguments 后面=改成+= ["room.schemaLocation":"$projectDir/schemas".toString()]
+ *NOTE: Expected @HiltAndroidApp to have a value. Did you forget to apply the Gradle Plugin? 当出现这个错误时检查,项目是否也用了Room,如果有则要 arguments 后面=改成+= ["room.schemaLocation":"$projectDir/schemas".toString()]
+ *[@Named和参数是基本类型时候怎么使用Hilt](https://www.bilibili.com/video/BV1UL4y187E4?p=41&vd_source=9cc1c08c51cf20bda524430137dc77bb)
+ *TODO 类参数是基本数据类型怎么使用Hilt注入 例如字符串？？？
+ *TODO @Named 是什么
  */
 @AndroidEntryPoint
 class HiltActivity : AppCompatActivity() {
@@ -100,6 +104,7 @@ class HiltActivity : AppCompatActivity() {
     @Inject
     @BindElectricEngine
     lateinit var electricEngine: Engine
+
     lateinit var binding: ActivityDependencyInjectionBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
