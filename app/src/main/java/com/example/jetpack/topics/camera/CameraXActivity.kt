@@ -61,7 +61,7 @@ import kotlin.math.min
  * 2. 预览
  *    如果不设置分辨率 preview.setTargetResolution(Size())，CameraX 会自动确定要使用的最佳分辨率。所有这些操作均由库进行处理
  *    2.1 添加PreviewView
- *        用于渲染预览流的实现模式 [该模式有两种](https://developer.android.google.cn/training/camerax/preview#implementation-mode)
+ *        用于渲染预览流的实现模式，有两种模式①PERFORMANCE 性能模式 使用 SurfaceView 来显示视频流性能更强：②COMPATIBLE 兼容模式 使用TextureView 能够缩放或者旋转，性能没有前者强
  *        预览图片的缩放类型
  *    2.2 请求ProcessCameraProvider。一个进程只能存在一个相机提供者
  *    2.3 选择相机并绑定生命周期和用例。 查看 bindPreview()
