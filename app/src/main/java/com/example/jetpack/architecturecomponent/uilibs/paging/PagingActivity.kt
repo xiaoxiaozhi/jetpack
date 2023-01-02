@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
  * [Paging 3.0 简介 | MAD Skills](https://mp.weixin.qq.com/s/57KTSyW8NMeishtwiikdUQ) 有必要读一读。这一系列教程还包括WorkManager和Hilt等等
  * [csdn郭霖paging3教程](https://blog.csdn.net/guolin_blog/article/details/114707250)
  * [GSON官方教程](https://github.com/google/gson/blob/master/UserGuide.md) TODO 有必要总结一下
+ * [简书Paging3教程](https://juejin.cn/post/6844904193468137486)
  * Paging 库可帮助您加载和显示来自本地存储或网络中更大的数据集中的数据页面
  * 该库主要包含以下功能：
  * 分页缓存、请求重复信息删除功能、 RecyclerView 适配器，会在用户滚动到已加载数据的末尾时自动请求数据、对 Kotlin 协程和 Flow 以及 LiveData、支持刷新和重试功能

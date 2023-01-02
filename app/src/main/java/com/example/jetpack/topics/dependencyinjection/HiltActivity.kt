@@ -65,7 +65,7 @@ import javax.inject.Named
  *    6.3 给相同类型注入不同实例 查看代码 EngineModule
  *        对不同类型创建限定符(注解)，然后在方法上添加注解
  *    6.4 Hilt预定义限定符
- *        例如@ApplicationContext 和 @ActivityContext 限定符， @ActivityContext private val context: Context 表示全局的 context   还有 TODO 还有什么？
+ *        例如@ApplicationContext 和 @ActivityContext 限定符，前者表示全局context后者表示Activity的context。好像只有这两个预定义限定符
  * 7. Hilt内置组件和作用域 看英文版的，中文版过时
  *    7.1 [内置组件](https://developer.android.google.cn/training/dependency-injection/hilt-android?hl=en#generated-components)
  *        例如 @InstallIn(ActivityComponent::class)，就是把这个模块安装到 Activity 组件当中。如果我们再Service中使用就会报错

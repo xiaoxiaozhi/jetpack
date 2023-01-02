@@ -20,6 +20,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.example.jetpack.topics.dependencyinjection.mydagger2.MyComponent
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -27,10 +28,11 @@ import dagger.hilt.android.HiltAndroidApp
 class MyApplication : Application()
 //    , CameraXConfig.Provider
 {
-
+//    lateinit var component: MyComponent
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+//        component = DaggerMyComponent.create()
     }
 
     private fun createNotificationChannel() {

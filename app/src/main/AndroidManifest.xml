@@ -69,9 +69,12 @@
             <!--            <category android:name="android.intent.category.LAUNCHER" />-->
             <!--        </intent-filter>-->
         </activity>
-        <activity
-            android:name=".topics.network.RetrofitActivity"
-            android:exported="false" />
+        <activity android:name=".topics.network.RetrofitActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".architecturecomponent.uilibs.databinding.DataBinding2Activity"
             android:exported="false" />
@@ -82,11 +85,8 @@
             <!--        </intent-filter>-->
         </activity>
         <activity android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity">
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -118,6 +118,13 @@
             <!--                        <action android:name="android.intent.action.MAIN" />-->
             <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
             <!--                    </intent-filter>-->
+        </activity>
+        <activity
+            android:name="com.example.jetpack.topics.dependencyinjection.mydagger2.Dagger2Activity">
+<!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.appdatafiles.room.RoomActivity2"></activity>
         <activity android:name=".topics.appdatafiles.contentprovider.ContentProviderActivity">
@@ -163,7 +170,7 @@
         <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle2Activity" />
         <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircle1Activity" />
         <activity android:name=".architecturecomponent.uilibs.lifecycle.HandlerLifeCircleActivity">
-<!--            <intent-filter>-->
+            <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
@@ -286,7 +293,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".architecturecomponent.uilibs.lifecycle.viewModel.ViewModelActivity">
-<!--            <intent-filter>-->
+            <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
@@ -295,8 +302,6 @@
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -304,8 +309,6 @@
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -314,16 +317,12 @@
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".topics.appstartup.StartupActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
-
-
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
         </activity>
@@ -445,10 +444,10 @@
             <!--        </intent-filter>-->
         </activity>
         <activity android:name=".topics.network.myokhttp.OkhttpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
     </application>
 </manifest>

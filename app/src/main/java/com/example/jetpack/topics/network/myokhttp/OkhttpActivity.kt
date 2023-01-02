@@ -98,7 +98,7 @@ import javax.inject.Inject
  *          HTTP Cookie是服务器发送到用户浏览器并保存在本地的一小块数据。浏览器会存储 cookie 并在下次向同一服务器再发起请求时携带并发送到服务器上。
  *          通常，它用于告知服务端两个请求是否来自同一浏览器——如保持用户的登录状态。Cookie 使基于无状态的 HTTP 协议记录稳定的状态信息成为了可能。
  *attention：http请求头没有设置http版本的字段，根据查询到的资料，这是服务端控制的，当服务端返回协议版本(response.protocol)的时候 客户端按照返回的版本跟服务端沟通
- *
+ *attention：
  *TODO 最终实现效果 点击按钮执行请求，结果在对话框中显示,利用上 viewModel、 repository 、Flow
  *TODO kotlin IO待总结
  */

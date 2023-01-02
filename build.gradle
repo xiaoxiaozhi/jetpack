@@ -7,6 +7,7 @@ buildscript {
         google()
         mavenCentral()
     }
+    //[Android Gradle 插件版版本和Gradle版本关系](https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn#updating-plugin)
     dependencies {
         classpath "com.android.tools.build:gradle:7.1.0"
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
@@ -18,14 +19,14 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+plugins{
+    id 'org.jetbrains.kotlin.jvm' version '1.7.21'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.21'
+}
 
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

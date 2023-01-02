@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.dagger.hilt.android'
+    id 'kotlinx-serialization'
 }
 android {
     compileSdkVersion 31
@@ -104,6 +105,10 @@ dependencies {
     //使用Hilt
     implementation 'com.google.dagger:hilt-android:2.42'
     kapt 'com.google.dagger:hilt-compiler:2.42'
+    //使用Dagger2
+    implementation 'com.google.dagger:dagger-android:2.44.2'
+    implementation 'com.google.dagger:dagger-android-support:2.44.2' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.44.2'
 
     //导航
     def nav_version = "2.4.0"
@@ -156,10 +161,13 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.6.0"
     //okhttp3
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     //moshi Square开发更适合kotlin
     implementation("com.squareup.moshi:moshi:1.14.0")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    //序列化
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
 
 }

@@ -18,7 +18,8 @@ object OkHttpProviderModule {
     @Provides
     fun providerCline(@ApplicationContext context: Context): OkHttpClient {
         // 10 MiB
-        return OkHttpClient.Builder().cache(Cache(directory = context.cacheDir, maxSize = 10L * 1024L * 1024L))
+        return OkHttpClient.Builder()
+            .cache(Cache(directory = context.cacheDir, maxSize = 10L * 1024L * 1024L))
             .connectTimeout(5, TimeUnit.SECONDS).writeTimeout(5, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS)
             .callTimeout(10, TimeUnit.SECONDS)
 //            .retryOnConnectionFailure(true)//异常重试 默认开
