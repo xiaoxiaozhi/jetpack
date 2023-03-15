@@ -43,6 +43,8 @@ import kotlinx.coroutines.*
  *    ViewModel 对象存在的时间范围是获取 ViewModel 时传递给 ViewModelProvider 的 ViewModelStoreOwner(AppCompatActivity、Fragment是他的子类)
  *    ViewModel 将一直留在内存中，直到限定其存在时间范围的 Lifecycle 永久消失：对于 activity是在onDestroy()，对于fragment是在fragment分离时。这时候会调用ViewModel的 onCleared()方法清除数据
  *    [特例viewModel在屏幕旋转情况下(activity调用onDestroy)不会调用onCleared销毁数据](https://blog.csdn.net/jackzhouyu/article/details/109031202)
+ *    attention:需要注意的是，无法从ViewModel中获取绑定组件的lifecycle，viewModel没有继承LifecycleOwner 它怎么就是生命周期感知组件了？？？
+ *    attention:想要感知组组件的生命周期 需要DefaultLifecycleObserver 和 LifecycleOwner配合，也就是说，自定义前者，遇到实现了 LifecycleOwner的组件，lifecycle.addObserver(MyObserver())
  * 4. ViewModel的作用域
  *    4.1 限定作用域为当前组件(AppCompatActivity、Fragment、Navigation )调用viewModels() 扩展函数，点击去可以发现源码把当前组件传递进去
  *    4.2 限定作用域为指定组件
@@ -69,14 +71,12 @@ import kotlinx.coroutines.*
  *    vm.viewModelScope.launch { }
  */
 class ViewModelActivity : AppCompatActivity() {
+    //1.无参数ViewModel
     val s = ViewModelProvider(this).get(MyViewModel::class.java)
-
-    private lateinit var binding: ActivityViewModelBinding
+    private val model: MyViewModel by viewModels()//无参数ViewModel
 
     //2.创建具有参数的ViewModel
     private val vm by viewModels<SavedStateViewModel>()//参数是SavedStateHandle的ViewModel,要加入泛型才可以 TODO 有什么不一样呢
-    private val model: MyViewModel by viewModels()//无参数ViewModel
-
     private val userViewModel: UserViewModel by viewModels {//2.5之前使用ViewModelProvider.Factory创建带参数的ViewModel
 //        UserViewModel.provideFactory("123")
         UserViewModel.factory("456")
@@ -87,9 +87,8 @@ class ViewModelActivity : AppCompatActivity() {
         }
     }, factoryProducer = { CreationViewModel.factory })//2.5 之后用 CreationExtras创建ViewModel
 
-
     // private val viewModel: MyViewModel by viewModels { MyViewModel.Factory } //2.5 之后用 CreationExtras创建ViewModel，参数 是application或者SavedStateHandle，只传Factory就可以
-
+    private lateinit var binding: ActivityViewModelBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewModelBinding.inflate(layoutInflater)

@@ -77,7 +77,12 @@ import kotlin.math.min
  *    4.1 构建 ImageAnalysis 用例。 ImageAnalysis.Builder 来构建 ImageAnalysis 对象，借助 ImageAnalysis.Builder 可以设置图像输出，图像流控制
  *        背压策略 默认0 只分析最新的图像，忽略setImageQueueDepth(int)设置的值; 设置为 1 。图像队列达到setImageQueueDepth设置的值就不会产生新的图像，注意一旦阻塞其它UserCase也接收不到新图像
  *    4.2 创建ImageAnalysis.Analyzer：接收图片，在该
- *        Image:通过ByteBuffers直接访问图像的二进制数据，与Bitmap不同Image不能作为UI资源使用
+ *        Image:与Bitmap不同Image不能作为UI资源使用
+ *        [Image转yuv,来自源码的测试文件](https://android.googlesource.com/platform/cts/+/ab04ff1/tests/tests/media/src/android/media/cts/ImageReaderDecoderTest.java)
+ *
+ *    [官网说COLOR_FormatYUV420Flexible对应ImageFormat.YUV_420_888](https://developer.android.com/reference/android/media/MediaCodecInfo.CodecCapabilities#COLOR_FormatYUV420Flexible)
+ *    文档说的很清楚这俩是一种东西
+ *
  *    [YUV和RGB色彩空间介绍](https://juejin.cn/post/7138611459063447560)
  *    [官方提供库：libyuv YUV和RGB互相转换](https://chromium.googlesource.com/libyuv/libyuv/)
  * 5. 录视频
@@ -90,6 +95,9 @@ import kotlin.math.min
  *    - Recording：由prepareRecording.start()返回，为录制活动提供 pause(暂停)、resume(恢复)、stop(完成)。在stop调用之前prepareRecording不能重新生成一个Recording
  *                 close()效果等同于stop()
  *    [VideoCapture工作原理图](https://developer.android.google.cn/static/images/training/camera/camerax/videocapture-use-case.png)
+ *    camerax开发小组明确回应,camrax的videoCapture不支持获取h264码流，如果需要请从imageAnalyzer获取YUV数据后转换。
+ *    [连接再此](https://groups.google.com/a/android.com/g/camerax-developers/c/gAAJ9cskMsY)
+ *    [YUV转H264](https://www.jianshu.com/p/e368397666eb)
  *
  * 6. 控制相机输出
  *    ProcessCameraProvider.bindToLifecyle() 返回的 Camera 获取 CameraControl 和 CameraInfo 的实例。前者配置相机功能，后者获取相机功能状态
@@ -160,7 +168,7 @@ class CameraXActivity : AppCompatActivity() {
     private var cameraSelector: CameraSelector? = null
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
     private var imageAnalyzer: ImageAnalysis? = null
-    private lateinit var videoCapture: androidx.camera.video.VideoCapture<Recorder>
+    private lateinit var videoCapture: VideoCapture<Recorder>
     private var currentRecording: Recording? = null
 
     /** Blocking camera operations are performed using this executor */
@@ -392,7 +400,6 @@ class CameraXActivity : AppCompatActivity() {
         super.onConfigurationChanged(newConfig)
         config()
     }
-
 
     private fun showRational() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCEPT_HANDOVER)) {

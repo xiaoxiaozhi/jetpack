@@ -60,7 +60,6 @@ class ForegroundService : Service() {
                 else -> println("没找到")
             }
         }
-
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -87,7 +86,5 @@ class ForegroundService : Service() {
         } else {
             startForeground(107, notification)
         }
-
-
     }
 }

@@ -65,7 +65,7 @@ class BitmapActivity : AppCompatActivity() {
         }
     }
 
-    fun decodeSampledBitmapFromResource(res: Resources, resId: Int, reqWidth: Int, reqHeight: Int): Bitmap {
+    private fun decodeSampledBitmapFromResource(res: Resources, resId: Int, reqWidth: Int, reqHeight: Int): Bitmap {
         // First decode with inJustDecodeBounds=true to check dimensions
         return BitmapFactory.Options().run {
             inJustDecodeBounds = true
@@ -81,7 +81,7 @@ class BitmapActivity : AppCompatActivity() {
         }
     }
 
-    fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
         println("reqWidth----$reqWidth  reqHeight----$reqHeight")
         // Raw height and width of image
         val (height: Int, width: Int) = options.run { outHeight to outWidth }

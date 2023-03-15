@@ -42,6 +42,7 @@ import java.util.*
  *       1.1.1 内部存储空间：系统会阻止其他应用访问内部存储空间，并且在 Android 10（API 级别 29）及更高版本中，系统会对这些位置进行加密。
  *             data/user/0/com.example.jetpack/files 用于放置持久化文件 /data/user/0/com.example.jetpack/cache 用于放置缓存文件
  *             但是这些空间比较小，使用前注意查询设备可用空间
+ *             attention：相应的路径从Android studio的Device File Explorer看到的会稍有不同  data/data/com.example.jetpack/files 或 cache
  *       1.1.2 外部存储空间：如果内部存储空间不足以存储文件，请转到外部存储空间。其他应用可以在具有适当权限的情况下访问外部存储空间，
  *             但存储在内部存储空间中的文件主要目的是供自己应用使用; Android 4.4（API 级别 19）或更高版本中 应用无需请求任何与存储空间相关的权限即可访问外部存储空间中的应用专属目录。
  *             卸载应用后，系统会移除这些目录中存储的文件;在Android 9-（API28）只要您的应用具有适当的存储权限(可能是WRITE_EXTERNAL_STORAGE)，就可以访问属于其他应用的应用外部空间专用文件， Android 10+（API29）
@@ -87,7 +88,7 @@ class StorageActivity : AppCompatActivity() {
         setContentView(binding.root)
         //1.1.1.1 访问内部空间持久性文件
         println(filesDir.toString())// /data/user/0/com.example.jetpack/files 内部持久性空间
-        println(cacheDir.toString())// /data/user/0/com.example.jetpack/cache 内部缓存空间
+        println(cacheDir.toString())// /data/user/0/com.example.jetpack/cache 内部缓存空间 在Android studio
         val file = File(filesDir, "inner").apply {
             if (!exists()) {
                 createNewFile()

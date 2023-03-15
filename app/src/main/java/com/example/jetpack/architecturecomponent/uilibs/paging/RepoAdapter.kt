@@ -15,6 +15,7 @@ import com.example.jetpack.R
  */
 class RepoAdapter : PagingDataAdapter<Repo, RepoAdapter.ViewHolder>(COMPARATOR) {
     //[DiffUtil工具使用](https://blog.csdn.net/zxt0601/article/details/52562770) TODO
+    //[知乎文章](DiffUtils](https://zhuanlan.zhihu.com/p/436237544)
     companion object {
 
         private val COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {

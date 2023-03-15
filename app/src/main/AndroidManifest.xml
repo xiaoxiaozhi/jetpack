@@ -70,10 +70,10 @@
             <!--        </intent-filter>-->
         </activity>
         <activity android:name=".topics.network.RetrofitActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".architecturecomponent.uilibs.databinding.DataBinding2Activity"
@@ -119,9 +119,8 @@
             <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
             <!--                    </intent-filter>-->
         </activity>
-        <activity
-            android:name="com.example.jetpack.topics.dependencyinjection.mydagger2.Dagger2Activity">
-<!--            <intent-filter>-->
+        <activity android:name="com.example.jetpack.topics.dependencyinjection.mydagger2.Dagger2Activity">
+            <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
@@ -332,12 +331,17 @@
             <!--            <category android:name="android.intent.category.LAUNCHER" />-->
             <!--        </intent-filter>-->
         </activity>
-        <activity android:name=".topics.camera.Camera2Activity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+        <activity
+            android:name=".topics.camera.Camera2Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".topics.camera.CameraViewFinderActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".topics.image.ImageActivity">
 
         </activity>
@@ -443,6 +447,12 @@
             <!--            <category android:name="android.intent.category.LAUNCHER" />-->
             <!--        </intent-filter>-->
         </activity>
+        <activity android:name=".topics.userinterface.window.WindowActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
         <activity android:name=".topics.network.myokhttp.OkhttpActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -451,4 +461,3 @@
         </activity>
     </application>
 </manifest>
-

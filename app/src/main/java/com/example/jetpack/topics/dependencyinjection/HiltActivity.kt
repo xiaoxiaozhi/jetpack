@@ -40,6 +40,7 @@ import javax.inject.Named
  *                                   targetCompatibility JavaVersion.VERSION_1_8
  *                                 }
  *                  }
+ *    attention:添加依赖的方式会随android studio版本变化[最新请看](https://developer.android.google.cn/training/dependency-injection/hilt-android?hl=zh-cn)
  * 4. 使用Hilt
  *    所有使用 Hilt 的应用都必须包含一个带有 @HiltAndroidApp 注释的 Application 类。
  *    @HiltAndroidApp 会触发 Hilt 的代码生成操作，生成的代码包括应用的一个基类，该基类充当应用级依赖项容器。 查看代码 MyApplication
@@ -66,6 +67,8 @@ import javax.inject.Named
  *        对不同类型创建限定符(注解)，然后在方法上添加注解
  *    6.4 Hilt预定义限定符
  *        例如@ApplicationContext 和 @ActivityContext 限定符，前者表示全局context后者表示Activity的context。好像只有这两个预定义限定符
+ *    6.5 实践总结
+ *        我实际操作发现， @AndroidEntryPoint支持的类，可以在给内部属性依赖注入。除此之外的类只能通过 @Inject construct() 通过构造函数注入
  * 7. Hilt内置组件和作用域 看英文版的，中文版过时
  *    7.1 [内置组件](https://developer.android.google.cn/training/dependency-injection/hilt-android?hl=en#generated-components)
  *        例如 @InstallIn(ActivityComponent::class)，就是把这个模块安装到 Activity 组件当中。如果我们再Service中使用就会报错

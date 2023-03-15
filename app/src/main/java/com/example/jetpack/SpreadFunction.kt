@@ -17,6 +17,9 @@ import androidx.datastore.preferences.preferencesDataStore
 fun AppCompatActivity.haveStoragePermission(permission: String) =
     ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
+/**
+ * 不能这样搞，如果两个权限都要询问，第二个弹出后会让第一个返回false
+ */
 fun AppCompatActivity.havePermissions(permissions: Array<String>) = permissions.filter {
     ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
 }

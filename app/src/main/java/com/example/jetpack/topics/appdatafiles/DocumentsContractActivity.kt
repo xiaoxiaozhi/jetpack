@@ -16,7 +16,7 @@ import com.example.jetpack.storageManager
 /**
  * DocumentsProvider是Document的内容提供者提供了DocumentContract的基础实现 要理解DocumentContract先看 [DocumentsProvider](https://developer.android.google.cn/reference/android/provider/DocumentsProvider)
  * DocumentsContract.Document的主要内容是DocumentsProvider的列  在contentResolver.query 查询中 提供project选项
- * TODO 位运算保存状态 [缺少移除状态的方法](https://blog.csdn.net/qq_40616887/article/details/114917833)
+ * TODO [位运算保存状态信息](https://juejin.cn/post/6844903909333401607) 默认值0 其他值都是2的次方，|保存值，^消除值
  */
 class DocumentsContractActivity : AppCompatActivity() {
     private val activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
