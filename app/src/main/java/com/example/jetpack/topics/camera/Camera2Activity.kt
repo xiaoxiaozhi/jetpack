@@ -172,10 +172,6 @@ class Camera2Activity : AppCompatActivity() {
         }
     }
 
-
-    /**
-     * 获取相机信息,并打印每个相机的信息
-     */
     /**
      * 获取相机信息,并打印每个相机的信息
      */

@@ -28,6 +28,7 @@ import kotlin.math.roundToInt
  * 计算好预览的分辨率，设置setFixedSize(长边，短边) 。 然后根据横屏竖屏，确定SurfaceView的宽高，竖屏Surface的宽= 短边。 横屏Surface的宽=长边
  * SurfaceView显示后 onMeasure在设置不会发生变化
  * holder.setFixedSize(width, height)。 参数名不准确，根据实际试验发现，width实际是Size的长边，height是Size的短边。例如手机竖屏，setFixedSize(1080,1920) 此时会形变，反过来正好
+ * attention:不加JvmOverloads 会报错
  */
 class AutoFitSurfaceView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
     SurfaceView(context, attrs, defStyle) {

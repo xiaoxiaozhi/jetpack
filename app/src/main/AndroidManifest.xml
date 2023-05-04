@@ -38,6 +38,12 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity android:name=".test.TestActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
         <activity android:name=".topics.anim.Transition1Activity"></activity>
         <activity android:name=".topics.anim.TransitionActivity">
             <!--            <intent-filter>-->
