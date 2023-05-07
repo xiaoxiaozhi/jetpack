@@ -4,28 +4,31 @@ buildscript {
     ext.hilt_version = '2.40'
     ext.nav_version = '2.4.1'
     repositories {
+        maven { url "$rootDir/lib/release" }
         google()
         mavenCentral()
     }
     //[Android Gradle 插件版版本和Gradle版本关系](https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn#updating-plugin)
     dependencies {
-        classpath "com.android.tools.build:gradle:7.1.0"
+        classpath "com.android.tools.build:gradle:7.1.2"
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.42'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath 'com.my.plugin:library:1.0'
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+
 plugins{
     id 'org.jetbrains.kotlin.jvm' version '1.7.21'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.21'
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
 //    id 'com.android.application' version '7.1.0' apply false
-}
 
+}
 allprojects {
     repositories {
         google()

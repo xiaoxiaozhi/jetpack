@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="jetpack" target="11" />
+      <module name="jetpack.app" target="11" />
+      <module name="jetpack.main" target="11" />
+      <module name="jetpack.test" target="11" />
+      <module name="workspace.jetpack.myPlugin" target="11" />
+      <module name="workspace.jetpack.myPlugin.main" target="11" />
+      <module name="workspace.jetpack.myPlugin.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

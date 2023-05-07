@@ -1,3 +1,5 @@
 include ':app'
-include ':myPlugin'
+//include ':myPlugin'
 rootProject.name = "jetpack"
+include ':JavassistPlugin'
+//include ':plugin'

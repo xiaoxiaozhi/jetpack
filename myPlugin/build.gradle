@@ -3,13 +3,13 @@ plugins {
     id 'maven-publish'
 }
 //把项目入口设置为src/main/groovy
-sourceSets {
-    main {
-        groovy {
-            srcDir 'src/main/groovy'
-        }
-    }
-}
+//sourceSets {
+//    main {
+//        groovy {
+//            srcDir 'src/main/groovy'
+//        }
+//    }
+//}
 
 repositories {
     google()
@@ -21,6 +21,8 @@ dependencies {
 //    implementation 'com.google.android.material:material:1.5.0'
     implementation gradleApi() //必须
     implementation localGroovy() //必须
+    implementation 'com.android.tools.build:gradle:7.1.0'
+    implementation 'org.javassist:javassist:3.20.0-GA'
 }
 publishing {
     publications {

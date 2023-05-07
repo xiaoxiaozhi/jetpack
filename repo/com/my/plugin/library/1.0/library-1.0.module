@@ -1,0 +1,96 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.my.plugin",
+    "module": "library",
+    "version": "1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.7.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "library-1.0.jar",
+          "url": "library-1.0.jar",
+          "size": 3405,
+          "sha512": "cef38a067a9f6b696d6ae027aa1dd5f96d485f14b4153443a4234c7eef55dd2ed241a63fba697543930550acf957f3237759ab1e04a87cc19a4bdceb284ab485",
+          "sha256": "79fa3c8e5686fe5b415bef5d58b37d90597af30203251ceced3acdc38d20875a",
+          "sha1": "abd7f2ed8ed80eba37f5ed79864d3cde410daaa5",
+          "md5": "931413e168f19d713d0e50727259243f"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools.build",
+          "module": "gradle",
+          "version": {
+            "requires": "7.1.0"
+          }
+        },
+        {
+          "group": "org.javassist",
+          "module": "javassist",
+          "version": {
+            "requires": "3.20.0-GA"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.7.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "library-1.0.jar",
+          "url": "library-1.0.jar",
+          "size": 3405,
+          "sha512": "cef38a067a9f6b696d6ae027aa1dd5f96d485f14b4153443a4234c7eef55dd2ed241a63fba697543930550acf957f3237759ab1e04a87cc19a4bdceb284ab485",
+          "sha256": "79fa3c8e5686fe5b415bef5d58b37d90597af30203251ceced3acdc38d20875a",
+          "sha1": "abd7f2ed8ed80eba37f5ed79864d3cde410daaa5",
+          "md5": "931413e168f19d713d0e50727259243f"
+        }
+      ]
+    }
+  ]
+}
