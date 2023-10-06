@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 注意设置gravity为center，因为默认左对齐 -->
+    <!-- android:bottom="8dp" 设置文字与指示器的间距 width 指示器宽度 gravity指示器相对位置居中 左对齐，右对齐等-->
+    <item
+        android:width="35dp"
+        android:bottom="8dp"
+        android:gravity="center_horizontal">
+        <shape>
+            <corners android:radius="4dp" />
+            <size android:height="4dp" />
+        </shape>
+    </item>
+</layer-list>

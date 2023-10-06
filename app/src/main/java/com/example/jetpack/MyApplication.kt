@@ -31,6 +31,7 @@ class MyApplication : Application()
 //    lateinit var component: MyComponent
     override fun onCreate() {
         super.onCreate()
+
         createNotificationChannel()
 //        component = DaggerMyComponent.create()
     }

@@ -278,7 +278,7 @@ class NotificationActivity : AppCompatActivity() {
                     .setStyle(//展开显示大图
                         NotificationCompat.BigPictureStyle()
                             .bigPicture(BitmapFactory.decodeResource(resources, R.drawable.dog))
-                            .bigLargeIcon(null)
+//                            .bigLargeIcon(null)
                     )
                     .setAutoCancel(true)
                     .build()

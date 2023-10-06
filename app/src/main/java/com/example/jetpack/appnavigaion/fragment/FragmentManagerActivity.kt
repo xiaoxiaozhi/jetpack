@@ -2,6 +2,7 @@ package com.example.jetpack.appnavigaion.fragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.jetpack.R

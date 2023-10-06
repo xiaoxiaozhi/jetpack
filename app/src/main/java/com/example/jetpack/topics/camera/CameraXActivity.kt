@@ -24,6 +24,7 @@ import androidx.camera.camera2.interop.Camera2CameraInfo
 import androidx.camera.core.*
 import androidx.camera.core.ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
 import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
+import androidx.camera.core.impl.PreviewConfig
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.*
 import androidx.camera.video.VideoCapture
@@ -216,24 +217,27 @@ class CameraXActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        if (!haveStoragePermission(Manifest.permission.CAMERA)) {
-//            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-//                if (!it) {
-//                    showRational()
-//                }
-//            }.launch(Manifest.permission.CAMERA)
-//        }
         havePermissions(
             arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
         ).takeIf {
             it.isNotEmpty()
-        }?.forEach { permission ->
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-                if (!it) {
-                    showRational()
-                }
-            }.launch(permission)
         }
+//            ?.forEach { permission ->
+//            ActivityResultContracts.RequestMultiplePermissions
+//            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+//                if (!it) {
+//                    showRational()
+//                }
+//            }.launch(permission)
+//        }
+            ?.also { permissionArray ->
+                registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+                    Log.i(TAG, "${it.toString()}")
+//                    if (!it) {
+//                        showRational()
+//                    }
+                }.launch(permissionArray)
+            }
         cameraManager.cameraIdList.forEach {
             val characteristics = cameraManager.getCameraCharacteristics(it)
             val relativePosition = characteristics.get(CameraCharacteristics.LENS_FACING)
@@ -324,7 +328,6 @@ class CameraXActivity : AppCompatActivity() {
 
                 binding.previewView.implementationMode = PreviewView.ImplementationMode.PERFORMANCE// PreviewView选择模式
                 binding.previewView.scaleType = PreviewView.ScaleType.FIT_CENTER //FIT_CENTER 默认缩放；类型
-
                 //2. 预览UserCase
                 println("rotation---${binding.previewView.display?.rotation}")//display 在控件绘制完成前，display=null 所以要在post配置
                 preview = Preview.Builder().apply {
@@ -335,8 +338,8 @@ class CameraXActivity : AppCompatActivity() {
 //                    }
                     setTargetRotation(binding.previewView.display.rotation)// 屏幕旋转的时候要重新设置rotation通过重新创建preview的形式
                 }.build()
-                preview!!.setSurfaceProvider(binding.previewView.surfaceProvider)
-                //3. 拍摄UserCase
+                preview!!.setSurfaceProvider(binding.previewView.surfaceProvider)//提供一个用于预览的Surface
+                //3. 拍摄UserCasesurfaceProvider
                 imageCapture = ImageCapture.Builder().apply {
                     setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)//拍照模式 1 优先考虑延迟而不是质量 0优先考虑质量而不是延迟.默认1
 //                    setFlashMode(ImageCapture.FLASH_MODE_AUTO)//拍照时是否使用闪光灯，0 自动 1始终打开 2始终关闭 默认2

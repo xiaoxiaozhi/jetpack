@@ -7,22 +7,36 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".appnavigaion.navigation.ViewPager2Activity">
+        android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="46dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="21dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicator="@drawable/album_indicator"
+            app:tabIndicatorColor="@color/album_indicator_color"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextAppearance="@style/TabSelectedTextAppearance"
+            app:tabTextAppearance="@style/TabLayoutTextAppearance" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

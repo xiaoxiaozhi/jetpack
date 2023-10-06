@@ -67,6 +67,8 @@ import com.example.jetpack.databinding.ActivityNavigationBinding
  *    9.3 抽屉导航栏
  *        TODO
  *    9.4 底部导航栏BottomNavigationView
+ *        menu里面item的id与导航图中Fragment对应才能索引到
+ *        好像不行 menu--->item--->android:actionLayout="@layout/menu_item_video" 自定义item的样式
  *        在协同布局中使用app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"上滑消失，下滑显现，代码在布局文件中查看
  *        menu中的id 是导航图中Fragment的id。
  *        app:itemIconTint="@drawable/nav_item_foreground"   标签图片点击效果

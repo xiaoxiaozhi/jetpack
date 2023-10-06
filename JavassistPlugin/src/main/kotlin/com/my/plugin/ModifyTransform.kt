@@ -9,9 +9,16 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 
 /**
+ * 1. directoryInput.file.absolutePath = D:\workspace\jetpack\app\build\intermediates\asm_instrumented_project_classes\release
+ *    自己项目的class文件都在这个文件夹下面， 例如 项目包名com.example.jetpack.test类名TestActivity，在 directoryInput.file.absolutePath下面都是以文件夹的形式存在com\example\jetpack\test\TestActivity.class
+ *    所以我们要使用这个类就要先去除directoryInput.file.absolutePath 然后把\转换成.
+ * 2. 使用javassist 要引入类或者jar所在的文件夹，自己项目类所在文件夹就是directoryInput.file.absolutePath， android类呢，在gradle3.2可以通过project.android.bootclasspath获取
+ *    在新版gradle已经没有这个api了，不过打印旧版得到D:\AndroidSdk\platforms\android-31\android.jar。所以我们在新版gradle中直接饮用即可
+ *
  *
  */
 class ModifyTransform(val project: Project) : Transform() {
+
     val pool by lazy {
         ClassPool.getDefault().apply {
             //加入android.jar到索引，否则 遍历到onCreate(android.os.Bundle)  Bundle 会报找不到异常
@@ -34,10 +41,6 @@ class ModifyTransform(val project: Project) : Transform() {
                 transformInvocation.outputProvider.getContentLocation(
                     directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY
                 ).apply {
-                    //这个路径会根据gradle、android studio版本起变化,之后的文件夹例如 androidx\databinding\DataBinderMapperImpl.class
-                    //是类的全类名，要截取这一部分
-                    //D:\workspace\jetpack\app\build\intermediates\asm_instrumented_project_classes\release
-                    //D:\workspace\jetpack\app\build\intermediates\asm_instrumented_project_classes\debug
                     findTarget(directoryInput.file, directoryInput.file.absolutePath)
                     FileUtils.copyDirectory(directoryInput.file, this)
                     println("directoryInput.file---${directoryInput.file}-${directoryInput.file.isDirectory}---dest-------$this")

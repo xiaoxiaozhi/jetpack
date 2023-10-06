@@ -52,7 +52,7 @@ class AnimatedVectorActivity : AppCompatActivity() {
                 it, pair.first, pair.second, hypot(pair.first.toDouble(), pair.second.toDouble()).toFloat(), 0f
             ).apply {
                 addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator?) {
+                    override fun onAnimationEnd(animation: Animator) {
                         super.onAnimationEnd(animation)
                         it.visibility = View.INVISIBLE //隐藏图形
                     }

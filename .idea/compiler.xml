@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel target="1.7">
       <module name="jetpack" target="11" />
+      <module name="jetpack.annotation" target="11" />
+      <module name="jetpack.annotation.main" target="11" />
+      <module name="jetpack.annotation.test" target="11" />
       <module name="jetpack.app" target="11" />
+      <module name="jetpack.compiler" target="11" />
+      <module name="jetpack.compiler.main" target="11" />
+      <module name="jetpack.compiler.test" target="11" />
+      <module name="jetpack.javamodule" target="11" />
+      <module name="jetpack.JavassistPlugin" target="1.8" />
+      <module name="jetpack.JavassistPlugin.main" target="1.8" />
+      <module name="jetpack.JavassistPlugin.test" target="1.8" />
+      <module name="jetpack.login" target="11" />
       <module name="jetpack.main" target="11" />
+      <module name="jetpack.merber" target="11" />
+      <module name="jetpack.mylibrary" target="11" />
+      <module name="jetpack.rxjavatest" target="11" />
       <module name="jetpack.test" target="11" />
       <module name="workspace.jetpack.myPlugin" target="11" />
       <module name="workspace.jetpack.myPlugin.main" target="11" />

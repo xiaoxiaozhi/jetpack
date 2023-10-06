@@ -1,13 +1,15 @@
 package com.example.jetpack.topics.userinterface.appbar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityToolBarBinding
+
 
 /**
  * 默认主题背景的Activity均使用ActionBar作为应用栏,不同版本原生ActionBar的行为会有所不同，相比之下Toolbar拥有所有功能，在任何版本中都能使用。建议使用Toolbar
@@ -17,6 +19,8 @@ import com.example.jetpack.databinding.ActivityToolBarBinding
  *    1.3 在 Activity 的 onCreate() 方法中，调用 Activity 的 setSupportActionBar()
  *    默认情况下，操作栏只包含应用的名称和一个菜单
  * 应用栏高度 Material Design [规范](https://material.io/design/components/app-bars-bottom.html)。
+ *    1.1 toolbar标题
+ *        在toolbar中 添加TextView，参见xml 。默认在返回按钮后面，且设置样式困难， 禁止显示默认标题supportActionBar?.setDisplayShowTitleEnabled(false);烬
  * 2. 添加菜单按钮
  *    作为app的toolbar(执行setSupportActionBar)添加菜单 在onCreateOptionsMenu中添加菜单
  *    作为单独控件(不执行setSupportActionBar)toolbar.inflateMenu(R.menu.menu_main)
@@ -25,6 +29,8 @@ import com.example.jetpack.databinding.ActivityToolBarBinding
  *          (activity as AppCompatActivity).setSupportActionBar(binding.topAppBar)
  *          setHasOptionsMenu(true)
  *          复写 onCreateOptionsMenu
+ *    2.1 添加返回按钮
+ *        布局文件中添加 app:navigationIcon="@android:drawable/ic_dialog_alert"
  * 3. 返回app主屏幕操作
  *    在 Activity 中支持向上功能。 添加后会在toolbar 左边增加 返回按钮. 在activity标签中  android:parentActivityName =父activity 其次在onCreate中调用supportActionBar?.setDisplayHomeAsUpEnabled(true)
  *    该例请看ToolBar1Activity
@@ -39,6 +45,8 @@ import com.example.jetpack.databinding.ActivityToolBarBinding
  *         <item app:actionProviderClass="android.support.v7.widget.ShareActionProvider" 不必为此添加操作视图，因为 ShareActionProvider 提供了自己的图形
  *         [自定义ActionProvider](https://blog.csdn.net/yanzhenjie1003/article/details/51902796) 查看该博客之后发现，actionProvider作用其实是提供视图的。
  * TODO  SearchView 需要提供provider吗？如果要怎么提供
+ * 添加返回按钮 app:navigationIcon="@mipmap/ic_back"
+ *
  */
 class ToolBarActivity : AppCompatActivity() {
     private lateinit var binding: ActivityToolBarBinding
@@ -48,11 +56,13 @@ class ToolBarActivity : AppCompatActivity() {
         setContentView(binding.root)
         //1.3
         setSupportActionBar(binding.toolbar)
-
+        supportActionBar?.setDisplayShowTitleEnabled(false);//禁止显示默认标题
 
         binding.button1.setOnClickListener {
             startActivity(Intent(this, ToolBar1Activity::class.java))
         }
+        //给返回按钮增加事件
+        binding.toolbar.setNavigationOnClickListener(View.OnClickListener { finish() })
     }
 
     //2. 添加菜单
@@ -74,11 +84,11 @@ class ToolBarActivity : AppCompatActivity() {
 
         })
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 return true
             }
 
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
                 return true
             }
 
@@ -91,10 +101,12 @@ class ToolBarActivity : AppCompatActivity() {
             println("action_favorite-----------------")
             true
         }
+
         R.id.action_settings -> {
             println("action_settings-----------------")
             true
         }
+
         else -> false
     }
 

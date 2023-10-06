@@ -22,7 +22,7 @@ fun AppCompatActivity.haveStoragePermission(permission: String) =
  */
 fun AppCompatActivity.havePermissions(permissions: Array<String>) = permissions.filter {
     ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
-}
+}.toTypedArray()
 
 val AppCompatActivity.storageManager: StorageManager
     get() = getSystemService<StorageManager>() as StorageManager

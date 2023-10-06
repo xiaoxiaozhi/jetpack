@@ -99,6 +99,9 @@ import javax.inject.Inject
  *          通常，它用于告知服务端两个请求是否来自同一浏览器——如保持用户的登录状态。Cookie 使基于无状态的 HTTP 协议记录稳定的状态信息成为了可能。
  *attention：http请求头没有设置http版本的字段，根据查询到的资料，这是服务端控制的，当服务端返回协议版本(response.protocol)的时候 客户端按照返回的版本跟服务端沟通
  *attention：
+ * ----------------------------技术蛋老师视频总结--------------------------
+ * [官网明确说明okhttp不支持http3](https://square.github.io/okhttp/4.x/okhttp/okhttp3/-protocol/-h-t-t-p_3/#http_3)
+ * 1.Http1.1
  *TODO 最终实现效果 点击按钮执行请求，结果在对话框中显示,利用上 viewModel、 repository 、Flow
  *TODO kotlin IO待总结
  */
@@ -121,7 +124,7 @@ class OkhttpActivity : AppCompatActivity() {
         okhttp.asynchronousGet()
         //4.访问请求头
         println("4.访问请求头---------------------")
-//        okhttp.accessingHeaders() //不知道为什么报错了，头天晚上还是好的
+        okhttp.accessingHeaders() //不知道为什么报错了，头天晚上还是好的
         //5.1 postingString
         println("5.1 postingString---------------------")
         okhttp.postingString()

@@ -7,13 +7,16 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-6.5-all/2oz4ud9k3tuxjg84bbf55q0tn/gradle-6.5" />
-        <option name="gradleJvm" value="Android Studio java home" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/JavassistPlugin" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/compiler" />
+            <option value="$PROJECT_DIR$/merber" />
+            <option value="$PROJECT_DIR$/router" />
+            <option value="$PROJECT_DIR$/rxjavatest" />
           </set>
         </option>
       </GradleProjectSettings>

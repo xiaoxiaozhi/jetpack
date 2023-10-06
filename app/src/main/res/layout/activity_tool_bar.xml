@@ -15,7 +15,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:navigationIcon="@android:drawable/ic_dialog_alert"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="设备主页"
+            android:textColor="#242942"
+            android:textSize="18sp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <Button
         android:id="@+id/button1"

@@ -10,4 +10,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#7e53c5</color>
+    <color name="album_indicator_color">#FD8E50</color>
+    <color name="tabLayout_item_text_color">#8C8C8E</color>
+    <color name="tabLayout_item_text_selected_color">#242942</color>
 </resources>
