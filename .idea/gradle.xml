@@ -7,7 +7,8 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../.gradle/wrapper/dists/gradle-6.5-all/2oz4ud9k3tuxjg84bbf55q0tn/gradle-6.5" />
+        <option name="gradleJvm" value="11" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -21,5 +22,6 @@
         </option>
       </GradleProjectSettings>
     </option>
+    <option name="offlineMode" value="true" />
   </component>
 </project>

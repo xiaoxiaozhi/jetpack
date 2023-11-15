@@ -1,9 +1,10 @@
 package com.example.jetpack.appnavigaion.navigation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.jetpack.R
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.viewpager2.widget.ViewPager2
+import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityViewPager2Binding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -16,6 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator
  *    在xml布局文件中添加
  * 3. 创建适配器
  *    连接 ViewPager2 和 Fragment子布局。 继承FragmentStateAdapter
+ *    获取当前选中Fragment.  binding.viewPager.registerOnPageChangeCallback (网上查来的，不知道有没有更好的方式)
  * 4. 添加选项卡
  *    TabLayout 提供了一种水平显示选项卡的方法，在 xml布局文件中添加 <TabLayout> 标签
  * 标签样式官方没有提供修改方案，以下为网上搜索
@@ -39,6 +41,7 @@ import com.google.android.material.tabs.TabLayoutMediator
  *    app:tabIndicator="@drawable/album_indicator" 设置选中状态和未选中状态的背景
  *    app:tabRippleColor="@android:color/transparent" 去除点击水波纹效果
  *    注意：TabLayout 父布局如果是ConstraintLayout， TabLayout的标签将无法点击，换成LinerLayout就可以点。但是行车记录仪项目就没出现这个问题，很是奇怪
+ *    [获取当前Fragment](https://www.coder.work/article/635465)还是有问题
  */
 class ViewPager2Activity : AppCompatActivity() {
     lateinit var binding: ActivityViewPager2Binding
@@ -56,5 +59,28 @@ class ViewPager2Activity : AppCompatActivity() {
             //attach 将 TabLayout 和 ViewPager2连接在一起，必须在ViewPager2设置适配器之后调用。TabLayoutMediator更换实例 或者 更改适配器之后也要调用
             .attach()
 //        binding.tabLayout.addOnTabSelectedListener()
+        binding.viewPager.registerOnPageChangeCallback(changeCallback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.viewPager.unregisterOnPageChangeCallback(changeCallback)
+    }
+
+    private val changeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            supportFragmentManager
+            val myFragment = supportFragmentManager.findFragmentByTag("f" +  binding.viewPager.currentItem)
+//            val currentFragment = supportFragmentManager.fragments[position]
+
+            //上面两种方法都有问题，参照这一种
+//            currentFragment = when (position) {
+//                0 -> VideoRecordFragment.newInstance()
+//                1 -> PhotoRecordFragment.newInstance()
+//                2 -> UrgentRecordFragment.newInstance()
+//                else -> Fragment()
+//            } as AlbumOptInterface
+        }
     }
 }

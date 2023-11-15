@@ -39,6 +39,7 @@ import com.example.jetpack.databinding.ActivityStatusBarBinding
  * WindowInsets
  * [WindowInsets与fitsSystemWindow 翻译自android开发人员](https://juejin.cn/post/7038422081528135687)
  * [十六进制管理状态](https://juejin.cn/post/6844903879155384333)
+ * [动态隐藏状态栏，尝试了方法四，结果有效](https://www.yisu.com/zixun/216964.html)
  */
 class StatusBarActivity : AppCompatActivity() {
     lateinit var binding: ActivityStatusBarBinding

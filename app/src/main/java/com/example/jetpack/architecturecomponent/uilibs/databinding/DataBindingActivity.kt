@@ -64,6 +64,8 @@ import com.example.jetpack.databinding.FragmentBlankBinding
  *    当EditText文字发生变化的时候TextView也会发生变化 (使用控件引用也能实现这个效果)
  * 8. DataBinding 与 架构组件一起使用
  *    查看 DataBinding2Activity TODO
+ *
+ *  TODO DataBinding layout  在Fragment中的使用
  */
 class DataBindingActivity : AppCompatActivity() {
     private val viewModel: DataBindingViewModel by viewModels<DataBindingViewModel>()
@@ -77,8 +79,7 @@ class DataBindingActivity : AppCompatActivity() {
 //        val binding: MyLayoutBinding = ActivityDataBindingBinding.bind(viewRoot)
         //2.3
         val dataBinding = DataBindingUtil.setContentView<ActivityDataBindingBinding>(
-            this,
-            R.layout.activity_data_binding
+            this, R.layout.activity_data_binding
         )
         dataBinding.root
         //2.4

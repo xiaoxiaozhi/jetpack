@@ -66,10 +66,12 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *    7.6 文件存储 使用SAF存储访问框架
  *        [ACTION_GET_CONTENT与ACTION_PICK区别](https://blog.csdn.net/chengfu116/article/details/74923161)
  *        7.6.2 打开特定类型的文件 7.6.3 创建特定类型文件 对返回的URI，使用openFileDescriptor() 写入
- *
  *    7.7 音乐或视频 播放媒体文件 查询播放音乐
  *    7.8 相册显示照片 看CameraXActivity(官方指导文档没有这个)
+ *    7.9 相关设置：ACTION_WIFI_SETTINGS Wifi设置、ACTION_SETTINGS设置界面、ACTION_BLUETOOTH_SETTINGS设置蓝牙界面 .....具体详情请看该页
+ *        startActivity(Intent(设置action))
  *    ......具体看该页
+ *
  * TODO IntentSender 与PendingIntent 区别不明 看文档看不出来不同
  */
 class IntentActivity : AppCompatActivity() {
@@ -122,7 +124,7 @@ class IntentActivity : AppCompatActivity() {
                             this@IntentActivity,
                             101,
                             Intent(this@IntentActivity, ShareBroadcastReceiver::class.java),
-                            PendingIntent.FLAG_CANCEL_CURRENT
+                            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
                         )
                         startActivity(
                             Intent.createChooser(

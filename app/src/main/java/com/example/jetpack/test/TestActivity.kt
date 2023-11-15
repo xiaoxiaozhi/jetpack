@@ -3,6 +3,9 @@ package com.example.jetpack.test
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnTouchListener
 import androidx.databinding.DataBindingUtil.setContentView
 import com.bumptech.glide.Glide
 import com.example.jetpack.R
@@ -11,6 +14,7 @@ import com.google.common.util.concurrent.ServiceManager
 
 class TestActivity : AppCompatActivity() {
     lateinit var binding: ActivityTest3Binding
+
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

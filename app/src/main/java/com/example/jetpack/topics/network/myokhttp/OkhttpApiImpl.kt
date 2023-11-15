@@ -76,7 +76,8 @@ class OkhttpApiImpl @Inject constructor(@ApplicationContext val context: Context
         newSingleThreadContext("accessingHeaders").use {
             CoroutineScope(it).launch {
                 val request = Request.Builder().url("https://api.github.com/repos/square/okhttp/issues")
-                    .header("User-Agent", "OkHttp Headers.java").addHeader("Accept", "application/json; q=0.5")
+                    .header("User-Agent", "OkHttp Headers.java")
+                    .addHeader("Accept", "application/json; q=0.5")
                     .addHeader("Accept", "application/vnd.github.v3+json").build()
                 println("request---headers----${request.headers}")
 //                for ((name, value) in request.headers) {

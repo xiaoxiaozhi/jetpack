@@ -4,7 +4,7 @@
 
 1. 配置config():准备好ProcessCameraProvider、PreviewView、CameraSelector、用例 Preview、
 2. 点击按钮:
-3. 在屏幕横竖转换的时候重新配置
+3. 在屏幕横竖转换的时候重新配置（首先需要将Activity的android:configChanges配置上orientation,这样当发生横竖屏切换时，Activity不会销毁重建，而是会回调Activity的public void onConfigurationChanged(Configuration newConfig)方法。
 4. 在activity退出时销毁相关类，防止内存泄漏。ProcessCameraProvider
 5. 获取相机支持的分辨率有两种方法：①CameraInfo获取支持分辨率 ②相机的Characteristics获取支持分辨率。 两者效果一直
 

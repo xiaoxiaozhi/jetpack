@@ -187,7 +187,7 @@ class StorageActivity : AppCompatActivity() {
         //4. 查询可用空间
         val NUM_BYTES_NEEDED_FOR_MY_APP = 1024 * 1024 * 10L;
 
-        //TODO getUuidForPath 找到兼容性方法
+        // TODO getUuidForPath 找到兼容性方法
         val appSpecificInternalDirUuid: UUID = storageManager.getUuidForPath(filesDir)
         val availableBytes: Long =
             storageManager.getAllocatableBytes(appSpecificInternalDirUuid)  //查询给定存储设备上最多可以分配给应用多少存储空间，通常大于实际存储空间因为系统可以删除其它应用的catch文件。像录制视频这样需要无限量存储空间的需求，调用间隔应该大于30S

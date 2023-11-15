@@ -4,14 +4,17 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Telephony
+import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -19,6 +22,7 @@ import androidx.core.content.ContextCompat
 import com.example.jetpack.R
 
 /**
+ * [官方库easyPermission](https://github.com/googlesamples/easypermissions)
  * [权限 API 参考文档页面](https://developer.android.google.cn/reference/android/Manifest.permission)
  * 应用权限有助于保护用户隐私
  * 受限数据，例如系统状态和用户的联系信息。
@@ -90,6 +94,8 @@ import com.example.jetpack.R
  */
 class PermissionActivity : AppCompatActivity() {
     private val openSetting = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission)
@@ -115,6 +121,24 @@ class PermissionActivity : AppCompatActivity() {
         }.apply {
             launch(Manifest.permission.ACCEPT_HANDOVER)
         }
+
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            for ((key, value) in it) Log.i("quanxian", "key = $key , value = $value")
+//            if (it) {
+//                println("权限通过")
+//            } else {
+//                showRational()
+//            }
+        }.apply {
+            launch(
+                arrayOf(
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                )
+            )
+        }
+
         // 自行管理请求权限，使用 requestPermissions 请求，在onRequestPermissionsResult() 返回结果
         // ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCEPT_HANDOVER),101);
 

@@ -84,7 +84,7 @@ import javax.inject.Named
  * 8.不支持的入口点怎么依赖注入
  *    ContentProvider在application之前就已经初始化，所以Hilt不支持它，想要在里面实现依赖注入需要自己实现入口点 TODO 待看
  * 9. Hilt与Jetpack库一起使用
- *    9.1 ViewModel 查看代码 RoomActivity
+ *    9.1 ViewModel 查看代码 RoomActivity, 被@HiltViewModel标注的viewmod 构造函数必须加@Inject
  *    9.2 TODO 与导航库
  *    9.3 TODO 与WorkerManager
  *NOTE: Expected @HiltAndroidApp to have a value. Did you forget to apply the Gradle Plugin? 当出现这个错误时检查,项目是否也用了Room,如果有则要 arguments 后面=改成+= ["room.schemaLocation":"$projectDir/schemas".toString()]
@@ -94,6 +94,7 @@ import javax.inject.Named
  */
 @AndroidEntryPoint
 class HiltActivity : AppCompatActivity() {
+
     @Inject
     lateinit var analytics: AnalyticsInterfaceAdapter//由 Hilt 注入的字段不能为私有字段。尝试使用 Hilt 注入私有字段会导致编译错误。
 

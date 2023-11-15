@@ -1,6 +1,7 @@
 package com.example.jetpack.topics.camera
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -610,6 +611,7 @@ class CameraXActivity : AppCompatActivity() {
         QualitySelector.from(filteredQualities[0])
     }
 
+    @SuppressLint("MissingPermission")
     private fun startRecording() {
         // create MediaStoreOutputOptions for our recorder: resulting our recording!
         val name = "CameraX-recording-" + SimpleDateFormat(FILENAME_FORMAT).format(System.currentTimeMillis()) + ".mp4"

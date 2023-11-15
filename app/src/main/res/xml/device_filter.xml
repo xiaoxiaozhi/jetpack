@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    代表处理一切USB设备-->
+    <usb-device />
+<!--    代表处理这类USB设备-->
+<!--    <usb-device vendor-id="1234" product-id="5678" />-->
+</resources>

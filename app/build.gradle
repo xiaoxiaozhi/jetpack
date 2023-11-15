@@ -8,6 +8,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.dagger.hilt.android'
     id 'kotlinx-serialization'
+    id 'kotlin-parcelize'
 
 }
 apply plugin:'com.my.plugin'
@@ -18,7 +19,7 @@ android {
     defaultConfig {
 
         applicationId "com.example.jetpack"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -69,6 +70,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     implementation 'com.google.android.gms:play-services-fido:18.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

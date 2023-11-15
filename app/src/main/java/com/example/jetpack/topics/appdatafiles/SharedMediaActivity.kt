@@ -109,6 +109,7 @@ import java.util.concurrent.TimeUnit
  *   note:因为7.6 update操作经常出问题，要在次之前做好兼容工作
  *   [MIME 类型列表](https://www.runoob.com/http/mime-types.html)
  *
+ * //TODO 如何监听某一类媒体库的变化例如 Media.Files、Media.Audio
  */
 class SharedMediaActivity : AppCompatActivity() {
     private val openSetting = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
@@ -227,10 +228,12 @@ class SharedMediaActivity : AppCompatActivity() {
                 put(MediaStore.Video.Media.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + File.separator + "update")
                 put(MediaStore.Files.FileColumns.IS_PENDING, 0)
             }
+
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> ContentValues().apply {
                 put(MediaStore.Video.Media.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + File.separator + "update")
                 put(MediaStore.Files.FileColumns.IS_PENDING, 0)
             }
+
             else -> ContentValues().apply {//小于10
                 println(
                     "小于10 绝对路径" + Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DOCUMENTS + File.separator + "update" + File.separator + "123"
@@ -406,6 +409,7 @@ class SharedMediaActivity : AppCompatActivity() {
 //            MediaStore.VOLUME_EXTERNAL          //content://media/external/file
             MediaStore.VOLUME_EXTERNAL_PRIMARY    //content://media/external_primary/file
         )
+
         (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) -> MediaStore.Files.getContentUri(
             MediaStore.VOLUME_EXTERNAL          //content://media/external/file
 //            MediaStore.VOLUME_EXTERNAL_PRIMARY    //content://media/external_primary/file

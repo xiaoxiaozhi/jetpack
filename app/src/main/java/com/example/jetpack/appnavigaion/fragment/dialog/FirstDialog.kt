@@ -17,26 +17,26 @@ import com.example.jetpack.R
  * 1.圆角  dialog的xml设置成圆角就得到圆角dialog，然后在dialogFragment 的onCreatView 方法中执行 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
  * 2.消除背景颜色
  * 3.设置宽高， 设置的宽高，如果子view填不满会显示子view的高度，超出会使一部分子view不可见
+ *
+ *  dialog?.window? 代码设置效果的优先级高于主题设置，当全部都设置时，主题设置无效 （ 主题设置 override fun getTheme(): Int = R.style.Theme_NoWiredStrapInNavigationBar）
+ *  看这个对DialogFragment 的总结感觉有点东西 https://cloud.tencent.com/developer/article/1453726
  */
 class FirstDialog : DialogFragment() {
     internal lateinit var listener: NoticeDialogListener
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        return activity?.let {
-            // Use the Builder class for convenient dialog construction
-            val builder = AlertDialog.Builder(it).setView(R.layout.dialog_siginin)//1.2 创建自定义布局
-            builder.setMessage("Message").setPositiveButton("是") { dialog, witch ->
-
-            }.setNegativeButton("否") { dialog, witch ->
-
-            }
-//                .setNeutralButton()// 确定、否定、这个是中性按钮
-//            .setItems(R.array.colors_array,DialogInterface.OnClickListener{})//1.1 创建带列表的Dialog
-            // Create the AlertDialog object and return it
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+        val dialog = super.onCreateDialog(savedInstanceState)
+        val view = LayoutInflater.from(context).inflate(R.layout.dialog_siginin, null)
+        initView(view)
+        dialog.setContentView(view)
+        return dialog
     }
 
+    private fun initView(rootView: View) {
+
+    }
+
+    //主题设置效果
+//    override fun getTheme(): Int = R.style.Theme_NoWiredStrapInNavigationBar
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))//2.使用圆角会暴漏默认背景，该设置使背景透明
         return super.onCreateView(inflater, container, savedInstanceState)

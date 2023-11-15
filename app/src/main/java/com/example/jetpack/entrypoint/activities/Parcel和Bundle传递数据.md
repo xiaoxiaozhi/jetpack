@@ -1,4 +1,5 @@
 https://developer.android.google.cn/guide/components/activities/parcelables-and-bundles?hl=en   
+官网说Activity和进程之间用parcelable传递数据，实际上intent支持intent.putExtra(key,Serializable)
 1. Activity之间传递数据。   
    Intent 通过Intent().putExtra()传递数据，把数据放在Bundle中，传递原始数据和序列化数据，这种方法数据限制在几Kb之内否则会报错
 2. 进程之间传递数据  

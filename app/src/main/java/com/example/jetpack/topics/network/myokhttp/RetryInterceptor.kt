@@ -12,7 +12,7 @@ class RetryInterceptor : Interceptor {
         var response = chain.proceed(request)
         while (!response.isSuccessful && retryNum < maxRetry) {
             retryNum++;
-            println("retryNum=" + retryNum);
+            println("retryNum=$retryNum");
             response.close()
             response = chain.proceed(request);
         }

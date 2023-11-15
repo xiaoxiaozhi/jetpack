@@ -45,7 +45,7 @@ class RoomActivity : AppCompatActivity() {
 
 //    @Inject
 //    lateinit var repository: WordRepository
-
+//实践表明即使viewmodel不加@HiltViewModel，也可以用viewModels实例化viewmode，那么实例化后的实例有什么区别吗？
     private val viewModel: WordViewModel by viewModels<WordViewModel>()
 
     //    val viewModel: WordViewModel by viewModel()
