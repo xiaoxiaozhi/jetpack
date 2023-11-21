@@ -7,6 +7,7 @@ buildscript {
         google()
         mavenCentral()
     }
+    //未知给gradle问题调用 ./gradlew assembleDebug --stacktrace查看原因
     //[Android Gradle 插件版版本和Gradle版本关系](https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn#updating-plugin)
     dependencies {
         classpath "com.android.tools.build:gradle:7.1.2"

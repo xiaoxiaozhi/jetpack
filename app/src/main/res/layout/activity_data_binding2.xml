@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></EditText>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text1"
@@ -39,7 +39,7 @@
             android:text="@{student.content}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit1"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/edit1" />
 
         <com.example.jetpack.architecturecomponent.uilibs.databinding.MyButton
             android:id="@+id/button1"
@@ -49,7 +49,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text1"
-            app:myName="@={student.content}"></com.example.jetpack.architecturecomponent.uilibs.databinding.MyButton>
+            app:myName="@={student.content}" />
 
         <com.example.jetpack.architecturecomponent.uilibs.databinding.ColorPicker
             android:id="@+id/colorPicker"
@@ -59,7 +59,7 @@
             app:color="@={colorValue}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button1"></com.example.jetpack.architecturecomponent.uilibs.databinding.ColorPicker>
+            app:layout_constraintTop_toBottomOf="@+id/button1" />
 
         <TextView
             android:id="@+id/button2"
@@ -67,6 +67,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/colorPicker"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/colorPicker" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

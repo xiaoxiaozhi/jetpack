@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import com.example.jetpack.R
+import com.example.jetpack.architecturecomponent.uilibs.databinding.DataBindingActivity
 import com.example.jetpack.databinding.ActivityStorageBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -78,6 +79,7 @@ import java.util.*
  *    [处理媒体文件](https://developer.android.google.cn/training/data-storage/use-cases#handle-media-files)
  *    [处理非媒体文件](https://developer.android.google.cn/training/data-storage/use-cases#handle-non-media-files)
  *  [MIME 类型列表](https://www.runoob.com/http/mime-types.html)
+ *  结果 Environment.isExternalStorageLegacy() 为 true，没有分区存储。
  */
 class StorageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStorageBinding
@@ -157,6 +159,8 @@ class StorageActivity : AppCompatActivity() {
 
         //1.1.2.3 访问外部专属空间持久性文件
         ///storage/emulated/0/Android/data/com.example.jetpack/files/Documents/inner
+//        getExternalFilesDir("")// 获取外部存储空间目录 File
+//        getExternalFilesDir("Documents")//获取并创建文件夹
         File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "inner").apply {
             if (!exists()) createNewFile() else println("Environment.DIRECTORY_DOCUMENTS存在")
         }//类型不为空，则会在files下面创建该文件夹，例如Environment.DIRECTORY_DOWNLOADS，则会创建Download文件夹

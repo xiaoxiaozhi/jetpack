@@ -23,10 +23,11 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--    -->
-    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
-    android:usesPermissionFlags="neverForLocation" />
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation" />
     <!--蓝牙权限 Before Android 12 (but still needed location, even if not requested)-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -102,18 +103,21 @@
         </activity>
         <activity
             android:name=".architecturecomponent.uilibs.databinding.DataBinding2Activity"
-            android:exported="false" />
+            android:exported="true" />
         <activity android:name=".architecturecomponent.uilibs.paging.PagingActivity">
             <!--        <intent-filter>-->
             <!--            <action android:name="android.intent.action.MAIN" />-->
             <!--            <category android:name="android.intent.category.LAUNCHER" />-->
             <!--        </intent-filter>-->
         </activity>
-        <activity android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity">
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+        <activity
+            android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.jetpack.appnavigaion.navigation.NavigationActivity"
@@ -407,10 +411,10 @@
         <activity
             android:name="com.example.jetpack.topics.connect.WifiActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.image.ImageActivity">
 

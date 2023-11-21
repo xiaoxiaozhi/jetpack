@@ -20,6 +20,13 @@ class WifiViewModel @Inject constructor(private val wifiUtil: WifiUtil) : ViewMo
     private var discoverJob: Job? = null
     private val _wifiP2pDeviceList = MutableLiveData<List<WifiP2pDevice>>()
     val wifiP2pDeviceList: LiveData<List<WifiP2pDevice>> = _wifiP2pDeviceList
+    private val _groupInfo = MutableLiveData<String>()
+    val groupInfo: LiveData<String> = _groupInfo
+
+    init {
+        getGroupInfo()
+    }
+
     var isWifiEnabled
         get() = wifiUtil.wifiManager.isWifiEnabled
         set(value) {
@@ -35,7 +42,7 @@ class WifiViewModel @Inject constructor(private val wifiUtil: WifiUtil) : ViewMo
     fun discoverPeers() = viewModelScope.launch(Dispatchers.Default) {
         while (isActive) {
             wifiUtil.discoverPeers()
-            delay(2 * 1000)
+            delay(5 * 1000)
         }
     }.apply {
         discoverJob?.cancel()
@@ -61,5 +68,11 @@ class WifiViewModel @Inject constructor(private val wifiUtil: WifiUtil) : ViewMo
 
     fun connectDevice(wifiP2pDevice: WifiP2pDevice) {
         wifiUtil.connectDevice(wifiP2pDevice)
+    }
+
+    fun getGroupInfo() {
+        viewModelScope.launch(Dispatchers.Default) {
+            _groupInfo.postValue(wifiUtil.getGroupInfo())
+        }
     }
 }

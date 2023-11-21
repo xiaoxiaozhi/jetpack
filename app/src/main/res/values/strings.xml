@@ -1,7 +1,8 @@
 <resources>
     <string name="nameFormat">nameFormat with %1$s and %2$s</string>
-    <string name="collection">map value = %s list value = %d </string>
+    <string name="collection">表达式map value = %s list value = %d </string>
     <string name="directionBinding">单向绑定%d %s %d</string>
+    <string name="live_data_str">db变量引用LiveData，改变lived值，db变量绑定的值也改变 %s</string>
     <string name="observable">单向绑定%d</string>
     <string name="app_name">jetpack</string>
     <!-- TODO: Remove or change this placeholder text -->

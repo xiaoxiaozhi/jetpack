@@ -6,7 +6,6 @@ import androidx.databinding.ObservableField
 import  com.example.jetpack.BR
 
 /**
- * TODO dataBinding怎么和 ViewModel 配合使用
  * 实现 BaseObservable 的数据类负责在属性更改时发出通知,具体操作过程是向 getter 分配 Bindable 注释，然后在 setter 中调用 notifyPropertyChanged() 方法，
  * 1. 每一个都要写  @get:Bindable以及set方法非常麻烦，dataBinding提供了ObservableField<T> 可观察字段。提供相同的功能且不用继承BaseObservable [可观察字段类型](https://developer.android.google.cn/topic/libraries/data-binding/observability#observable_fields)
  * note:BR类需要手动导入 import  包名.BR

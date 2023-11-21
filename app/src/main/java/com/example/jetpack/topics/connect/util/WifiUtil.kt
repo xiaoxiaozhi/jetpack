@@ -8,7 +8,9 @@ import android.net.wifi.p2p.WifiP2pConfig
 import android.net.wifi.p2p.WifiP2pDevice
 import android.net.wifi.p2p.WifiP2pDeviceList
 import android.net.wifi.p2p.WifiP2pManager
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -17,7 +19,9 @@ class WifiUtil(val context: Context) {
     private val wifiP2pManager by lazy { context.getSystemService(Context.WIFI_P2P_SERVICE) as? WifiP2pManager } // 获取 WiFiP2pManager
     val wifiChannel: WifiP2pManager.Channel? by lazy {
         Log.i(TAG, "WifiUtil获取mainLooper---${context.mainLooper.hashCode()}")
-        wifiP2pManager?.initialize(context, context.mainLooper, null)
+        wifiP2pManager?.initialize(context, context.mainLooper) {
+            Log.i(TAG, "wifiChannel---onChannelDisconnected")
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -42,6 +46,7 @@ class WifiUtil(val context: Context) {
                 Log.i(TAG, "discoverPeers---onFailure---$p0")
             }
         })
+//        wifiP2pManager?.discoverPeersOnSpecificFrequency()
     }
 
     @SuppressLint("MissingPermission")
@@ -77,6 +82,86 @@ class WifiUtil(val context: Context) {
         wifiP2pManager?.requestConnectionInfo(wifiChannel, connectionListener)
     }
 
+    @SuppressLint("MissingPermission")
+    fun createGroup() {
+        removeGroupIfNeed()
+        wifiP2pManager?.createGroup(wifiChannel, object : WifiP2pManager.ActionListener {
+            override fun onSuccess() {
+                val log = "createGroup onSuccess"
+//
+            }
+
+            override fun onFailure(reason: Int) {
+                val log = "createGroup onFailure: $reason"
+
+            }
+        })
+    }
+
+    fun removeGroup() {
+        removeGroupIfNeed()
+    }
+
+    @SuppressLint("MissingPermission")
+    suspend fun getGroupInfo() = suspendCancellableCoroutine<String> {
+        wifiP2pManager?.requestGroupInfo(wifiChannel) { group ->
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                """
+                |是群组拥有者---${group.isGroupOwner}
+                |群组拥有者名称---${group.owner.deviceName}
+                |群组拥有者地址---${group.owner.deviceAddress}
+                |接口---${group.`interface`}
+                |群组名称---${group.networkName}
+                |frequency---${group.frequency}
+                |密码---${group.passphrase}
+            """.trimIndent().apply { Log.i(TAG, this) }
+
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                """
+                |是群组拥有者---${group.isGroupOwner}
+                |群组拥有者名称---${group.owner.deviceName}
+                |群组拥有者地址---${group.owner.deviceAddress}
+                |接口---${group.`interface`}
+                |群组名称---${group.networkName}
+                |frequency---${group.frequency}
+                |networkId---${group.networkId}
+                |密码---${group.passphrase}
+            """.trimIndent().apply { Log.i(TAG, this) }
+
+            } else {
+                """
+                |是群组拥有者---${group.isGroupOwner}
+                |群组拥有者名称---${group.owner.deviceName}
+                |群组拥有者地址---${group.owner.deviceAddress}
+                |接口---${group.`interface`}
+                |群组名称---${group.networkName}
+                |密码---${group.passphrase}
+            """.trimIndent().apply { Log.i(TAG, this) }
+            }
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private fun removeGroupIfNeed() {
+        wifiP2pManager?.requestGroupInfo(wifiChannel) { group ->
+            if (group == null) {
+
+            } else {
+                wifiP2pManager?.removeGroup(wifiChannel, object : WifiP2pManager.ActionListener {
+                    override fun onSuccess() {
+                        val log = "removeGroup onSuccess"
+                    }
+
+                    override fun onFailure(reason: Int) {
+                        val log = "removeGroup onFailure: $reason"
+                    }
+                })
+            }
+        }
+    }
+
     private val connectionListener = WifiP2pManager.ConnectionInfoListener { info ->
         Log.i(TAG, "groupOwnerAddress---${info.groupOwnerAddress?.hostAddress}")
         // After the group negotiation, we can determine the group owner
@@ -93,6 +178,7 @@ class WifiUtil(val context: Context) {
             Log.i(TAG, "群组成员---")
         }
     }
+
 
     companion object {
         const val TAG = "WifiUtil"

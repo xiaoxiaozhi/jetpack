@@ -39,7 +39,7 @@ import java.security.Permission
 
 /**
  * 学习wifi直连之前需要先学习wifi协议，官网课程没有相关部分，看不明白
- * 网上找来的学习笔记 [WiFi Direct即P2P协议学习笔记](https://blog.csdn.net/m0_38059875/article/details/122075907)
+ * 网上找来的学习笔记其实是邓凡平书籍的抄录 [WiFi Direct即P2P协议学习笔记](https://blog.csdn.net/m0_38059875/article/details/122075907)
  * [Android 实现无网络传输文件,](https://juejin.cn/post/6844903565186596872) 还是难以理解
  * [wifi系列文章](https://www.zhihu.com/column/c_1610405613384474625) 科普性质的文章
  * [深入理解Android：Wi-Fi，NFC和GPS](https://static.kancloud.cn/alex_wsc/android-wifi-nfc-gps/414116)
@@ -62,7 +62,8 @@ import java.security.Permission
  *       翻看tFileTransporter的源码发现   discoverPeers 要循环执行才能发现p2p设备
  *       discoverPeers()--->接收广播WIFI_P2P_PEERS_CHANGED_ACTION广播--->调用 requestPeers() 以获取对等设备的更新列表。
  *       实际发现 discoverPeers 方法会触发SCAN_RESULTS_AVAILABLE_ACTION的广播回调，相当于替代了startScan() 方法
- *       但是为什么wifi直连的广播没有触发返回错误码2
+ *       如果在开热点的情况下调用discoverPeers会返回错误码2 也就是busy
+ *       实际发现 设备A调用discoverPeers 只会发现创建群组的设备B，(需要再找一台不创建群组的设备C看看会不会被发现）
  *   2.3 连接到对等设备
  * 需要申请的权限，因为要在两台设备传输文件，所以要申请网络权限
  * <上面的权限也需要/>
@@ -85,6 +86,7 @@ class WifiActivity : AppCompatActivity() {
     private val viewModel by viewModels<WifiViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.getGroupInfo()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wifi)
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = adapter
@@ -113,8 +115,6 @@ class WifiActivity : AppCompatActivity() {
         }
 
         //1.2 查询附近wifi 结果通过广播异步返回
-//        val success = wifiManager.startScan()
-        wifiChannel = wifiP2pManager?.initialize(applicationContext, mainLooper, null) // 初始化 WifiChannel
         viewModel.getChannel()?.also {
             Log.i(TAG, "wifiChannel存在 注册广播----")
             val intentFilter1 = IntentFilter().apply {
@@ -126,43 +126,24 @@ class WifiActivity : AppCompatActivity() {
         } ?: {
             Log.i(TAG, "wifiChannel不存在----")
         }
-        //2.2 查询附近设备
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            viewModel.discoverPeers()
-//            lifecycleScope.launch(Dispatchers.Default) {
-//                repeat(10) {
-//                    wifiP2pManager?.discoverPeers(wifiChannel, object : WifiP2pManager.ActionListener {
-//                        override fun onSuccess() {
-////                        if (it.isActive) {
-////                            it.resume(true)
-////                        }
-//                            Log.i(WifiUtil.TAG, "discoverPeers---onSuccess")
-//                        }
-//
-//                        /**
-//                         * WifiP2pManager.P2P_UNSUPPORTED, 1 设备不支持 wifi直连
-//                         * WifiP2pManager.ERROR 0 内部错误导致
-//                         * WifiP2pManager.BUSY  2 框架繁忙无法提供服务
-//                         */
-//                        override fun onFailure(p0: Int) {
-////                        if (it.isActive) {
-////                            it.resume(false)
-////                        }
-//                            Log.i(WifiUtil.TAG, "discoverPeers---onFailure---$p0")
-//                        }
-//                    })
-//                    delay(1000)
-//                }
-//            }
-        }
+
         viewModel.wifiP2pDeviceList.observe(this) {
             adapter.setDataList(it)
         }
         adapter.setOnClick {
             viewModel.connectDevice(it)
+        }
+        binding.createGroup.setOnClickListener {
+
+        }
+        binding.search.setOnClickListener {
+            //2.2 查询附近设备
+            if (ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                viewModel.discoverPeers()
+            }
         }
     }
 
