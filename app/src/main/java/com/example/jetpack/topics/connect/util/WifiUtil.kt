@@ -83,17 +83,16 @@ class WifiUtil(val context: Context) {
     }
 
     @SuppressLint("MissingPermission")
-    fun createGroup() {
+    suspend fun createGroup() = suspendCancellableCoroutine<Boolean> {
         removeGroupIfNeed()
         wifiP2pManager?.createGroup(wifiChannel, object : WifiP2pManager.ActionListener {
             override fun onSuccess() {
                 val log = "createGroup onSuccess"
-//
+                it.resume(true)
             }
-
             override fun onFailure(reason: Int) {
                 val log = "createGroup onFailure: $reason"
-
+                it.resume(false)
             }
         })
     }
@@ -108,14 +107,17 @@ class WifiUtil(val context: Context) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 """
-                |是群组拥有者---${group.isGroupOwner}
-                |群组拥有者名称---${group.owner.deviceName}
-                |群组拥有者地址---${group.owner.deviceAddress}
-                |接口---${group.`interface`}
-                |群组名称---${group.networkName}
-                |frequency---${group.frequency}
-                |密码---${group.passphrase}
-            """.trimIndent().apply { Log.i(TAG, this) }
+                |是群组拥有者---${group?.isGroupOwner}
+                |群组拥有者名称---${group?.owner?.deviceName}
+                |群组拥有者地址---${group?.owner?.deviceAddress}
+                |接口---${group?.`interface`}
+                |群组名称---${group?.networkName}
+                |frequency---${group?.frequency}
+                |密码---${group?.passphrase}
+            """.trimIndent().apply {
+                    it.resume(this)
+                    Log.i(TAG, this)
+                }
 
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 """
@@ -127,7 +129,10 @@ class WifiUtil(val context: Context) {
                 |frequency---${group.frequency}
                 |networkId---${group.networkId}
                 |密码---${group.passphrase}
-            """.trimIndent().apply { Log.i(TAG, this) }
+            """.trimIndent().apply {
+                    it.resume(this)
+                    Log.i(TAG, this)
+                }
 
             } else {
                 """
@@ -137,7 +142,10 @@ class WifiUtil(val context: Context) {
                 |接口---${group.`interface`}
                 |群组名称---${group.networkName}
                 |密码---${group.passphrase}
-            """.trimIndent().apply { Log.i(TAG, this) }
+            """.trimIndent().apply {
+                    it.resume(this)
+                    Log.i(TAG, this)
+                }
             }
         }
     }

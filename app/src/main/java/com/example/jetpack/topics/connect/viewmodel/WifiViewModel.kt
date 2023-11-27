@@ -21,11 +21,8 @@ class WifiViewModel @Inject constructor(private val wifiUtil: WifiUtil) : ViewMo
     private val _wifiP2pDeviceList = MutableLiveData<List<WifiP2pDevice>>()
     val wifiP2pDeviceList: LiveData<List<WifiP2pDevice>> = _wifiP2pDeviceList
     private val _groupInfo = MutableLiveData<String>()
-    val groupInfo: LiveData<String> = _groupInfo
+    val groupInfo_: LiveData<String> = _groupInfo
 
-    init {
-        getGroupInfo()
-    }
 
     var isWifiEnabled
         get() = wifiUtil.wifiManager.isWifiEnabled
@@ -73,6 +70,13 @@ class WifiViewModel @Inject constructor(private val wifiUtil: WifiUtil) : ViewMo
     fun getGroupInfo() {
         viewModelScope.launch(Dispatchers.Default) {
             _groupInfo.postValue(wifiUtil.getGroupInfo())
+        }
+    }
+
+    fun createGroup() {
+        viewModelScope.launch(Dispatchers.Default) {
+            wifiUtil.createGroup()
+            getGroupInfo()
         }
     }
 }

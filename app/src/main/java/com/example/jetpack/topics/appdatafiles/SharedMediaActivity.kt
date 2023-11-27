@@ -155,7 +155,9 @@ class SharedMediaActivity : AppCompatActivity() {
         //8. 添加项目
         val fileUri = insertFile()
         //9.1 更新
-        updateFile1(fileUri)
+        if (fileUri != null) {
+            updateFile1(fileUri)
+        }
 
         //9.2 更新其它应用创建的媒体文件
         //本例从第4节查询的文件选取一个，更改路径 被更改  Video(uri=content://media/external/video/media/24969, name=VID_20200810_152253.mp4, duration=16247, size=42043590, path=/storage/emulated/0/DCIM/Camera/VID_20200810_152253.mp4)
@@ -176,7 +178,7 @@ class SharedMediaActivity : AppCompatActivity() {
         }
     }
 
-    private fun insertFile(): Uri {
+    private fun insertFile(): Uri? {
         val fileValue = ContentValues().apply {
             put(
                 MediaStore.Files.FileColumns.DISPLAY_NAME, "jetpack${Date().time}.txt"
@@ -201,7 +203,7 @@ class SharedMediaActivity : AppCompatActivity() {
 
         }//每次运行都会添加一个，jetpack(1).txt  jetpack(2).txt  jetpack(3).txt.........
         println("MediaStore.Files = ${getFileContentUri()}")
-        val fileUri = contentResolver.insert(getFileContentUri(), fileValue)!!.also {
+        val fileUri = contentResolver.insert(getFileContentUri(), fileValue)?.also {
             println("fileUri-----${it.toString()}")
             contentResolver.openFileDescriptor(it, "w").use { fileDescriptor ->
                 OutputStreamWriter(

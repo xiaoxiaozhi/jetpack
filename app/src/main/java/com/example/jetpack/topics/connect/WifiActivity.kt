@@ -78,19 +78,18 @@ import java.security.Permission
  */
 @AndroidEntryPoint
 class WifiActivity : AppCompatActivity() {
-    val wifiManager: WifiManager by lazy { applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager }
-    val wifiP2pManager by lazy { applicationContext.getSystemService(Context.WIFI_P2P_SERVICE) as? WifiP2pManager } // 获取 WiFiP2pManager
-    var wifiChannel: WifiP2pManager.Channel? = null
     private lateinit var binding: ActivityWifiBinding
     private val adapter: WifiDeviceAdapter = WifiDeviceAdapter()
     private val viewModel by viewModels<WifiViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getGroupInfo()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wifi)
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = adapter
-
+        binding.vm = viewModel
+        binding.handle = this
+        binding.lifecycleOwner = this
+        viewModel.getGroupInfo()
         val intentFilter = IntentFilter()
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         registerReceiver(wifiScanReceiver, intentFilter)
@@ -133,17 +132,15 @@ class WifiActivity : AppCompatActivity() {
         adapter.setOnClick {
             viewModel.connectDevice(it)
         }
-        binding.createGroup.setOnClickListener {
 
-        }
-        binding.search.setOnClickListener {
-            //2.2 查询附近设备
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                viewModel.discoverPeers()
-            }
+    }
+    //2.2 查询附近设备
+    fun searchDevices(){
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            viewModel.discoverPeers()
         }
     }
 

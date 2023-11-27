@@ -58,8 +58,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".test.TestActivity">
-            <!--            <intent-filter>-->
+        <activity android:name=".test.TestActivity"
+            android:exported="true">
+<!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
@@ -114,10 +115,10 @@
             android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name="com.example.jetpack.appnavigaion.navigation.NavigationActivity"
@@ -403,18 +404,18 @@
         <activity
             android:name="com.example.jetpack.topics.connect.ConnectivityActivity"
             android:exported="true">
-            <!--        <intent-filter>-->
-            <!--            <action android:name="android.intent.action.MAIN" />-->
-            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--        </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.jetpack.topics.connect.WifiActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.image.ImageActivity">
 

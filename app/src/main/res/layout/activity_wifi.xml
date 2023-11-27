@@ -5,6 +5,17 @@
 
     <data>
 
+        <import type="com.example.jetpack.topics.connect.viewmodel.WifiViewModel" />
+
+        <import type="com.example.jetpack.topics.connect.WifiActivity" />
+
+        <variable
+            name="vm"
+            type="WifiViewModel" />
+
+        <variable
+            name="handle"
+            type="WifiActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,11 +25,12 @@
 
         <TextView
             android:id="@+id/groupInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`群组信息`+vm.groupInfo_}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/createGroup"
@@ -33,6 +45,7 @@
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{(view)->handle.searchDevices()}"
             android:text="搜索"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

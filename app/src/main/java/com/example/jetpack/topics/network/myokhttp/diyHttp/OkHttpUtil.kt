@@ -9,6 +9,9 @@ import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.WorkerThread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -18,9 +21,15 @@ import java.net.URL
 import java.util.Collections.synchronizedList
 import java.util.concurrent.Executors
 
+/**
+ * 本例采用context.contentResolver?.insert 把多媒体文件插入相册，是官方文档上采用的形式，
+ * 实践中发现android9和android7出现了问题，无法采用上述形式插入相册，以下是总结日志
+ * android 7和android9 使用 context.contentResolver?.insert 返回null无法插入
+ * vivo android 9 使用以下形式可以插入，三星 android7使用以下形式不可以
+ * sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File("your path"))););
+ *
+ */
 
-// [okhttp下载和断点续传,后者没有验证](https://blog.csdn.net/Taozi825232603/article/details/117003324)
-// https://www.jianshu.com/p/198a62f5c90c  这个验证过了
 class OkHttpUtil private constructor(val context: Context) {
     companion object : SingletonHolder<OkHttpUtil, Context>(::OkHttpUtil)
 
@@ -38,6 +47,7 @@ class OkHttpUtil private constructor(val context: Context) {
     private val executorService = Executors.newSingleThreadExecutor()
     private lateinit var empty: () -> Unit
     private var isPause: Boolean = false
+    private lateinit var actionPause: () -> Unit
 
 
     fun getCurrentExecuteInfo(c: (current: List<OkhttpItem>) -> Unit,
@@ -63,9 +73,46 @@ class OkHttpUtil private constructor(val context: Context) {
         isPause = true
     }
 
+    fun pauseCallback(action: () -> Unit) {
+        isPause = true
+        actionPause = action
+    }
+
     fun resume() {
         isPause = false
         executeList()
+    }
+
+    fun isPause() = isPause
+
+
+    fun haveItem(name: String): Boolean {
+        return !currentList.none { it.name == name }.apply { Log.i(TAG, "有文件吗？---$this") }
+    }
+
+    suspend fun haveAndDelete(name: String) {
+        if (currentList.isNotEmpty() && file.name == name) {
+            withContext(Dispatchers.Default) {
+                pauseCallback {
+                    Log.i(TAG, "删除temp文件---${File(file.absolutePath + ".temp").takeIf { it.exists() }?.delete()}")
+//                    MmkvHelper.getInstance().putObject(OkhttpItem.CURRENT, null)
+                    currentList.filter { it.name == name }.takeIf { it.isNotEmpty() }?.first()?.also {
+                        Log.i(TAG, "移除正下载---${it.name}")
+                        currentList.remove(it)
+                        Log.i(TAG, "删除后剩余个数---${currentList.size}")
+                        resume()
+                    }
+                }
+                delay(300)
+            }
+        } else {
+            currentList.filter { it.name == name }.takeIf { it.isNotEmpty() }?.first()?.also {
+                Log.i(TAG, "移除队列文件---${it.name}")
+                currentList.remove(it)
+                Log.i(TAG, "删除后剩余个数---${currentList.size}")
+                resume()
+            }
+        }
     }
 
     @WorkerThread
@@ -74,10 +121,13 @@ class OkHttpUtil private constructor(val context: Context) {
             currentList.iterator().also {
                 while (it.hasNext()) {
                     it.next().apply {
+//                        MmkvHelper.getInstance().putObject(OkhttpItem.CURRENT, this);
                         file = this.outFile
 //                        if (findFile(file.name, type)) return@apply
                         Log.i(TAG, "本地不存在开始下载---${file.name}")
-                        if (downloadFile1(this.url, file)) {
+                        val d = File(file.absolutePath + ".temp")
+//                        if (downloadFile1(this.url, file)) {
+                        if (downloadFile1(this.url, d)) {
                             Log.i(TAG, "下载成功开始插入相应文件 type=${this.type}")
                             when (this.type) {
                                 OkhttpItem.MOVIE -> insertVideo(this)
@@ -94,6 +144,7 @@ class OkHttpUtil private constructor(val context: Context) {
                         break
                     } else {
                         it.remove()
+//                        MmkvHelper.getInstance().putObject(OkhttpItem.CURRENT, null);
                         if (::current.isInitialized) current(currentList.toList())
                         if (::downloaded.isInitialized) downloaded(downloadedList.toList())
                     }
@@ -106,7 +157,9 @@ class OkHttpUtil private constructor(val context: Context) {
                     currentList.addAll(this)
                     clear()
                     executeList()
-                } ?: if (::empty.isInitialized) empty() else Unit
+                } ?: run {
+                    if (::empty.isInitialized) empty()
+                }
             }
         }
     }
@@ -120,7 +173,6 @@ class OkHttpUtil private constructor(val context: Context) {
     ).exists()
 
 
-    //正常下载代码
     private fun downloadFile(url: String, outFile: File): Boolean {
         val urlConnection = getConnection(url)
         Log.i(TAG, "responseCode---${urlConnection.responseCode} ${urlConnection.responseMessage}")
@@ -150,15 +202,15 @@ class OkHttpUtil private constructor(val context: Context) {
         return true
     }
 
-    //断点续传代码
     private fun downloadFile1(url: String, outFile: File): Boolean {
         Log.i(TAG, "文件已经存在的大小---${outFile.length()}")
-        val randomFile = RandomAccessFile(file, "rw")
+        val randomFile = RandomAccessFile(outFile, "rw")
         randomFile.seek(outFile.length()) //跳过已经下载的字节
         val urlConnection = getConnection1(url, outFile.length())
 
         Log.i(
-            TAG, "responseCode---${urlConnection.responseCode} " + "${urlConnection.responseMessage} " + "${
+            TAG,
+            "responseCode---${urlConnection.responseCode} " + "${urlConnection.responseMessage} " + "${
                 urlConnection.getHeaderField("Content-Range")
             }"
         )
@@ -184,12 +236,15 @@ class OkHttpUtil private constructor(val context: Context) {
         }
         return if (isPause) {
             Log.i(TAG, "暂停后temp大小---$temp")
+            if (::actionPause.isInitialized) actionPause()
             false
         } else {
             Log.i(TAG, "下载完成")
             total = 0
             progress = 0
             urlConnection.disconnect()
+            Log.i(TAG, "改名---${outFile.absolutePath.replace(".temp", "")}...")
+            outFile.renameTo(File(outFile.absolutePath.replace(".temp", "")))
             true
         }
 
@@ -206,21 +261,13 @@ class OkHttpUtil private constructor(val context: Context) {
         return connection
     }
 
-    /**
-     * Range: bytes=0-499      表示第 0-499 字节范围的内容
-     * Range: bytes=500-999    表示第 500-999 字节范围的内容
-     * Range: bytes=-500       表示最后 500 字节的内容
-     * Range: bytes=500-       表示从第 500 字节开始到文件结束部分的内容
-     * Range: bytes=0-0,-1     表示第一个和最后一个字节  事实证明正常下载bytes=0- 就可以，为什么还要有这种写法
-     * Range: bytes=500-600,601-999 同时指定几个范围
-     */
     private fun getConnection1(httpUrl: String, size: Long): HttpURLConnection {
         val url = URL(httpUrl)
         val connection = url.openConnection() as HttpURLConnection
         connection.requestMethod = "GET"
         connection.setRequestProperty("Content-Type", "application/octet-stream")
         connection.setRequestProperty("Connection", "Keep-Alive")
-        connection.setRequestProperty("Range", "bytes=${size}-");//断点续传关键在于这句从断点的位置往后到结尾
+        connection.setRequestProperty("Range", "bytes=${size}-");
         connection.connect()
         return connection
     }
@@ -267,7 +314,7 @@ class OkHttpUtil private constructor(val context: Context) {
         return fileUri
     }
 
-    private fun insertPic(dataItem: OkhttpItem): Uri {
+    private fun insertPic(dataItem: OkhttpItem): Uri? {
         val fileValue = ContentValues().apply {
             put(MediaStore.Images.ImageColumns.DISPLAY_NAME, dataItem.outFile.name)
             put(
@@ -281,7 +328,7 @@ class OkHttpUtil private constructor(val context: Context) {
             }
         }
         Log.i(TAG, "图片库uri = ${getImageContentUri()}")
-        val fileUri = context.contentResolver?.insert(getImageContentUri(), fileValue)!!.also {
+        val fileUri = context.contentResolver?.insert(getImageContentUri(), fileValue)?.also {
             Log.i(TAG, "fileUri-----${it.toString()}")
             context.contentResolver!!.openFileDescriptor(it, "w").use { fileDescriptor ->
                 ParcelFileDescriptor.AutoCloseOutputStream(fileDescriptor).use { out ->
@@ -306,7 +353,7 @@ class OkHttpUtil private constructor(val context: Context) {
         return fileUri
     }
 
-    private fun insertEmr(dataItem: OkhttpItem): Uri {
+    private fun insertEmr(dataItem: OkhttpItem): Uri? {
         Log.i(TAG, "开始插入紧急文件1")
         val fileValue = ContentValues().apply {
             put(MediaStore.Video.VideoColumns.DISPLAY_NAME, dataItem.name)
@@ -323,7 +370,7 @@ class OkHttpUtil private constructor(val context: Context) {
         }
         Log.i(TAG, "开始插入紧急文件2")
         Log.i(TAG, "MediaStore.Files = ${getVideoContentUri()}")
-        val fileUri = context.contentResolver?.insert(getVideoContentUri(), fileValue)!!.also {
+        val fileUri = context.contentResolver?.insert(getVideoContentUri(), fileValue)?.also {
             Log.i(TAG, "fileUri-----${it.toString()}")
             context.contentResolver!!.openFileDescriptor(it, "w").use { fileDescriptor ->
                 ParcelFileDescriptor.AutoCloseOutputStream(fileDescriptor).use { out ->

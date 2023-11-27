@@ -71,6 +71,7 @@ import com.example.jetpack.databinding.ActivityIntentBinding
  *    7.9 相关设置：ACTION_WIFI_SETTINGS Wifi设置、ACTION_SETTINGS设置界面、ACTION_BLUETOOTH_SETTINGS设置蓝牙界面 .....具体详情请看该页
  *        startActivity(Intent(设置action))
  *    ......具体看该页
+ *    网上发现：让相册把媒体文件插入媒体库 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File("your path"))))
  *
  * TODO IntentSender 与PendingIntent 区别不明 看文档看不出来不同
  */

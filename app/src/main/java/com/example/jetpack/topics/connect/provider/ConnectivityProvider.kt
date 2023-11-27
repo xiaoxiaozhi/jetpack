@@ -1,6 +1,7 @@
 package com.example.jetpack.topics.connect.provider
 
 import android.content.Context
+import com.example.jetpack.topics.connect.util.ConnectivityUtil
 import com.example.jetpack.topics.connect.util.WifiUtil
 import dagger.Module
 import dagger.Provides
@@ -11,10 +12,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object WifiProvider {
+object ConnectivityProvider {
     @Singleton
     @Provides
-    fun provideWifi(@ApplicationContext context: Context): WifiUtil {
-        return WifiUtil(context)
+    fun provideConnectivity(@ApplicationContext context: Context): ConnectivityUtil {
+        return ConnectivityUtil(context)
     }
 }
