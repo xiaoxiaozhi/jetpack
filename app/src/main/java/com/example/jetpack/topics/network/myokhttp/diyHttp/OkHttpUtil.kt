@@ -316,8 +316,10 @@ class OkHttpUtil private constructor(val context: Context) {
 
     private fun insertPic(dataItem: OkhttpItem): Uri? {
         val fileValue = ContentValues().apply {
+//            put(MediaStore.Images.ImageColumns.DATA, mPicPath) //指定绝对路径
             put(MediaStore.Images.ImageColumns.DISPLAY_NAME, dataItem.outFile.name)
             put(
+                //指定相对路径，该例是系统文件夹Pictures的路径，在三星手机上 只指定了相对路径发现无法插入到相册，指定绝对可以插入相册
                 MediaStore.Images.ImageColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "yadea"
             )
             put(MediaStore.Images.Media.DATE_ADDED, dataItem.date)

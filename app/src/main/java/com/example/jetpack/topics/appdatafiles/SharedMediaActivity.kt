@@ -180,7 +180,10 @@ class SharedMediaActivity : AppCompatActivity() {
 
     private fun insertFile(): Uri? {
         val fileValue = ContentValues().apply {
+            //put(MediaStore.Images.ImageColumns.DATA, mPicPath) //指定绝对路径
+//            put(MediaStore.Files.FileColumns.DATA,"")
             put(
+                //指定相对路径，该例是系统文件夹Pictures的路径，在三星手机上 只指定了相对路径发现无法插入到相册，指定绝对可以插入相册
                 MediaStore.Files.FileColumns.DISPLAY_NAME, "jetpack${Date().time}.txt"
             )//不要插入相同名称的文件，因为有一定概率 insert 返回 null 就算返回uri也会有一定概率写不进去数据
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {

@@ -7,9 +7,11 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.provider.MediaStore
 import android.provider.Telephony
 import android.util.Log
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContract
@@ -19,7 +21,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.example.jetpack.R
+import com.example.jetpack.databinding.ActivityPermissionBinding
 
 /**
  * [官方库easyPermission](https://github.com/googlesamples/easypermissions)
@@ -89,16 +94,31 @@ import com.example.jetpack.R
  *    限制与ContentProvider: 与上面稍有不同 android:readPermission 和 android:writePermission
  *    限制与广播 同上
  *
- *
+ *    低版本申请了高版本才有权限，会被拒绝
+ *    一组权限，比如说位置权限，申请了  Manifest.permission.ACCESS_FINE_LOCATION,
+ *                                 Manifest.permission.ACCESS_COARSE_LOCATION,
+ *    再申请就会默认全部拒绝，并且不弹框权限请求框 Manifest.permission.ACCESS_BACKGROUND_LOCATION,  这个问题还没在官网上没看到说法
+ *    总之如果不弹窗就是因为权限不合适，逐个删除权限排查问题。
+ *    蓝牙权限
+ * 8. 位置权限
+ *    8.1 前台位置信息
+ *        当应用请求 ACCESS_COARSE_LOCATION 权限或 ACCESS_FINE_LOCATION 权限时就是在声明需要获取前台位置信息：
+ *        activity访问位置信息 和 前台服务访问位置信息，系统就会认为应用需要使用前台位置信息
+ *    8.2 后台位置信息
+ *        在 Android 10（API 级别 29）及更高版本中，您必须在应用的清单中声明 ACCESS_BACKGROUND_LOCATION 权限
+ *        在较低版本的 Android 系统中，当应用获得前台位置信息访问权限时，也会自动获得后台位置信息访问权限。
+ *        TODO
  *
  */
 class PermissionActivity : AppCompatActivity() {
     private val openSetting = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+    lateinit var binding: ActivityPermissionBinding
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_permission)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_permission)
+        binding.handler = this
 
         //5.2.4 检查是否已经拥有该权限
         println("${haveStoragePermission(Manifest.permission.ACCEPT_HANDOVER)}")
@@ -112,32 +132,16 @@ class PermissionActivity : AppCompatActivity() {
         //5.2.6 请求权限 (使用契约类请求ActivityResultContract)
         //TODO registerForActivityResult() 对intent 的封装，待列出所有功能
         //使用 registerForActivityResult() 请求权限 实际上是对Intent的封装
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            if (it) {
-                println("权限通过")
-            } else {
-                showRational()
-            }
-        }.apply {
-            launch(Manifest.permission.ACCEPT_HANDOVER)
-        }
-
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            for ((key, value) in it) Log.i("quanxian", "key = $key , value = $value")
+//        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
 //            if (it) {
 //                println("权限通过")
 //            } else {
 //                showRational()
 //            }
-        }.apply {
-            launch(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_ADVERTISE,
-                    Manifest.permission.BLUETOOTH_CONNECT
-                )
-            )
-        }
+//        }.apply {
+//            launch(Manifest.permission.ACCEPT_HANDOVER)
+//        }
+
 
         // 自行管理请求权限，使用 requestPermissions 请求，在onRequestPermissionsResult() 返回结果
         // ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCEPT_HANDOVER),101);
@@ -156,8 +160,8 @@ class PermissionActivity : AppCompatActivity() {
     private fun haveStoragePermission(permission: String) =
         ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
-    private fun showRational() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCEPT_HANDOVER)) {
+    private fun showRational(permission: String) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
             println("用户拒绝后显示原因")//
         } else {
             println("用户点击了禁止再次访问")// 这时候要 导航到权限设置窗口，手动设置
@@ -171,7 +175,47 @@ class PermissionActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        println("requestCode------$requestCode")
+        Log.i("quanxian", "requestCode------$requestCode")
+        Log.i("quanxian", "permissions---${permissions.toList().toString()}")
+        Log.i("quanxian", "grantResults---${grantResults.toList().toString()}")
+    }
 
+    fun getLocationPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ), 1
+        )
+//        View(this).postDelayed({
+//            requestPermissions(
+//                arrayOf(
+//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+//                ), 1
+//            )
+//        }, 5000)
+    }
+
+    fun getBlePermission() {
+        //申请蓝牙权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                ), 1
+            )
+
+        } else {
+            //安装时权限  <uses-permission android:name="android.permission.BLUETOOTH" />
+            //    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+            //    和运行时权限即可Manifest.permission.ACCESS_FINE_LOCATION,
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                ), 1
+            )
+        }
     }
 }

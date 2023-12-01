@@ -38,6 +38,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
+
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -58,9 +61,10 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".test.TestActivity"
+        <activity
+            android:name=".test.TestActivity"
             android:exported="true">
-<!--            <intent-filter>-->
+            <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
             <!--                <category android:name="android.intent.category.LAUNCHER" />-->
             <!--            </intent-filter>-->
@@ -113,12 +117,12 @@
         </activity>
         <activity
             android:name=".architecturecomponent.uilibs.databinding.DataBindingActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name="com.example.jetpack.appnavigaion.navigation.NavigationActivity"
@@ -404,18 +408,18 @@
         <activity
             android:name="com.example.jetpack.topics.connect.ConnectivityActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
         </activity>
         <activity
             android:name="com.example.jetpack.topics.connect.WifiActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".topics.image.ImageActivity">
 
@@ -455,12 +459,20 @@
             <!--        </intent-filter>-->
         </activity>
         <activity
+            android:name=".topics.userinterface.layout.textview.TextViewActivity"
+            android:exported="true">
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+        </activity>
+        <activity
             android:name="com.example.jetpack.topics.permission.PermissionActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".topics.intent.IntentActivity">
