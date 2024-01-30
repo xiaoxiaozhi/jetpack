@@ -37,6 +37,7 @@ class WifiViewModel @Inject constructor(private val wifiUtil: WifiUtil) : ViewMo
     }
 
     fun discoverPeers() = viewModelScope.launch(Dispatchers.Default) {
+       
         while (isActive) {
             wifiUtil.discoverPeers()
             delay(5 * 1000)

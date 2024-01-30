@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clip_nav_graph"
+    app:startDestination="@id/componebtizationMainFragment">
+
+    <fragment
+        android:id="@+id/componebtizationMainFragment"
+        android:name="com.example.jetpack.bestpractice.componentization.ComponebtizationMainFragment"
+        android:label="fragment_componebtization_main"
+        tools:layout="@layout/fragment_componebtization_main" >
+        <action
+            android:id="@+id/action_componebtizationMainFragment_to_compinenbtizationSecondeFragment"
+            app:destination="@id/compinenbtizationSecondeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/compinenbtizationSecondeFragment"
+        android:name="com.example.jetpack.bestpractice.componentization.CompinenbtizationSecondeFragment"
+        android:label="fragment_compinenbtization_seconde"
+        tools:layout="@layout/fragment_compinenbtization_seconde" />
+</navigation>

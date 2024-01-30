@@ -110,6 +110,18 @@ import java.util.concurrent.TimeUnit
  *   [MIME 类型列表](https://www.runoob.com/http/mime-types.html)
  *
  * //TODO 如何监听某一类媒体库的变化例如 Media.Files、Media.Audio
+ * 读图片后缀名
+ *   val options = BitmapFactory.Options()
+ *                     options.inJustDecodeBounds = true
+ *                     BitmapFactory.decodeFile(path, options)
+ *                     var type = options.outMimeType
+ *                     Log.i("lujing", "type1---${type}")
+ *                     Log.i("lujing", "filename---${fileName}")
+ *                     type = if (TextUtils.isEmpty(type)) {
+ *                         "$fileName.jpeg"
+ *                     } else {
+ *                         "${fileName}.${type.substring(6, type.length)}"
+ *                     }
  */
 class SharedMediaActivity : AppCompatActivity() {
     private val openSetting = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}

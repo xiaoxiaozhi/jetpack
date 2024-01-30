@@ -20,7 +20,7 @@ android {
 
         applicationId "com.example.jetpack"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -183,6 +183,8 @@ dependencies {
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     //序列化
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
+
+//    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
 
 
 

@@ -1,30 +1,24 @@
 package com.example.jetpack.topics.permission
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
-import android.provider.MediaStore
+import android.os.Environment
 import android.provider.Telephony
 import android.util.Log
-import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
 import com.example.jetpack.R
 import com.example.jetpack.databinding.ActivityPermissionBinding
+
 
 /**
  * [官方库easyPermission](https://github.com/googlesamples/easypermissions)
@@ -99,15 +93,17 @@ import com.example.jetpack.databinding.ActivityPermissionBinding
  *                                 Manifest.permission.ACCESS_COARSE_LOCATION,
  *    再申请就会默认全部拒绝，并且不弹框权限请求框 Manifest.permission.ACCESS_BACKGROUND_LOCATION,  这个问题还没在官网上没看到说法
  *    总之如果不弹窗就是因为权限不合适，逐个删除权限排查问题。
- *    蓝牙权限
- * 8. 位置权限
- *    8.1 前台位置信息
+ * 8  蓝牙权限
+ * 9. 位置权限
+ *    9.1 前台位置信息
  *        当应用请求 ACCESS_COARSE_LOCATION 权限或 ACCESS_FINE_LOCATION 权限时就是在声明需要获取前台位置信息：
  *        activity访问位置信息 和 前台服务访问位置信息，系统就会认为应用需要使用前台位置信息
- *    8.2 后台位置信息
+ *    9.2 后台位置信息
  *        在 Android 10（API 级别 29）及更高版本中，您必须在应用的清单中声明 ACCESS_BACKGROUND_LOCATION 权限
  *        在较低版本的 Android 系统中，当应用获得前台位置信息访问权限时，也会自动获得后台位置信息访问权限。
  *        TODO
+ * 10. 存储权限
+ *     Android
  *
  */
 class PermissionActivity : AppCompatActivity() {
@@ -119,7 +115,8 @@ class PermissionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_permission)
         binding.handler = this
-
+//        getInstalledPackages(this)
+//        launchAPK1("com.yadea.smartmotoen")
         //5.2.4 检查是否已经拥有该权限
         println("${haveStoragePermission(Manifest.permission.ACCEPT_HANDOVER)}")
 
@@ -155,6 +152,7 @@ class PermissionActivity : AppCompatActivity() {
         val setSmsAppIntent = Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT)
         setSmsAppIntent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName)
         startActivityForResult(setSmsAppIntent, 110)
+
     }
 
     private fun haveStoragePermission(permission: String) =
@@ -180,21 +178,7 @@ class PermissionActivity : AppCompatActivity() {
         Log.i("quanxian", "grantResults---${grantResults.toList().toString()}")
     }
 
-    fun getLocationPermission() {
-        requestPermissions(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-            ), 1
-        )
-//        View(this).postDelayed({
-//            requestPermissions(
-//                arrayOf(
-//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-//                ), 1
-//            )
-//        }, 5000)
-    }
-
+    //8. 蓝牙权限
     fun getBlePermission() {
         //申请蓝牙权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -218,4 +202,70 @@ class PermissionActivity : AppCompatActivity() {
             )
         }
     }
+
+    //9. 位置权限
+    fun getLocationPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ), 1
+        )
+//        View(this).postDelayed({
+//            requestPermissions(
+//                arrayOf(
+//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+//                ), 1
+//            )
+//        }, 5000)
+    }
+
+    fun getStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            //存储权限在33中被废弃，想要读取视频音频图片请申请一下三种权限
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_AUDIO,
+                    Manifest.permission.READ_MEDIA_VIDEO
+                ), 1
+            )
+        } else {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+                ), 1
+            )
+        }
+    }
+
+
+    /**
+     * 启动第三方apk
+     * 直接打开  每次都会启动到启动界面，每次都会干掉之前的，从新启动
+     * XXXXX ： 包名
+     */
+    fun launchAPK1(pkgName: String) {
+        val packageManager: PackageManager = packageManager
+        val it = packageManager.getLaunchIntentForPackage(pkgName)
+        startActivity(it)
+    }
+
+    //{@ - 获取所有安装的APK (MATCH_UNINSTALLED_PACKAGES 表示未卸载的APK, 包括APK已被删除但是保留数据的)
+    // 需要获取所有apk 添加permission <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    private fun getInstalledPackages(context: Context): List<String>? {
+        val installedPackageList: MutableList<String> = ArrayList()
+        val installedPackageInfoList =
+            context.packageManager.getInstalledPackages(PackageManager.MATCH_UNINSTALLED_PACKAGES)
+        for (packageInfo in installedPackageInfoList) {
+            installedPackageList.add(packageInfo.packageName)
+            Log.i(TAG, "packageInfo.packageName---${packageInfo.packageName}")
+        }
+        return installedPackageList
+    }
+
+    //@}
+    companion object {
+        const val TAG = "PermissionActivity"
+    }
+
 }

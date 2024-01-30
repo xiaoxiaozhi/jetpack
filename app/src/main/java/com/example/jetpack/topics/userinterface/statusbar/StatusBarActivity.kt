@@ -27,7 +27,7 @@ import com.example.jetpack.databinding.ActivityStatusBarBinding
  *    有三种系统栏从隐藏到显示交互模式
  *    WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH 默认模式，滑动强制显示系统栏，不会消失
  *    WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE 从屏幕上下边缘滑动临时显示系统栏
- *    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE 从屏幕上下边缘滑动临时显示系统栏，几秒种后小时
+ *    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE 从屏幕上下边缘滑动临时显示系统栏，几秒种后消失
  * 5. 刘海屏
  * 6. 控制软键盘
  *

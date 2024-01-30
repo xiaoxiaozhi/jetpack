@@ -3,6 +3,7 @@ package com.example.jetpack.test
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,9 +19,7 @@ import com.example.jetpack.databinding.ActivityTest3Binding
 import com.example.jetpack.topics.network.myokhttp.diyHttp.OkhttpItem
 import java.io.File
 import java.io.FileInputStream
-import java.io.OutputStreamWriter
-import java.nio.charset.StandardCharsets
-import java.util.Date
+import java.security.AccessController.getContext
 
 
 class TestActivity : AppCompatActivity() {
@@ -145,4 +144,6 @@ class TestActivity : AppCompatActivity() {
     companion object {
         const val TAG = "TestActivity"
     }
+
+
 }

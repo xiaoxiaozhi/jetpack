@@ -3,6 +3,7 @@
 #### 测试
 
 #### 性能
+performance 文件夹 性能监控来自网络
 
 #### jetpack最佳实践,自我实现
 
@@ -14,3 +15,5 @@
 - NestedScrolling：嵌套
 - AppBarLayout：
 
+#### 组件化  
+componentization 文件夹

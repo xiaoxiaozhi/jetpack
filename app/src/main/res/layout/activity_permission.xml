@@ -32,7 +32,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="@{(view)->handler.getLocationPermission()}"
-            android:text="获取精确位置" />
+            android:text="获取精确位置，Android10 获取后台权限" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{(view)->handler.getStoragePermission()}"
+            android:text="获取存储权限" />
 
     </LinearLayout>
 </layout>
