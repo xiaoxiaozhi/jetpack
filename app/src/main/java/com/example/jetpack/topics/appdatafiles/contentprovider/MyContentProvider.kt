@@ -7,38 +7,51 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 
 /**
+ * https://developer.android.com/guide/topics/providers/content-provider-creating?hl=zh-cn
+ * 一个完整的content://user_dictionary/words
+ * content:// 协议头。
+ * user_dictionary 授权标识。
+ * words 表的路径。
  * 创建ContentProvider
- * TODO 待总结
+ * 1. 覆写call方法
+ *
  */
 class MyContentProvider : ContentProvider() {
+    /**
+     *
+     */
     override fun onCreate(): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
-    override fun query(uri: Uri,
-        projection: Array<out String>?,
-        selection: String?,
-        selectionArgs: Array<out String>?,
-        sortOrder: String?): Cursor? {
-        TODO("Not yet implemented")
+    override fun query(p0: Uri, p1: Array<out String?>?, p2: String?, p3: Array<out String?>?, p4: String?): Cursor? {
+        return null
     }
 
-    override fun getType(uri: Uri): String? {
-        TODO("Not yet implemented")
+    override fun getType(p0: Uri): String? {
+        return null
     }
 
-    override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        TODO("Not yet implemented")
+    override fun insert(p0: Uri, p1: ContentValues?): Uri? {
+        return null
     }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
-        TODO("Not yet implemented")
+
+    override fun call(method: String, arg: String?, extras: Bundle?): Bundle? {
+        Log.i(TAG, "call method")
+        when (method) {
+            METHOD1 -> Log.i(TAG, "call method1")
+        }
+        return super.call(method, arg, extras)
     }
 
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
-        TODO("Not yet implemented")
+    override fun call(authority: String, method: String, arg: String?, extras: Bundle?): Bundle? {
+        Log.i(TAG, "call authority")
+        return super.call(authority, method, arg, extras)
     }
 
     /**
@@ -66,5 +79,20 @@ class MyContentProvider : ContentProvider() {
      */
     override fun bulkInsert(uri: Uri, values: Array<out ContentValues>): Int {
         return super.bulkInsert(uri, values)
+    }
+
+    override fun delete(p0: Uri, p1: String?, p2: Array<out String?>?): Int {
+        return 0
+    }
+
+    override fun update(p0: Uri, p1: ContentValues?, p2: String?, p3: Array<out String?>?): Int {
+        return 0
+    }
+
+
+    companion object {
+        const val TAG = "MyContentProvider"
+        const val AUTHORITY: String = "com.example.jetpack.provider"
+        const val METHOD1: String = "method1"
     }
 }

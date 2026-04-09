@@ -2,12 +2,17 @@ package com.example.jetpack.topics.appdatafiles.contentprovider
 
 import android.content.ContentUris
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.UserDictionary
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.jetpack.R
+import com.example.jetpack.databinding.ActivityContentProviderBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -41,9 +46,11 @@ import kotlinx.coroutines.launch
  *   6.3 选择器 - 一种系统界面，可让用户访问所有文档提供程序内满足客户端应用搜索条件的文档。
  */
 class ContentProviderActivity : AppCompatActivity() {
+    lateinit var binding: ActivityContentProviderBinding
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_content_provider)
+        binding = DataBindingUtil.setContentView(this@ContentProviderActivity, R.layout.activity_content_provider)
         lifecycleScope.launch(Dispatchers.Default) {
             val singleUri: Uri = ContentUris.withAppendedId(UserDictionary.Words.CONTENT_URI, 4)
             println("singleUri-----$singleUri")
@@ -51,6 +58,10 @@ class ContentProviderActivity : AppCompatActivity() {
             buildQuery()
             //4. ContentProvider数据类型
             ContactsContract.AUTHORITY
+        }
+        binding.button1.setOnClickListener {
+            //Manifest文件，MyContentProvider.AUTHORITY 前面还注册了一个Provider，注释掉之后这个provider才会器作用，原因未知
+            contentResolver.call(MyContentProvider.AUTHORITY, MyContentProvider.METHOD1, null, null)
         }
     }
 
@@ -74,6 +85,9 @@ class ContentProviderActivity : AppCompatActivity() {
 //                    }
 //                }
         }
+    }
+    companion object{
+        const val TAG = "ContentProviderActivity"
     }
 
 }
